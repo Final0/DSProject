@@ -14,7 +14,10 @@ namespace Midir
         public bool isInteracting;
 
         [Header("Player Flags")]
-        public bool isSprinting, isInAir, isGrounded;
+        public bool isSprinting;
+        public bool isInAir;
+        public bool isGrounded;
+        public bool canDoCombo;
 
         private void Awake()
         {
@@ -32,6 +35,7 @@ namespace Midir
         {
             float delta = Time.deltaTime;
             isInteracting = anim.GetBool("isInteracting");
+            canDoCombo = anim.GetBool("canDoCombo");
                   
             inputHandler.TickInput(delta);
             playerLocomotion.HandleMovement(delta);
@@ -56,6 +60,10 @@ namespace Midir
             inputHandler.sprintFlag = false;
             inputHandler.rb_Input = false;
             inputHandler.rt_Input = false;
+            inputHandler.d_Pad_Right = false;
+            inputHandler.d_Pad_Up= false;
+            inputHandler.d_Pad_Down = false;
+            inputHandler.d_Pad_Left = false;
 
             if (isInAir)
             {

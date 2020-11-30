@@ -8,11 +8,12 @@ namespace Midir
     {
         public float horizontal, vertical, moveAmount, mouseX, mouseY, rollInputTimer;
 
-        public bool b_Input, rb_Input, rt_Input, rollFlag, sprintFlag;
+        public bool b_Input, rb_Input, rt_Input, d_Pad_Up, d_Pad_Right, d_Pad_Down, d_Pad_Left, rollFlag, sprintFlag, comboFlag;
 
         PlayerControls inputActions;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
+        PlayerManager playerManager;
 
         Vector2 movementInput, cameraInput;
 
@@ -20,6 +21,7 @@ namespace Midir
         {
             playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
+            playerManager = GetComponent<PlayerManager>();
         }
 
         //Si le joueur est actif, je detecte la valeur de l'input (dans l'input action) pour pouvoir bouger le perso et la caméra.
@@ -45,6 +47,7 @@ namespace Midir
             MoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
+            HandleQuickSlotsInput();
         }
 
         private void MoveInput(float delta)
@@ -84,12 +87,42 @@ namespace Midir
 
             if (rb_Input)
             {
-                playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+                if (playerManager.canDoCombo)
+                {
+                    comboFlag = true;
+                    playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
+                    comboFlag = false;
+                }
+                else
+                {
+                    if (playerManager.isInteracting)
+                        return;
+
+                    if (playerManager.canDoCombo)
+                        return;
+
+                    playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+                }
             }
 
             if (rt_Input)
             {
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
+            }
+        }
+
+        private void HandleQuickSlotsInput()
+        {
+            inputActions.PlayerQuickSlots.DPadRight.performed += i => d_Pad_Right = true;
+            inputActions.PlayerQuickSlots.DPadLeft.performed += i => d_Pad_Left = true;
+
+            if (d_Pad_Right)
+            {
+                playerInventory.ChangeRightWeapon();
+            }
+            else if (d_Pad_Left)
+            {
+                playerInventory.ChangeLeftWeapon();
             }
         }
     }
