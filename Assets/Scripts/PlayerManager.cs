@@ -11,6 +11,9 @@ namespace Midir
         CameraHandler cameraHandler;
         PlayerLocomotion playerLocomotion;
 
+        InteractableUI interactableUI;
+        public GameObject interactableUIGameObject, itemInteractableGameObject;
+
         public bool isInteracting;
 
         [Header("Player Flags")]
@@ -29,6 +32,7 @@ namespace Midir
             inputHandler = GetComponent<InputHandler>();
             anim = GetComponentInChildren<Animator>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
+            interactableUI = FindObjectOfType<InteractableUI>();
         }
 
         void Update()
@@ -36,11 +40,15 @@ namespace Midir
             float delta = Time.deltaTime;
             isInteracting = anim.GetBool("isInteracting");
             canDoCombo = anim.GetBool("canDoCombo");
+            anim.SetBool("isInAir", isInAir);
                   
             inputHandler.TickInput(delta);
             playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleRollingAndSprinting(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
+            playerLocomotion.HandleJumping();
+
+            CheckForInteractableObject();
         }
 
         private void FixedUpdate()
@@ -64,10 +72,49 @@ namespace Midir
             inputHandler.d_Pad_Up= false;
             inputHandler.d_Pad_Down = false;
             inputHandler.d_Pad_Left = false;
+            inputHandler.a_Input = false;
+            inputHandler.jump_Input = false;
 
             if (isInAir)
             {
                 playerLocomotion.inAirTimer += Time.deltaTime;
+            }
+        }
+
+        public void CheckForInteractableObject()
+        {
+            RaycastHit hit;
+
+            if (Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
+            {
+                if (hit.collider.tag == "Interactable")
+                {
+                    Interactable interactableObject = hit.collider.GetComponent<Interactable>();
+
+                    if (interactableObject != null)
+                    {
+                        string interactableText = interactableObject.interactbleText;
+                        interactableUI.interactableText.text = interactableText;
+                        interactableUIGameObject.SetActive(true);
+
+                        if (inputHandler.a_Input)
+                        {
+                            hit.collider.GetComponent<Interactable>().Interact(this);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (interactableUIGameObject != null)
+                {
+                    interactableUIGameObject.SetActive(false);
+                }
+
+                if (itemInteractableGameObject != null && inputHandler.a_Input)
+                {
+                    itemInteractableGameObject.SetActive(false);
+                }
             }
         }
     }

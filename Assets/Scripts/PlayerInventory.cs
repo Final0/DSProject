@@ -14,6 +14,8 @@ namespace Midir
 
         public int currentRightWeaponIndex = - 1, currentLeftWeaponIndex = - 1;
 
+        public List<WeaponItem> weaponsInventory;
+
         private void Awake()
         {
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();

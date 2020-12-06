@@ -9,7 +9,7 @@ namespace Midir
         public Transform targetTransform, cameraTransform, cameraPivotTransform;
         private Transform myTransform;
         private Vector3 cameraTransformPosition, cameraFollowVelocity = Vector3.zero;
-        private LayerMask ignoreLayers;
+        public LayerMask ignoreLayers;
 
         public static CameraHandler singleton;
 

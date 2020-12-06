@@ -7,6 +7,8 @@ namespace Midir
 {
     public class WeaponSlotManager : MonoBehaviour
     {
+        public WeaponItem attackingWeapon;
+
         WeaponHolderSlot leftHandSlot, rightHandSlot;
 
         DamageCollider leftHandDamageCollider, rightHandDamageCollider;
@@ -15,10 +17,13 @@ namespace Midir
 
         QuickSlotsUI quickSlotsUI;
 
+        PlayerStats playerStats;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
             quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
+            playerStats = GetComponentInParent<PlayerStats>();
 
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach(WeaponHolderSlot weaponSlot in weaponHolderSlots)
@@ -100,6 +105,18 @@ namespace Midir
         public void CloseLeftDamageCollider()
         {
             leftHandDamageCollider.DisableDamageCollider();
+        }
+        #endregion
+
+        #region Handle Weapon's Stamina Drainage
+        public void DrainStaminaLightattack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
+        }
+
+        public void DrainStaminaHeavyattack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
         }
         #endregion
     }

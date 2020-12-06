@@ -8,7 +8,7 @@ namespace Midir
     {
         public float horizontal, vertical, moveAmount, mouseX, mouseY, rollInputTimer;
 
-        public bool b_Input, rb_Input, rt_Input, d_Pad_Up, d_Pad_Right, d_Pad_Down, d_Pad_Left, rollFlag, sprintFlag, comboFlag;
+        public bool b_Input, a_Input, rb_Input, rt_Input, jump_Input, d_Pad_Up, d_Pad_Right, d_Pad_Down, d_Pad_Left, rollFlag, sprintFlag, comboFlag;
 
         PlayerControls inputActions;
         PlayerAttacker playerAttacker;
@@ -48,6 +48,8 @@ namespace Midir
             HandleRollInput(delta);
             HandleAttackInput(delta);
             HandleQuickSlotsInput();
+            HandleInteractingButtonInput();
+            HandleJumpInput();
         }
 
         private void MoveInput(float delta)
@@ -124,6 +126,16 @@ namespace Midir
             {
                 playerInventory.ChangeLeftWeapon();
             }
+        }
+
+        private void HandleInteractingButtonInput()
+        {
+            inputActions.PlayerActions.A.performed += i => a_Input = true;
+        }
+
+        private void HandleJumpInput()
+        {
+            inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
         }
     }
 }
