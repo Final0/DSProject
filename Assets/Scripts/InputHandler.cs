@@ -8,24 +8,29 @@ namespace Midir
     {
         public float horizontal, vertical, moveAmount, mouseX, mouseY, rollInputTimer;
 
-        public bool b_Input, a_Input, rb_Input, rt_Input, jump_Input, inventory_Input;
+        public bool b_Input, a_Input, y_Input, rb_Input, rt_Input, jump_Input, inventory_Input, lockOnInput, right_Stick_Right_Input;
+        public bool right_Stick_Left_Input;
         public bool d_Pad_Up, d_Pad_Right, d_Pad_Down, d_Pad_Left;
-        public bool rollFlag, sprintFlag, comboFlag, inventoryFlag;
+        public bool rollFlag, twoHandFlag, sprintFlag, comboFlag, inventoryFlag, lockOnFlag;
 
         PlayerControls inputActions;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
+        WeaponSlotManager weaponSlotManager;
+        CameraHandler cameraHandler;
         UIManager uiManager;
 
         Vector2 movementInput, cameraInput;
 
-        private void Start()
+        private void Awake()
         {
             playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
+            weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
             uiManager = FindObjectOfType<UIManager>();
+            cameraHandler = FindObjectOfType<CameraHandler>();
         }
 
         //Si le joueur est actif, je detecte la valeur de l'input (dans l'input action) pour pouvoir bouger le perso et la caméra.
@@ -43,6 +48,10 @@ namespace Midir
                 inputActions.PlayerActions.A.performed += i => a_Input = true;
                 inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
                 inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
+                inputActions.PlayerActions.LockOn.performed += i => lockOnInput = true;
+                inputActions.PlayerMovement.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
+                inputActions.PlayerMovement.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
+                inputActions.PlayerActions.Y.performed += i => y_Input = true;
             }
 
             inputActions.Enable();
@@ -55,14 +64,16 @@ namespace Midir
 
         public void TickInput(float delta)
         {
-            MoveInput(delta);
+            HandleMoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
             HandleQuickSlotsInput();
             HandleInventoryInput();
+            HandleLockOnInput();
+            HandleTwoHandInput();
         }
 
-        private void MoveInput(float delta)
+        private void HandleMoveInput(float delta)
         {
             horizontal = movementInput.x;
             vertical = movementInput.y;
@@ -149,6 +160,70 @@ namespace Midir
                     uiManager.CloseSelectWindow();
                     uiManager.CloseAllInventoryWindows();
                     uiManager.hudWindow.SetActive(true);
+                }
+            }
+        }
+
+        private void HandleLockOnInput()
+        {
+            if (lockOnInput && !lockOnFlag)
+            {
+                lockOnInput = false;
+                cameraHandler.HandleLockOn();
+
+                if (cameraHandler.nearestLockOnTarget != null)
+                {
+                    cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+                    lockOnFlag = true;
+                }
+            }
+            else if (lockOnInput && lockOnFlag)
+            {
+                lockOnInput = false;
+                lockOnFlag = false;
+                cameraHandler.ClearLockOnTargets();
+            }
+
+            if (lockOnFlag && right_Stick_Left_Input)
+            {
+                right_Stick_Left_Input = false;
+                cameraHandler.HandleLockOn();
+
+                if (cameraHandler.leftLockTarget != null)
+                {
+                    cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+                }
+            }
+
+            if (lockOnFlag && right_Stick_Right_Input)
+            {
+                right_Stick_Right_Input = false;
+                cameraHandler.HandleLockOn();
+
+                if (cameraHandler.rightLockTarget != null)
+                {
+                    cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
+                }
+            }
+
+            cameraHandler.SetCameraHeight();
+        }
+
+        private void HandleTwoHandInput()
+        {
+            if (y_Input)
+            {
+                y_Input = false;
+                twoHandFlag = !twoHandFlag;
+
+                if (twoHandFlag)
+                {
+                    weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+                }
+                else
+                {
+                    weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+                    weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
                 }
             }
         }

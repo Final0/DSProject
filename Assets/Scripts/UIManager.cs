@@ -7,22 +7,24 @@ namespace Midir
     public class UIManager : MonoBehaviour
     {
         public PlayerInventory playerInventory;
-        EquipementWindowUI equipementWindowUI;
+        public EquipementWindowUI equipementWindowUI;
 
         [Header("UI Windows")]
         public GameObject selectWindow;
         public GameObject hudWindow;
+        public GameObject equipementScreenWindow;
         public GameObject weaponInventoryWindow;
+
+        [Header("Equipment Window Slot Selected")]
+        public bool rightHandSlot01Selected;
+        public bool rightHandSlot02Selected;
+        public bool leftHandSlot01Selected;
+        public bool leftHandSlot02Selected;
 
         [Header("WeaponInventory")]
         public GameObject weaponInventorySlotPrefab;
         public Transform weaponInventorySlotsParent;
         WeaponInventorySlot[] weaponInventorySlots;
-
-        private void Awake()
-        {
-            equipementWindowUI = FindObjectOfType<EquipementWindowUI>();
-        }
 
         private void Start()
         {
@@ -64,7 +66,17 @@ namespace Midir
 
         public void CloseAllInventoryWindows()
         {
+            ResetAllSelectedSlots();
             weaponInventoryWindow.SetActive(false);
+            equipementScreenWindow.SetActive(false);
+        }
+
+        public void ResetAllSelectedSlots()
+        {
+            rightHandSlot01Selected = false;
+            rightHandSlot02Selected = false;
+            leftHandSlot01Selected = false;
+            leftHandSlot02Selected = false;
         }
     }
 }

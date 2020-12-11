@@ -7,7 +7,9 @@ namespace Midir
     public class WeaponHolderSlot : MonoBehaviour
     {
         public Transform parentOverride;
+        public WeaponItem currentWeapon;
         public bool isLeftHandSlot, isRightHandSlot;
+        public bool isBackSlot;
 
         public GameObject currentWeaponModel;
 

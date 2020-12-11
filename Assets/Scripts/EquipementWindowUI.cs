@@ -8,12 +8,7 @@ namespace Midir
     {
         public bool rightHandSlot01Selected, rightHandSlot02Selected, leftHandSlot01Selected, leftHandSlot02Selected;
 
-        HandEquipementSlotUI[] handEquipementSlotUI;
-
-        private void Start()
-        {
-            handEquipementSlotUI = GetComponentsInChildren<HandEquipementSlotUI>();
-        }
+        public HandEquipementSlotUI[] handEquipementSlotUI;
 
         public void LoadWeaponsOnEquipementScreen(PlayerInventory playerInventory)
         {
@@ -23,18 +18,18 @@ namespace Midir
                 {
                     handEquipementSlotUI[i].AddItem(playerInventory.weaponsInRightHandSlots[0]);
                 }
-                else if (handEquipementSlotUI[i].rightHandSlot02)
+                /*else if (handEquipementSlotUI[i].rightHandSlot02)
                 {
                     handEquipementSlotUI[i].AddItem(playerInventory.weaponsInRightHandSlots[1]);
-                }
+                }*/
                 else if (handEquipementSlotUI[i].leftHandSlot01)
                 {
                     handEquipementSlotUI[i].AddItem(playerInventory.weaponsInLeftHandSlots[0]);
                 }
-                else if (handEquipementSlotUI[i].leftHandSlot02)
+                /*else if (handEquipementSlotUI[i].leftHandSlot02)
                 {
                     handEquipementSlotUI[i].AddItem(playerInventory.weaponsInLeftHandSlots[1]);
-                }
+                }*/
             }
         }
 

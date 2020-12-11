@@ -12,7 +12,7 @@ namespace Midir
 
         public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[1], weaponsInLeftHandSlots = new WeaponItem[1];
 
-        public int currentRightWeaponIndex = - 1, currentLeftWeaponIndex = - 1;
+        public int currentRightWeaponIndex = 0, currentLeftWeaponIndex = 0;
 
         public List<WeaponItem> weaponsInventory;
 
@@ -23,8 +23,10 @@ namespace Midir
 
         private void Start()
         {
-            rightWeapon = unarmedWeapon;
-            leftWeapon = unarmedWeapon;
+            rightWeapon = weaponsInRightHandSlots[0];
+            leftWeapon = weaponsInLeftHandSlots[0];
+            weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+            weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         }
 
         public void ChangeRightWeapon()
@@ -40,7 +42,7 @@ namespace Midir
             {
                 currentRightWeaponIndex += 1;
             }
-            else if (currentRightWeaponIndex == 1 && weaponsInRightHandSlots[1] != null)
+            /*else if (currentRightWeaponIndex == 1 && weaponsInRightHandSlots[1] != null)
             {
                 rightWeapon = weaponsInRightHandSlots[currentRightWeaponIndex];
                 weaponSlotManager.LoadWeaponOnSlot(weaponsInRightHandSlots[currentRightWeaponIndex], false);
@@ -48,7 +50,7 @@ namespace Midir
             else if (currentRightWeaponIndex == 1 && weaponsInRightHandSlots[1] == null)
             {
                 currentRightWeaponIndex += 1;
-            }
+            }*/
 
             if (currentRightWeaponIndex > weaponsInRightHandSlots.Length - 1)
             {
@@ -71,7 +73,7 @@ namespace Midir
             {
                 currentLeftWeaponIndex += 1;
             }
-            else if (currentLeftWeaponIndex == 1 && weaponsInLeftHandSlots[1] != null)
+            /*else if (currentLeftWeaponIndex == 1 && weaponsInLeftHandSlots[1] != null)
             {
                 leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
                 weaponSlotManager.LoadWeaponOnSlot(weaponsInLeftHandSlots[currentLeftWeaponIndex], true);
@@ -79,7 +81,7 @@ namespace Midir
             else if (currentLeftWeaponIndex == 1 && weaponsInLeftHandSlots[1] == null)
             {
                 currentLeftWeaponIndex += 1;
-            }
+            }*/
 
             if (currentLeftWeaponIndex > weaponsInLeftHandSlots.Length - 1)
             {
