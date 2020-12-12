@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Midir
 {
-    public class EnemyStats : MonoBehaviour
+    public class EnemyStats : CharacterStats
     {
-        public int healthLevel = 10, maxHealth, currentHealth;
-
         Animator animator;
 
         private void Awake()

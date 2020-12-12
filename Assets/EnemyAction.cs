@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace Midir
 {
-    public class EnemyManager : CharacterManager
+    public class EnemyAction : ScriptableObject
     {
-
+        public string actionAnimation;
     }
-
 }

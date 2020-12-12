@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Midir
 {
-    public class PlayerStats : MonoBehaviour
+    public class PlayerStats : CharacterStats
     {
-        public int healthLevel = 10, maxHealth, currentHealth, staminaLevel = 10, maxStamina, currentStamina;
-
         public HealthBar healthBar;
         StaminaBar staminaBar;
 
