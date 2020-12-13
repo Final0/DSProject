@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &819354562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 819354563}
+  m_Layer: 0
+  m_Name: Lock On Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &819354563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819354562}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7354912379538594135}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1053682830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1053682831}
+  - component: {fileID: 1053682832}
+  m_Layer: 0
+  m_Name: Back Weapon Slot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1053682831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053682830}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: -0.000000014901161, y: -0.00000008940697, z: 0.14999977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2756114436785295953}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &1053682832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053682830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 128e452221c0b6a49882b5cf5a2e079c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentOverride: {fileID: 1053682831}
+  currentWeapon: {fileID: 0}
+  isLeftHandSlot: 0
+  isRightHandSlot: 0
+  isBackSlot: 1
+  currentWeaponModel: {fileID: 0}
 --- !u!114 &7354912379425707757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,8 +92,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentOverride: {fileID: 7354912380112998110}
+  currentWeapon: {fileID: 0}
   isLeftHandSlot: 1
   isRightHandSlot: 0
+  isBackSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &7354912379538594134
 GameObject:
@@ -33,7 +114,7 @@ GameObject:
   - component: {fileID: 7354912379538594137}
   - component: {fileID: 7354912379538594142}
   - component: {fileID: 7354912379538594143}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +133,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7033317130254041388}
+  - {fileID: 819354563}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -105,18 +187,24 @@ MonoBehaviour:
   rollInputTimer: 0
   b_Input: 0
   a_Input: 0
+  y_Input: 0
   rb_Input: 0
   rt_Input: 0
   jump_Input: 0
   inventory_Input: 0
+  lockOnInput: 0
+  right_Stick_Right_Input: 0
+  right_Stick_Left_Input: 0
   d_Pad_Up: 0
   d_Pad_Right: 0
   d_Pad_Down: 0
   d_Pad_Left: 0
   rollFlag: 0
+  twoHandFlag: 0
   sprintFlag: 0
   comboFlag: 0
   inventoryFlag: 0
+  lockOnFlag: 0
 --- !u!114 &7354912379538594132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +230,7 @@ MonoBehaviour:
   walkingSpeed: 1
   sprintSpeed: 7
   rotationSpeed: 10
-  fallingSpeed: 45
+  fallingSpeed: 250
 --- !u!114 &7354912379538594136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532ae2c840e4ccd4eb976a99d7e794c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockOnTransform: {fileID: 819354563}
   interactableUIGameObject: {fileID: 0}
   itemInteractableGameObject: {fileID: 0}
   isInteracting: 0
@@ -305,8 +394,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentOverride: {fileID: 8381489288607346161}
+  currentWeapon: {fileID: 0}
   isLeftHandSlot: 0
   isRightHandSlot: 1
+  isBackSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1001 &7354912378251323079
 PrefabInstance:
@@ -453,6 +544,12 @@ GameObject:
 --- !u!4 &6766427236657322898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4902510762247324331, guid: d4e1df0cefb0f984baa79e93dddb90a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 7354912378251323079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2756114436785295953 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4624715975439348886, guid: d4e1df0cefb0f984baa79e93dddb90a4,
     type: 3}
   m_PrefabInstance: {fileID: 7354912378251323079}
   m_PrefabAsset: {fileID: 0}
