@@ -73,12 +73,15 @@ namespace Midir
                 h = 0;
             }
             #endregion
-
+            
             if (isSprinting && verticalMovement != 0)
             {
                 v = 2;
                 h = horizontalMovement;
             }
+
+            Debug.Log("v " + v);
+            Debug.Log("h " + h);
 
             anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);

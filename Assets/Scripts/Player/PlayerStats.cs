@@ -7,14 +7,18 @@ namespace Midir
     public class PlayerStats : CharacterStats
     {
         public HealthBar healthBar;
-        StaminaBar staminaBar;
 
+        StaminaBar staminaBar;
+        PlayerManager playerManager;
         AnimatorHandler animatorHandler;
+
+        public bool canUseStamina = true;
 
         private void Awake()
         {
             staminaBar = FindObjectOfType<StaminaBar>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            playerManager = FindObjectOfType<PlayerManager>();
         }
 
         void Start()
@@ -25,6 +29,13 @@ namespace Midir
 
             maxStamina = SetMaxStaminaFromStaminaLevel();
             currentStamina = maxStamina;
+
+            InvokeRepeating("RegenStamina", 0f, 1f);
+        }
+
+        private void Update()
+        {
+            NoStamina();
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -57,6 +68,34 @@ namespace Midir
         {
             currentStamina -= damage;
             staminaBar.SetCurrentStamina(currentStamina);
+        }
+
+        public void RegenStamina()
+        {
+            if (currentStamina < maxStamina && !playerManager.isInteracting)
+            {
+                currentStamina += 5;
+                staminaBar.SetCurrentStamina(currentStamina);
+            }
+        }
+
+        public void NoStamina()
+        {
+            if (currentStamina <= 0)
+            {
+                StartCoroutine("NoStaminaAction");
+            }
+        }
+
+        IEnumerator NoStaminaAction()
+        {   
+            currentStamina = 0;
+
+            canUseStamina = false;
+
+            yield return new WaitForSeconds(4f);
+
+            canUseStamina = true;
         }
     }
 }

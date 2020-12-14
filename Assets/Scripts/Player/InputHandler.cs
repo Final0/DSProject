@@ -20,6 +20,7 @@ namespace Midir
         WeaponSlotManager weaponSlotManager;
         CameraHandler cameraHandler;
         UIManager uiManager;
+        PlayerStats playerStats;
 
         Vector2 movementInput, cameraInput;
 
@@ -31,6 +32,7 @@ namespace Midir
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
+            playerStats = FindObjectOfType<PlayerStats>();
         }
 
         //Si le joueur est actif, je detecte la valeur de l'input (dans l'input action) pour pouvoir bouger le perso et la caméra.
@@ -121,12 +123,18 @@ namespace Midir
                     if (playerManager.canDoCombo)
                         return;
 
+                    if (!playerStats.canUseStamina)
+                        return;
+
                     playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
                 }
             }
 
             if (rt_Input)
             {
+                if (!playerStats.canUseStamina)
+                    return;
+
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
         }

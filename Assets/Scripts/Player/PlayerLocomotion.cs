@@ -10,6 +10,7 @@ namespace Midir
         Transform cameraObject;
         PlayerManager playerManager;
         InputHandler inputHandler;
+        PlayerStats playerStats;
         public Vector3 moveDirection;
 
         [HideInInspector]
@@ -54,6 +55,7 @@ namespace Midir
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            playerStats = FindObjectOfType<PlayerStats>();
             cameraObject = Camera.main.transform;
             myTransform = transform;
             animatorHandler.Initialize();
@@ -136,7 +138,7 @@ namespace Midir
 
             float speed = movementSpeed;
 
-            if(inputHandler.sprintFlag && inputHandler.moveAmount > 0.5)
+            if(inputHandler.sprintFlag && inputHandler.moveAmount > 0.5 && playerStats.canUseStamina)
             {
                 speed = sprintSpeed;
                 playerManager.isSprinting = true;
@@ -176,24 +178,27 @@ namespace Midir
 
         public void HandleRollingAndSprinting(float delta)
         {
-            if (animatorHandler.anim.GetBool("isInteracting"))
-                return;
-
-            if (inputHandler.rollFlag)
+            if (playerStats.canUseStamina)
             {
-                moveDirection = cameraObject.forward * inputHandler.vertical;
-                moveDirection += cameraObject.right * inputHandler.horizontal;
+                if (animatorHandler.anim.GetBool("isInteracting"))
+                    return;
 
-                if (inputHandler.moveAmount > 0)
+                if (inputHandler.rollFlag)
                 {
-                    animatorHandler.PlayTargetAnimation("Rolling", true);
-                    moveDirection.y = 0;
-                    Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
-                    myTransform.rotation = rollRotation;
-                }
-                else
-                {
-                    animatorHandler.PlayTargetAnimation("Backstep", true);
+                    moveDirection = cameraObject.forward * inputHandler.vertical;
+                    moveDirection += cameraObject.right * inputHandler.horizontal;
+
+                    if (inputHandler.moveAmount > 0)
+                    {
+                        animatorHandler.PlayTargetAnimation("Rolling", true);
+                        moveDirection.y = 0;
+                        Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
+                        myTransform.rotation = rollRotation;
+                    }
+                    else
+                    {
+                        animatorHandler.PlayTargetAnimation("Backstep", true);
+                    }
                 }
             }
         }
@@ -281,19 +286,22 @@ namespace Midir
 
         public void HandleJumping()
         {
-            if (playerManager.isInteracting)
-                return;
-
-            if (inputHandler.jump_Input)
+            if (playerStats.canUseStamina)
             {
-                if (inputHandler.moveAmount > 0)
+                if (playerManager.isInteracting)
+                    return;
+
+                if (inputHandler.jump_Input)
                 {
-                    moveDirection = cameraObject.forward * inputHandler.vertical;
-                    moveDirection += cameraObject.right * inputHandler.horizontal;
-                    animatorHandler.PlayTargetAnimation("Jump", true);
-                    moveDirection.y = 0;
-                    Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
-                    myTransform.rotation = jumpRotation;
+                    if (inputHandler.moveAmount > 0)
+                    {
+                        moveDirection = cameraObject.forward * inputHandler.vertical;
+                        moveDirection += cameraObject.right * inputHandler.horizontal;
+                        animatorHandler.PlayTargetAnimation("Jump", true);
+                        moveDirection.y = 0;
+                        Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
+                        myTransform.rotation = jumpRotation;
+                    }
                 }
             }
         }
