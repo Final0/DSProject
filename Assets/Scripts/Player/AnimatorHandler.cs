@@ -80,9 +80,6 @@ namespace Midir
                 h = horizontalMovement;
             }
 
-            Debug.Log("v " + v);
-            Debug.Log("h " + h);
-
             anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
         }
