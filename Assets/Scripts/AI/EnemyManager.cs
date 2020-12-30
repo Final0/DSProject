@@ -18,13 +18,12 @@ namespace Midir
 
         public bool isPerformingAction, isInteracting;
 
-        public float distanceFromTarget, rotationSpeed = 15f, maximumAttackRange = 1.5f;
+        public float rotationSpeed = 15f, maximumAttackRange = 1.5f;
 
         [Header("AI Settings")]
         public float detectionRadius = 20;
         public float maximumDetectionAngle = 50;
         public float minimumDetectionAngle = -50;
-        public float viewableAngle;
 
         public float currentRecoveryTime = 0;
 

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -127,7 +127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17640
+  m_Name: pb_Mesh17644
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3815,12 +3815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c8a55a165d2c14290a725642a0d74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &565896884 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 340300799, guid: e98053be5c868fa4fac360df4f1d556d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4319649969432457895}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &606369594
 GameObject:
   m_ObjectHideFlags: 0
@@ -4288,57 +4282,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 990228978, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
---- !u!1 &1494860506
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1494860508}
-  - component: {fileID: 1494860507}
-  m_Layer: 0
-  m_Name: AmbushState
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1494860507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494860506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4238e45e5d14fd4793d44cfa3bafd15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSleeping: 1
-  detectionRadius: 2
-  sleepAnimation: Sleep
-  wakeAnimation: Wake
-  detectionLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  persueTargetState: {fileID: 4319649969432457896}
---- !u!4 &1494860508
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494860506}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 565896884}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1672129034
 GameObject:
   m_ObjectHideFlags: 0
@@ -4693,44 +4636,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 231670196, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: combatStanceState
-      value: 
-      objectReference: {fileID: 4319649969432457897}
-    - target: {fileID: 825726417, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: enemyAttacks.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 825726417, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: combatStanceState
-      value: 
-      objectReference: {fileID: 4319649969432457897}
-    - target: {fileID: 825726417, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: currentAttack
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 825726417, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: enemyAttacks.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 82fca47ff532b024fa657f0bfc949b0c,
-        type: 2}
-    - target: {fileID: 825726417, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: enemyAttacks.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: c3b40c3b66813734ab6852eec07a4cbc,
-        type: 2}
-    - target: {fileID: 1757927031, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: currentState
-      value: 
-      objectReference: {fileID: 1494860507}
-    - target: {fileID: 1864825099, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: attackState
-      value: 
-      objectReference: {fileID: 4319649969432457898}
-    - target: {fileID: 1864825099, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
-      propertyPath: persueTargetState
-      value: 
-      objectReference: {fileID: 4319649969432457896}
     - target: {fileID: 3977543868562093763, guid: e98053be5c868fa4fac360df4f1d556d,
         type: 3}
       propertyPath: m_Name
@@ -4793,42 +4698,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
---- !u!114 &4319649969432457896 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 231670196, guid: e98053be5c868fa4fac360df4f1d556d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4319649969432457895}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a5ea736f3b77ac4ea5868dd64a77784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4319649969432457897 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1864825099, guid: e98053be5c868fa4fac360df4f1d556d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4319649969432457895}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 945c6355325ceb144b637aafdfc34a53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4319649969432457898 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 825726417, guid: e98053be5c868fa4fac360df4f1d556d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4319649969432457895}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef2e6edf1fc43c34a87030f4b6465831, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7354912378673197506
 PrefabInstance:
   m_ObjectHideFlags: 0

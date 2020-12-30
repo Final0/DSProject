@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2090232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2090233}
+  - component: {fileID: 2090235}
+  - component: {fileID: 2090234}
+  m_Layer: 10
+  m_Name: Character Collider Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090232}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1740090835}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &2090235
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090232}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &2090234
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090232}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &231670195
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5ea736f3b77ac4ea5868dd64a77784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatStanceState: {fileID: 1864825099}
 --- !u!1 &340300798
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +137,7 @@ Transform:
   - {fileID: 231670197}
   - {fileID: 1864825098}
   - {fileID: 825726416}
+  - {fileID: 1494860508}
   m_Father: {fileID: 4357447866979806329}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -120,6 +184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2e6edf1fc43c34a87030f4b6465831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatStanceState: {fileID: 1864825099}
+  enemyAttacks:
+  - {fileID: 11400000, guid: 82fca47ff532b024fa657f0bfc949b0c, type: 2}
+  - {fileID: 11400000, guid: c3b40c3b66813734ab6852eec07a4cbc, type: 2}
+  currentAttack: {fileID: 0}
 --- !u!1 &928270895
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +242,57 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!1 &1494860506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494860508}
+  - component: {fileID: 1494860507}
+  m_Layer: 0
+  m_Name: AmbushState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1494860508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494860506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 340300799}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1494860507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494860506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4238e45e5d14fd4793d44cfa3bafd15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSleeping: 1
+  detectionRadius: 2
+  sleepAnimation: Sleep
+  wakeAnimation: Wake
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  persueTargetState: {fileID: 231670196}
 --- !u!1 &1542680063
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +340,37 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 512
+--- !u!1 &1740090834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1740090835}
+  m_Layer: 0
+  m_Name: Combat Colliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1740090835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740090834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2090233}
+  m_Father: {fileID: 4357447866979806329}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1864825097
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945c6355325ceb144b637aafdfc34a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackState: {fileID: 825726417}
+  persueTargetState: {fileID: 231670196}
 --- !u!1 &1948602863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,6 +1986,7 @@ Transform:
   - {fileID: 3438377911537040240}
   - {fileID: 928270896}
   - {fileID: 340300799}
+  - {fileID: 1740090835}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -1916,9 +2070,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnTransform: {fileID: 1948602864}
-  currentState: {fileID: 1542680064}
+  navMeshAgent: {fileID: 0}
+  currentState: {fileID: 1494860507}
   currentTarget: {fileID: 0}
+  enemyRigidBody: {fileID: 0}
   isPerformingAction: 0
+  isInteracting: 0
+  rotationSpeed: 15
+  maximumAttackRange: 1.5
   detectionRadius: 20
   maximumDetectionAngle: 50
   minimumDetectionAngle: -50
@@ -1935,10 +2094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf31707d036cea84e96b910f6e6af8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRigidBody: {fileID: 0}
-  distanceFromTarget: 0
-  stoppingDistance: 1
-  rotationSpeed: 15
 --- !u!1 &4069574068359719115
 GameObject:
   m_ObjectHideFlags: 0
