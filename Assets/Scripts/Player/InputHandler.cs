@@ -21,6 +21,7 @@ namespace Midir
         CameraHandler cameraHandler;
         UIManager uiManager;
         PlayerStats playerStats;
+        AnimatorHandler animatorHandler;
 
         Vector2 movementInput, cameraInput;
 
@@ -33,6 +34,7 @@ namespace Midir
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             playerStats = FindObjectOfType<PlayerStats>();
+            animatorHandler = GetComponentInChildren<AnimatorHandler>();
         }
 
         //Si le joueur est actif, je detecte la valeur de l'input (dans l'input action) pour pouvoir bouger le perso et la caméra.
@@ -126,6 +128,7 @@ namespace Midir
                     if (!playerStats.canUseStamina)
                         return;
 
+                    animatorHandler.anim.SetBool("isUsingRightHand", true);
                     playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
                 }
             }

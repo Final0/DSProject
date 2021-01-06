@@ -7,5 +7,7 @@ namespace Midir
     public class CharacterStats : MonoBehaviour
     {
         public int healthLevel = 10, maxHealth, currentHealth, staminaLevel = 10, maxStamina, currentStamina;
+
+        public bool isDead;
     }
 }

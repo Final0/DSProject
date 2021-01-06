@@ -52,6 +52,9 @@ namespace Midir
 
         public void TakeDamage(int damage)
         {
+            if (isDead)
+                return;
+
             currentHealth -= damage;
             healthBar.SetCurrentHealth(currentHealth);
 
@@ -61,6 +64,7 @@ namespace Midir
             {
                 currentHealth = 0;
                 animatorHandler.PlayTargetAnimation("Death_01", true);
+                isDead = true;
             }
         }
 
