@@ -23,7 +23,7 @@ namespace Midir
         public bool canDoCombo;
         public bool isUsingRightHand;
         public bool isUsingLeftHand;
-
+        
         private void Awake()
         {
             cameraHandler = FindObjectOfType<CameraHandler>();
@@ -39,6 +39,7 @@ namespace Midir
 
         void Update()
         {
+      
             float delta = Time.deltaTime;
             isInteracting = anim.GetBool("isInteracting");
             canDoCombo = anim.GetBool("canDoCombo");
@@ -51,14 +52,17 @@ namespace Midir
             playerLocomotion.HandleJumping();
 
             CheckForInteractableObject();
+            
         }
 
         private void FixedUpdate()
         {
+       
             float delta = Time.fixedDeltaTime;
-
+            //
             playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
+            
         }
 
         private void LateUpdate()
@@ -79,7 +83,15 @@ namespace Midir
             if (cameraHandler != null)
             {
                 cameraHandler.FollowTarget(delta);
-                cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
+                
+                // 1167 579
+                
+                // * 500 / 1000  
+
+                float normalizeMouseXspeed = 1167 / (float)Screen.width;
+                float normalizeMouseYspeed = 579 / (float)Screen.height;
+                
+                cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX * normalizeMouseXspeed, inputHandler.mouseY * normalizeMouseYspeed);
             }
 
             if (isInAir)

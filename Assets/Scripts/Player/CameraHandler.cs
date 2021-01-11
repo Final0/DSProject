@@ -98,8 +98,12 @@ namespace Midir
 
             if (Physics.SphereCast(cameraPivotTransform.position, cameraSphereRadius, direction, out hit, Mathf.Abs(targetPosition), ignoreLayers))
             {
-                float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
-                targetPosition = -(dis - cameraCollisionOffSet);
+                if (!hit.collider.CompareTag("Player"))
+                {
+                    float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
+                    targetPosition = -(dis - cameraCollisionOffSet);
+                }
+                
             }
 
             if (Mathf.Abs(targetPosition) < minimumCollsionOffSet)

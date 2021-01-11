@@ -45,6 +45,7 @@ namespace Midir
                 if (direction == Vector3.zero)
                 {
                     direction = transform.forward;
+                    Debug.Log("fallback to forward");
                 }
 
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -52,13 +53,18 @@ namespace Midir
             }
             else
             {
-                Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navMeshAgent.desiredVelocity);
-                Vector3 targetVelocity = enemyManager.enemyRigidBody.velocity;
-
-                enemyManager.navMeshAgent.enabled = true;
-                enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-                enemyManager.enemyRigidBody.velocity = targetVelocity;
-                enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navMeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
+                // Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navMeshAgent.desiredVelocity);
+                // Vector3 targetVelocity = enemyManager.enemyRigidBody.velocity;
+                //
+                // enemyManager.navMeshAgent.enabled = true;
+                // enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
+                // enemyManager.enemyRigidBody.velocity = targetVelocity;
+                //
+                //
+                // enemyManager.transform.rotation = 
+                //     Quaternion.Slerp(enemyManager.transform.rotation, 
+                //         enemyManager.navMeshAgent.transform.rotation, 
+                //         enemyManager.rotationSpeed / Time.deltaTime);
             }
         }
     }
