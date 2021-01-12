@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8894445084747950408}
   - component: {fileID: 8894445084747950409}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Camera Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8894445086334186748}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Camera Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

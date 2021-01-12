@@ -245,19 +245,14 @@ namespace Midir
                 {
                     if (inAirTimer > 0.5f)
                     {
-                        Debug.Log("You were in the air for " + inAirTimer);
                         animatorHandler.PlayTargetAnimation("Land", true);
                         inAirTimer = 0;
-                        Debug.Log("raycasting a");
                     }
                     else
                     {
                         animatorHandler.PlayTargetAnimation("Empty", false);
                         inAirTimer = 0;
-                        Debug.Log("raycasting b");
                     }
-                    
-                    Debug.Log("raycasting c");
 
                     playerManager.isInAir = false;
                 }
@@ -266,8 +261,6 @@ namespace Midir
             }
             else
             {
-               
-                
                 if (playerManager.isGrounded)
                 {
                     playerManager.isGrounded = false;

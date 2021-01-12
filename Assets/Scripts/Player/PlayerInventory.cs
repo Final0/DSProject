@@ -23,10 +23,8 @@ namespace Midir
 
         private void Start()
         {
-            rightWeapon = weaponsInRightHandSlots[0];
-            leftWeapon = weaponsInLeftHandSlots[0];
-            weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
-            weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
+            weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, false);
+            weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, true);
         }
 
         public void ChangeRightWeapon()
@@ -64,6 +62,7 @@ namespace Midir
         {
             currentLeftWeaponIndex += 1;
             
+
             if (currentLeftWeaponIndex == 0 && weaponsInLeftHandSlots[0] != null)
             {
                 leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];

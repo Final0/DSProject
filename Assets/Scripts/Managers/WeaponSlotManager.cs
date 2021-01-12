@@ -78,6 +78,11 @@ namespace Midir
                 }
                 else
                 {
+                    rightHandSlot.currentWeapon = weaponItem;
+                    rightHandSlot.LoadWeaponModel(weaponItem);
+                    LoadRightWeaponDamageCollider();
+                    quickSlotsUI.UpdateWeaponQuickSlotsUI(false, weaponItem);
+
                     #region Handle Right Weapon Idle Animations
                     animator.CrossFade("Both Arms Empty", 0.2f);
 
@@ -93,12 +98,7 @@ namespace Midir
                     }
                     #endregion
                 }
-            }
-
-            rightHandSlot.currentWeapon = weaponItem;
-            rightHandSlot.LoadWeaponModel(weaponItem);
-            LoadRightWeaponDamageCollider();
-            quickSlotsUI.UpdateWeaponQuickSlotsUI(false, weaponItem);
+            }     
         }
 
         #region Handle Weapon's Damage Collider

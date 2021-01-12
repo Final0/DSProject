@@ -222,7 +222,7 @@ namespace Midir
 
         private void HandleTwoHandInput()
         {
-            if (y_Input)
+            if (y_Input && playerInventory.weaponsInRightHandSlots[playerInventory.currentRightWeaponIndex] != playerInventory.unarmedWeapon)
             {
                 y_Input = false;
                 twoHandFlag = !twoHandFlag;

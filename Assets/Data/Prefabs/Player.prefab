@@ -361,8 +361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c8a55a165d2c14290a725642a0d74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightWeapon: {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7, type: 2}
-  leftWeapon: {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7, type: 2}
+  rightWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
+  leftWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   unarmedWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   weaponsInRightHandSlots:
   - {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7, type: 2}
