@@ -325,6 +325,9 @@ MonoBehaviour:
   sprintSpeed: 7
   rotationSpeed: 10
   fallingSpeed: 250
+  runningStamina: 20
+  rollingStamina: 10
+  jumpingStamina: 15
   characterCollider: {fileID: 7354912379538594139}
   characterCollisionBlockerCollider: {fileID: 1987128578}
 --- !u!114 &7354912379538594136
@@ -349,6 +352,7 @@ MonoBehaviour:
   canDoCombo: 0
   isUsingRightHand: 0
   isUsingLeftHand: 0
+  isInvulnerable: 0
 --- !u!114 &7354912379538594137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,10 +404,12 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   staminaLevel: 10
-  maxStamina: 0
   currentStamina: 0
+  maxStamina: 0
   isDead: 0
   healthBar: {fileID: 0}
+  staminaRegenerationAmount: 10
+  staminaRegenTimer: 0
   canUseStamina: 1
 --- !u!1 &7354912380112998105
 GameObject:

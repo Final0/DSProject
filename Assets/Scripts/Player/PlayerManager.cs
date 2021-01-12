@@ -6,6 +6,7 @@ namespace Midir
 {
     public class PlayerManager : CharacterManager
     {
+        PlayerStats playerStats;
         InputHandler inputHandler;
         Animator anim;
         CameraHandler cameraHandler;
@@ -23,6 +24,7 @@ namespace Midir
         public bool canDoCombo;
         public bool isUsingRightHand;
         public bool isUsingLeftHand;
+        public bool isInvulnerable;
         
         private void Awake()
         {
@@ -35,31 +37,36 @@ namespace Midir
             anim = GetComponentInChildren<Animator>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
             interactableUI = FindObjectOfType<InteractableUI>();
+            playerStats = GetComponent<PlayerStats>();
         }
 
         void Update()
         {
-      
             float delta = Time.deltaTime;
             isInteracting = anim.GetBool("isInteracting");
             canDoCombo = anim.GetBool("canDoCombo");
             anim.SetBool("isInAir", isInAir);
             isUsingRightHand = anim.GetBool("isUsingRightHand");
             isUsingLeftHand = anim.GetBool("isUsingLeftHand");
+            isInvulnerable = anim.GetBool("isInvulnerable");
 
             inputHandler.TickInput(delta);
-            playerLocomotion.HandleRollingAndSprinting(delta);
+            
             playerLocomotion.HandleJumping();
+            playerStats.RegenStamina();
+
+            if (playerStats.canUseStamina)
+            {
+                playerLocomotion.HandleRollingAndSprinting(delta);
+            }
 
             CheckForInteractableObject();
-            
         }
 
         private void FixedUpdate()
         {
-       
             float delta = Time.fixedDeltaTime;
-            //
+
             playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
             
@@ -83,10 +90,6 @@ namespace Midir
             if (cameraHandler != null)
             {
                 cameraHandler.FollowTarget(delta);
-                
-                // 1167 579
-                
-                // * 500 / 1000  
 
                 float normalizeMouseXspeed = 1167 / (float)Screen.width;
                 float normalizeMouseYspeed = 579 / (float)Screen.height;

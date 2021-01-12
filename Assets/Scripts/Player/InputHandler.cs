@@ -14,6 +14,7 @@ namespace Midir
         public bool rollFlag, twoHandFlag, sprintFlag, comboFlag, inventoryFlag, lockOnFlag;
 
         PlayerControls inputActions;
+        PlayerLocomotion playerLocomotion;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
@@ -22,11 +23,13 @@ namespace Midir
         UIManager uiManager;
         PlayerStats playerStats;
         AnimatorHandler animatorHandler;
+        WeaponHolderSlot weaponHolderSlot;
 
         Vector2 movementInput, cameraInput;
 
         private void Awake()
         {
+            playerLocomotion = GetComponent<PlayerLocomotion>();
             playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
@@ -35,6 +38,7 @@ namespace Midir
             cameraHandler = FindObjectOfType<CameraHandler>();
             playerStats = FindObjectOfType<PlayerStats>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            weaponHolderSlot = FindObjectOfType<WeaponHolderSlot>();
         }
 
         //Si le joueur est actif, je detecte la valeur de l'input (dans l'input action) pour pouvoir bouger le perso et la caméra.
@@ -88,6 +92,9 @@ namespace Midir
 
         private void HandleRollInput(float delta)
         {
+            if (playerLocomotion.rollingStamina > playerStats.currentStamina)
+                return;
+
             b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
             sprintFlag = b_Input;
 
@@ -109,8 +116,14 @@ namespace Midir
 
         private void HandleAttackInput(float delta)
         {
+            if ((playerManager.isInteracting && !playerManager.canDoCombo) || !playerStats.canUseStamina)
+                return;
+
             if (rb_Input)
             {
+                if (weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.lightAttackMultiplier > playerStats.currentStamina)
+                    return;
+
                 if (playerManager.canDoCombo)
                 {
                     comboFlag = true;
@@ -119,15 +132,6 @@ namespace Midir
                 }
                 else
                 {
-                    if (playerManager.isInteracting)
-                        return;
-
-                    if (playerManager.canDoCombo)
-                        return;
-
-                    if (!playerStats.canUseStamina)
-                        return;
-
                     animatorHandler.anim.SetBool("isUsingRightHand", true);
                     playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
                 }
@@ -135,7 +139,7 @@ namespace Midir
 
             if (rt_Input)
             {
-                if (!playerStats.canUseStamina)
+                if(weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.heavyAttackMultiplier > playerStats.currentStamina)
                     return;
 
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
@@ -222,7 +226,7 @@ namespace Midir
 
         private void HandleTwoHandInput()
         {
-            if (y_Input && playerInventory.weaponsInRightHandSlots[playerInventory.currentRightWeaponIndex] != playerInventory.unarmedWeapon)
+            if (y_Input && playerInventory.rightWeapon != playerInventory.unarmedWeapon)
             {
                 y_Input = false;
                 twoHandFlag = !twoHandFlag;

@@ -6,6 +6,7 @@ namespace Midir
 {
     public class PlayerLocomotion : MonoBehaviour
     {
+        StaminaBar staminaBar;
         CameraHandler cameraHandler;
         Transform cameraObject;
         PlayerManager playerManager;
@@ -44,11 +45,10 @@ namespace Midir
         [SerializeField]
         float fallingSpeed = 45;
 
+        public float runningStamina = 20, rollingStamina = 10, jumpingStamina = 15;
+
         public CapsuleCollider characterCollider, characterCollisionBlockerCollider;
 
-        
-        
-        
         private void Awake()
         {
             cameraHandler = FindObjectOfType<CameraHandler>();
@@ -56,6 +56,7 @@ namespace Midir
 
         void Start()
         {
+            staminaBar = FindObjectOfType<StaminaBar>();
             playerManager = GetComponent<PlayerManager>();
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
@@ -149,6 +150,8 @@ namespace Midir
                 speed = sprintSpeed;
                 playerManager.isSprinting = true;
                 moveDirection *= speed;
+
+                playerStats.currentStamina -= Time.deltaTime * runningStamina;
             }
             else
             {
@@ -184,27 +187,30 @@ namespace Midir
 
         public void HandleRollingAndSprinting(float delta)
         {
-            if (playerStats.canUseStamina)
+            if (animatorHandler.anim.GetBool("isInteracting"))
+                return;
+
+            if (inputHandler.rollFlag)
             {
-                if (animatorHandler.anim.GetBool("isInteracting"))
-                    return;
+                moveDirection = cameraObject.forward * inputHandler.vertical;
+                moveDirection += cameraObject.right * inputHandler.horizontal;
 
-                if (inputHandler.rollFlag)
+                if (inputHandler.moveAmount > 0)
                 {
-                    moveDirection = cameraObject.forward * inputHandler.vertical;
-                    moveDirection += cameraObject.right * inputHandler.horizontal;
+                    playerStats.currentStamina -= rollingStamina;
+                    staminaBar.SetCurrentStamina(playerStats.currentStamina);
 
-                    if (inputHandler.moveAmount > 0)
-                    {
-                        animatorHandler.PlayTargetAnimation("Rolling", true);
-                        moveDirection.y = 0;
-                        Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
-                        myTransform.rotation = rollRotation;
-                    }
-                    else
-                    {
-                        animatorHandler.PlayTargetAnimation("Backstep", true);
-                    }
+                    animatorHandler.PlayTargetAnimation("Rolling", true);
+                    moveDirection.y = 0;
+                    Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
+                    myTransform.rotation = rollRotation;
+                }
+                else
+                {
+                    playerStats.currentStamina -= rollingStamina;
+                    staminaBar.SetCurrentStamina(playerStats.currentStamina);
+
+                    animatorHandler.PlayTargetAnimation("Backstep", true);
                 }
             }
         }
@@ -295,13 +301,16 @@ namespace Midir
         {
             if (playerStats.canUseStamina)
             {
-                if (playerManager.isInteracting)
+                if (playerManager.isInteracting || jumpingStamina > playerStats.currentStamina)
                     return;
 
                 if (inputHandler.jump_Input)
                 {
                     if (inputHandler.moveAmount > 0)
                     {
+                        playerStats.currentStamina -= jumpingStamina;
+                        staminaBar.SetCurrentStamina(playerStats.currentStamina);
+
                         moveDirection = cameraObject.forward * inputHandler.vertical;
                         moveDirection += cameraObject.right * inputHandler.horizontal;
                         animatorHandler.PlayTargetAnimation("Jump", true);

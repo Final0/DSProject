@@ -12,13 +12,15 @@ namespace Midir
         PlayerManager playerManager;
         AnimatorHandler animatorHandler;
 
+        public float staminaRegenerationAmount = 1, staminaRegenTimer = 0f;
+
         public bool canUseStamina = true;
 
         private void Awake()
         {
             staminaBar = FindObjectOfType<StaminaBar>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
-            playerManager = FindObjectOfType<PlayerManager>();
+            playerManager = GetComponent<PlayerManager>();
         }
 
         void Start()
@@ -44,7 +46,7 @@ namespace Midir
             return maxHealth;
         }
 
-        private int SetMaxStaminaFromStaminaLevel()
+        private float SetMaxStaminaFromStaminaLevel()
         {
             maxStamina = staminaLevel * 10;
             return maxStamina;
@@ -52,6 +54,9 @@ namespace Midir
 
         public void TakeDamage(int damage)
         {
+            if (playerManager.isInvulnerable)
+                return;
+
             if (isDead)
                 return;
 
@@ -76,10 +81,19 @@ namespace Midir
 
         public void RegenStamina()
         {
-            if (currentStamina < maxStamina && !playerManager.isInteracting)
+            if(playerManager.isInteracting)
             {
-                currentStamina += 5;
-                staminaBar.SetCurrentStamina(currentStamina);
+                staminaRegenTimer = 0;
+            }
+            else
+            {
+                staminaRegenTimer += Time.deltaTime;
+
+                if (currentStamina < maxStamina && staminaRegenTimer > 1f)
+                {
+                    currentStamina += staminaRegenerationAmount * Time.deltaTime;
+                    staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+                }
             }
         }
 
@@ -97,7 +111,7 @@ namespace Midir
 
             canUseStamina = false;
 
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(3f);
 
             canUseStamina = true;
         }
