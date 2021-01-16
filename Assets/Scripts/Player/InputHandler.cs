@@ -30,7 +30,7 @@ namespace Midir
         private void Awake()
         {
             playerLocomotion = GetComponent<PlayerLocomotion>();
-            playerAttacker = GetComponent<PlayerAttacker>();
+            playerAttacker = GetComponentInChildren<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
@@ -121,20 +121,7 @@ namespace Midir
 
             if (rb_Input)
             {
-                if (weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.lightAttackMultiplier > playerStats.currentStamina)
-                    return;
-
-                if (playerManager.canDoCombo)
-                {
-                    comboFlag = true;
-                    playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
-                    comboFlag = false;
-                }
-                else
-                {
-                    animatorHandler.anim.SetBool("isUsingRightHand", true);
-                    playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
-                }
+                playerAttacker.HandleRBAction();
             }
 
             if (rt_Input)

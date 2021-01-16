@@ -8,6 +8,8 @@ namespace Midir
     {
         WeaponSlotManager weaponSlotManager;
 
+        public SpellItem currentSpell;
+
         public WeaponItem rightWeapon, leftWeapon, unarmedWeapon;
 
         public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[1], weaponsInLeftHandSlots = new WeaponItem[1];
