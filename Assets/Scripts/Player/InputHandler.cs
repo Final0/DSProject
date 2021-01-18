@@ -119,12 +119,12 @@ namespace Midir
             if ((playerManager.isInteracting && !playerManager.canDoCombo) || !playerStats.canUseStamina)
                 return;
 
-            if (rb_Input)
+            if (rb_Input && weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.lightAttackMultiplier < playerStats.currentStamina)
             {
                 playerAttacker.HandleRBAction();
             }
 
-            if (rt_Input)
+            if (rt_Input && weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.heavyAttackMultiplier < playerStats.currentStamina)
             {
                 if(weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.heavyAttackMultiplier > playerStats.currentStamina)
                     return;

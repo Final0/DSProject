@@ -229,9 +229,13 @@ namespace Midir
 
             if (playerManager.isInAir)
             {
+                rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
                 rigidbody.AddForce(-Vector3.up * fallingSpeed);
                 rigidbody.AddForce(moveDirection * fallingSpeed / 8f);
             }
+
+            if (!playerManager.isInAir)
+                rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             Vector3 dir = moveDirection;
             dir.Normalize();
