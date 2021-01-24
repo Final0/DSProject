@@ -195,17 +195,10 @@ namespace Midir
         public void SetCameraHeight()
         {
             Vector3 velocity = Vector3.zero;
-            Vector3 newLockedPosition = new Vector3(0, lockedPivotPosition);
-            Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition);
 
-            if (currentLockOnTarget != null)
-            {
-                cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newLockedPosition, ref velocity, Time.deltaTime);
-            }
-            else
-            {
-                cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
-            }
+            Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition, -1);
+
+            cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
         }
     }
 }

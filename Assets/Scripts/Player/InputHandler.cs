@@ -126,9 +126,6 @@ namespace Midir
 
             if (rt_Input && weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.heavyAttackMultiplier < playerStats.currentStamina)
             {
-                if(weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.heavyAttackMultiplier > playerStats.currentStamina)
-                    return;
-
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
         }

@@ -8,6 +8,7 @@ namespace Midir
     {
         AnimatorHandler animatorHandler;
         PlayerManager playerManager;
+        PlayerStats playerStats;
         PlayerInventory playerInventory;
         InputHandler inputHandler;
         public string lastAttack;
@@ -16,6 +17,7 @@ namespace Midir
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
+            playerStats = GetComponentInParent<PlayerStats>();
             playerInventory = GetComponentInParent<PlayerInventory>();
             animatorHandler = GetComponent<AnimatorHandler>();
             weaponSlotManager = GetComponent<WeaponSlotManager>();
@@ -104,13 +106,24 @@ namespace Midir
 
         private void PerformRBMagicAction(WeaponItem weapon)
         {
+            if (playerManager.isInteracting)
+                return;
+
             if (weapon.isFaithCaster)
             {
                 if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpeel)
                 {
-
+                    if (playerStats.currentFocusPoints >= playerInventory.currentSpell.focusPointCost)
+                        playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
+                    else
+                        animatorHandler.PlayTargetAnimation("Shrug", true);
                 }
             }
+        }
+
+        private void SuccesfullyCastSpell()
+        {
+            playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
         }
         #endregion
     }

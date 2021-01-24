@@ -6,9 +6,10 @@ namespace Midir
 {
     public class PlayerStats : CharacterStats
     {
-        public HealthBar healthBar;
-
+        HealthBar healthBar;
         StaminaBar staminaBar;
+        FocusPointBar focusPointBar;
+
         PlayerManager playerManager;
         AnimatorHandler animatorHandler;
 
@@ -18,7 +19,10 @@ namespace Midir
 
         private void Awake()
         {
+            healthBar = FindObjectOfType<HealthBar>();
             staminaBar = FindObjectOfType<StaminaBar>();
+            focusPointBar = FindObjectOfType<FocusPointBar>();
+
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
             playerManager = GetComponent<PlayerManager>();
         }
@@ -28,9 +32,17 @@ namespace Midir
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
+            healthBar.SetCurrentHealth(currentHealth);
 
             maxStamina = SetMaxStaminaFromStaminaLevel();
             currentStamina = maxStamina;
+            staminaBar.SetMaxStamina(maxStamina);
+            staminaBar.SetCurrentStamina(currentStamina);
+
+            maxFocusPoints = SetMaxFocusPointFromFocusLevel();
+            currentFocusPoints = maxFocusPoints;
+            focusPointBar.SetMaxFocusPoints(maxFocusPoints);
+            focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
 
             InvokeRepeating("RegenStamina", 0f, 1f);
         }
@@ -50,6 +62,12 @@ namespace Midir
         {
             maxStamina = staminaLevel * 10;
             return maxStamina;
+        }
+
+        private float SetMaxFocusPointFromFocusLevel()
+        {
+            maxFocusPoints = focusLevel * 10;
+            return maxFocusPoints;
         }
 
         public void TakeDamage(int damage)
@@ -103,6 +121,26 @@ namespace Midir
             {
                 StartCoroutine("NoStaminaAction");
             }
+        }
+
+        public void HealPlayer(int healAmount)
+        {
+            currentHealth += healAmount;
+
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+
+            healthBar.SetCurrentHealth(currentHealth);
+        }
+
+        public void DeductFocusPoints(int focusPoints)
+        {
+            currentFocusPoints -= focusPoints;
+
+            if (currentFocusPoints < 0)
+                currentFocusPoints = 0;
+
+            focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
         }
 
         IEnumerator NoStaminaAction()
