@@ -25,10 +25,13 @@ namespace Midir
         public bool isUsingRightHand;
         public bool isUsingLeftHand;
         public bool isInvulnerable;
+
+        public static PlayerManager Singleton;
         
         private void Awake()
         {
             cameraHandler = FindObjectOfType<CameraHandler>();
+            Singleton = this;
         }
 
         void Start()

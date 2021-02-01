@@ -51,26 +51,26 @@ namespace Midir
 
         private void FixedUpdate()
         {
-            HandleStateMachine();
+            // HandleStateMachine();
         }
 
-        private void HandleStateMachine()
-        {
-            if (currentState != null)
-            {
-                State nextState = currentState.Tick(this, enemyStats, enemyAnimatorManager);
-
-                if (nextState != null)
-                {
-                    SwitchToNextState(nextState);
-                }
-            }
-        }
-
-        private void SwitchToNextState(State state)
-        {
-            currentState = state;
-        }
+        // private void HandleStateMachine()
+        // {
+        //     if (currentState != null)
+        //     {
+        //         State nextState = currentState.Tick(this, enemyStats, enemyAnimatorManager);
+        //
+        //         if (nextState != null)
+        //         {
+        //             SwitchToNextState(nextState);
+        //         }
+        //     }
+        // }
+        //
+        // private void SwitchToNextState(State state)
+        // {
+        //     currentState = state;
+        // }
 
         private void HandleRecoveryTimer()
         {
