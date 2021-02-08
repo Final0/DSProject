@@ -7,19 +7,20 @@ namespace Midir
 {
     public class IKFootPlacement : MonoBehaviour
     {
-        Animator anim;
+        private Animator anim;
 
-        public LayerMask layerMask;
+        [SerializeField]
+        private LayerMask layerMask;
 
-        [Range (0, 1f)]
-        public float DistanceToGround;
+        [Range (0, 1f)] [SerializeField]
+        private float DistanceToGround;
 
         private void Start()
         {
             anim = GetComponent<Animator>();
         }
 
-        private void OnAnimatorIK(int layerIndex)
+        private void OnAnimatorIK()
         {
             if (anim)
             {
@@ -34,7 +35,7 @@ namespace Midir
 
                 if (Physics.Raycast(ray, out hit, DistanceToGround + 1f, layerMask))
                 {
-                    if (hit.transform.tag == "Walkable")
+                    if (hit.transform.CompareTag("Walkable"))
                     {
                         Vector3 footPosition = hit.point;
                         footPosition.y += DistanceToGround;
@@ -47,7 +48,7 @@ namespace Midir
 
                 if (Physics.Raycast(ray, out hit, DistanceToGround + 1f, layerMask))
                 {
-                    if (hit.transform.tag == "Walkable")
+                    if (hit.transform.CompareTag("Walkable"))
                     {
                         Vector3 footPosition = hit.point;
                         footPosition.y += DistanceToGround;

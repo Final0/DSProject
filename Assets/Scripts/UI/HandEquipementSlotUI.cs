@@ -7,9 +7,12 @@ namespace Midir
 {
     public class HandEquipementSlotUI : MonoBehaviour
     {
-        UIManager uiManager;
-        public Image icon;
-        WeaponItem weapon;
+        private UIManager uiManager;
+        
+        private WeaponItem weapon;
+
+        [SerializeField]
+        private Image icon;
 
         public bool rightHandSlot01, rightHandSlot02, leftHandSlot01, leftHandSlot02;
 
@@ -48,7 +51,7 @@ namespace Midir
             {
                 uiManager.leftHandSlot01Selected = true;
             }
-            else
+            else if (leftHandSlot02)
             {
                 uiManager.leftHandSlot02Selected = true;
             }

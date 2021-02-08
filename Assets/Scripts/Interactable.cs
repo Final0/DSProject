@@ -6,7 +6,9 @@ namespace Midir
 {
     public class Interactable : MonoBehaviour
     {
-        public float radius = 0.6f;
+        [SerializeField]
+        private float radius = 0.6f;
+
         public string interactbleText;
 
         private void OnDrawGizmosSelected()
@@ -17,7 +19,7 @@ namespace Midir
 
         public virtual void Interact(PlayerManager playerManager)
         {
-            Debug.Log("You interacted with an object!");
+
         }
     }
 }

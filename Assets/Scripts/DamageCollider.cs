@@ -6,9 +6,10 @@ namespace Midir
 {
     public class DamageCollider : MonoBehaviour
     {
-        Collider damageCollider;
+        private Collider damageCollider;
 
-        public int currentWeaponDamage = 25;
+        [SerializeField]
+        private int currentWeaponDamage = 25;
 
         private void Awake()
         {
@@ -30,7 +31,7 @@ namespace Midir
 
         private void OnTriggerEnter(Collider collision)
         {
-            if (collision.tag == "Player")
+            if (collision.CompareTag("Player")) 
             {
                 PlayerStats playerStats = collision.GetComponent<PlayerStats>();
                 
@@ -40,7 +41,7 @@ namespace Midir
                 }
             }
 
-            if (collision.tag == "Enemy")
+            if (collision.CompareTag("Enemy"))
             {
                 EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
 

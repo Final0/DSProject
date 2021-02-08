@@ -6,14 +6,15 @@ namespace Midir
 {
     public class PlayerStats : CharacterStats
     {
-        HealthBar healthBar;
-        StaminaBar staminaBar;
-        FocusPointBar focusPointBar;
+        private HealthBar healthBar;
+        private StaminaBar staminaBar;
+        private FocusPointBar focusPointBar;
 
-        PlayerManager playerManager;
-        AnimatorHandler animatorHandler;
+        private PlayerManager playerManager;
+        private AnimatorHandler animatorHandler;
 
-        public float staminaRegenerationAmount = 1, staminaRegenTimer = 0f;
+        [SerializeField]
+        private float staminaRegenerationAmount = 1, staminaRegenTimer = 0f;
 
         public bool canUseStamina = true;
 
@@ -27,7 +28,7 @@ namespace Midir
             playerManager = GetComponent<PlayerManager>();
         }
 
-        void Start()
+        private void Start()
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
@@ -44,7 +45,7 @@ namespace Midir
             focusPointBar.SetMaxFocusPoints(maxFocusPoints);
             focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
 
-            InvokeRepeating("RegenStamina", 0f, 1f);
+            InvokeRepeating(nameof(RegenStamina), 0f, 1f);
         }
 
         private void Update()
@@ -119,7 +120,7 @@ namespace Midir
         {
             if (currentStamina <= 0)
             {
-                StartCoroutine("NoStaminaAction");
+                StartCoroutine(nameof(NoStaminaAction));
             }
         }
 
@@ -143,7 +144,7 @@ namespace Midir
             focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
         }
 
-        IEnumerator NoStaminaAction()
+        private IEnumerator NoStaminaAction()
         {   
             currentStamina = 0;
 

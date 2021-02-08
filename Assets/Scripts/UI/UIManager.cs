@@ -6,25 +6,34 @@ namespace Midir
 {
     public class UIManager : MonoBehaviour
     {
-        public PlayerInventory playerInventory;
+        [SerializeField] 
+        private PlayerInventory playerInventory;
+
         public EquipementWindowUI equipementWindowUI;
 
         [Header("UI Windows")]
-        public GameObject selectWindow;
+        [SerializeField] private GameObject selectWindow;
+        [SerializeField] private GameObject equipementScreenWindow;
+        [SerializeField] private GameObject weaponInventoryWindow;
         public GameObject hudWindow;
-        public GameObject equipementScreenWindow;
-        public GameObject weaponInventoryWindow;
 
-        [Header("Equipment Window Slot Selected")]
+        [HideInInspector]
         public bool rightHandSlot01Selected;
+
+        [HideInInspector]
         public bool rightHandSlot02Selected;
+
+        [HideInInspector]
         public bool leftHandSlot01Selected;
+
+        [HideInInspector]
         public bool leftHandSlot02Selected;
 
         [Header("WeaponInventory")]
-        public GameObject weaponInventorySlotPrefab;
-        public Transform weaponInventorySlotsParent;
-        WeaponInventorySlot[] weaponInventorySlots;
+        [SerializeField] private GameObject weaponInventorySlotPrefab;
+        [SerializeField] private Transform weaponInventorySlotsParent;
+
+        private WeaponInventorySlot[] weaponInventorySlots;
 
         private void Start()
         {
@@ -44,6 +53,7 @@ namespace Midir
                         Instantiate(weaponInventorySlotPrefab, weaponInventorySlotsParent);
                         weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
                     }
+
                     weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
                 }
                 else

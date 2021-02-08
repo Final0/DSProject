@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +7,20 @@ namespace Midir
 {
     public class PlayerAttacker : MonoBehaviour
     {
-        AnimatorHandler animatorHandler;
-        PlayerManager playerManager;
-        PlayerStats playerStats;
-        PlayerInventory playerInventory;
-        InputHandler inputHandler;
-        public string lastAttack;
-        WeaponSlotManager weaponSlotManager;
+        private AnimatorHandler animatorHandler;
+        private PlayerManager playerManager;
+        private PlayerStats playerStats;
+        private PlayerInventory playerInventory;
+        private InputHandler inputHandler;
+        private WeaponSlotManager weaponSlotManager;
+
+        private string lastAttack;
+
+        [SerializeField]
+        private GameObject arrowP;
+
+        [SerializeField]
+        private GameObject rightHand;
 
         private void Awake()
         {
@@ -24,7 +32,7 @@ namespace Midir
             inputHandler = GetComponentInParent<InputHandler>(); 
         }
 
-        public void HandleWeaponCombo(WeaponItem weapon)
+        private void HandleWeaponCombo(WeaponItem weapon)
         {
             if (inputHandler.comboFlag)
             {
@@ -41,7 +49,7 @@ namespace Midir
             }
         }
 
-        public void HandleLightAttack(WeaponItem weapon)
+        private void HandleLightAttack(WeaponItem weapon)
         {
             weaponSlotManager.attackingWeapon = weapon;
 
@@ -85,7 +93,12 @@ namespace Midir
             {
                 PerformRBMagicAction(playerInventory.rightWeapon);
             }
+            else if (playerInventory.rightWeapon.isDistantWeapon)
+            {
+                PerformRBDistantAction();
+            }
         }
+
         #endregion
 
         #region Attack Actions
@@ -104,6 +117,18 @@ namespace Midir
             }
         }
 
+        private void PerformRBDistantAction()
+        {
+            if (playerManager.isInteracting)
+                return;
+
+             GameObject arrow = Instantiate(arrowP, rightHand.transform.position, Quaternion.identity);
+            arrow.GetComponent<Rigidbody>().velocity = transform.forward;
+
+             animatorHandler.PlayTargetAnimation("ShootArrow", true);
+
+        }
+
         private void PerformRBMagicAction(WeaponItem weapon)
         {
             if (playerManager.isInteracting)
@@ -119,11 +144,6 @@ namespace Midir
                         animatorHandler.PlayTargetAnimation("Shrug", true);
                 }
             }
-        }
-
-        private void SuccesfullyCastSpell()
-        {
-            playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
         }
         #endregion
     }

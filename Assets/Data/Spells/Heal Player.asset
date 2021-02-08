@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   itemName: Heal
+  spellCastFX: {fileID: 1042335931808730577, guid: 7347dd30b591f2e43a72ecd5dde7b26a,
+    type: 3}
   spellAnimation: Heal
   focusPointCost: 35
   isFaithSpeel: 1

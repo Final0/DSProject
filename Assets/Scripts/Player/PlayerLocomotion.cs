@@ -6,48 +6,55 @@ namespace Midir
 {
     public class PlayerLocomotion : MonoBehaviour
     {
-        StaminaBar staminaBar;
-        CameraHandler cameraHandler;
-        Transform cameraObject;
-        PlayerManager playerManager;
-        InputHandler inputHandler;
-        PlayerStats playerStats;
+        private StaminaBar staminaBar;
+        private CameraHandler cameraHandler;
+        private PlayerManager playerManager;
+        private InputHandler inputHandler;
+        private PlayerStats playerStats;
+
+        [HideInInspector]
         public Vector3 moveDirection;
+
+        private Transform cameraObject;
 
         [HideInInspector]
         public Transform myTransform;
+
         [HideInInspector]
         public AnimatorHandler animatorHandler;
 
         public new Rigidbody rigidbody;
-        public GameObject normalCamera;
 
         [Header("Ground & Air Detection Stats")]
         [SerializeField]
-        float groundDetectionRayStartPoint = 0.5f;
+        private float groundDetectionRayStartPoint = 0.5f;
         [SerializeField]
-        float minimumDistanceNeededToBeginFall = 1F;
+        private float minimumDistanceNeededToBeginFall = 1F;
         [SerializeField]
-        float groundDirectionRayDistance = 0.2f;
-        LayerMask ignoreForGroundCheck;
-        public float inAirTimer;
+        private float groundDirectionRayDistance = 0.2f;
 
+        private LayerMask ignoreForGroundCheck;
+
+        public float inAirTimer;
 
         [Header("Movement Stats")]
         [SerializeField]
-        float movementSpeed = 5;
+        private float movementSpeed = 5;
         [SerializeField]
-        float walkingSpeed = 1;
+        private float walkingSpeed = 1;
         [SerializeField]
-        float sprintSpeed = 7;
+        private float sprintSpeed = 7;
         [SerializeField]
-        float rotationSpeed = 10;
+        private float rotationSpeed = 10;
         [SerializeField]
-        float fallingSpeed = 45;
+        private float fallingSpeed = 45;
 
-        public float runningStamina = 20, rollingStamina = 10, jumpingStamina = 15;
+        public float rollingStamina = 10;
 
-        public CapsuleCollider characterCollider, characterCollisionBlockerCollider;
+        private float runningStamina = 20, jumpingStamina = 15;
+
+        [SerializeField]
+        private CapsuleCollider characterCollider, characterCollisionBlockerCollider;
 
         private void Awake()
         {
@@ -72,7 +79,7 @@ namespace Midir
         }
 
         #region Movement
-        Vector3 normalVector, targetPosition;
+        private Vector3 normalVector, targetPosition;
 
         private void HandleRotation(float delta)
         {
@@ -80,8 +87,7 @@ namespace Midir
             {
                 if (inputHandler.sprintFlag || inputHandler.rollFlag)
                 {
-                    Vector3 targetDirection = Vector3.zero;
-                    targetDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;
+                    Vector3 targetDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;
                     targetDirection += cameraHandler.cameraTransform.right * inputHandler.horizontal;
                     targetDirection.Normalize();
                     targetDirection.y = 0;
@@ -98,8 +104,7 @@ namespace Midir
                 }
                 else
                 {
-                    Vector3 rotationDirection = moveDirection;
-                    rotationDirection = cameraHandler.currentLockOnTarget.position - transform.position;
+                    Vector3 rotationDirection = cameraHandler.currentLockOnTarget.position - transform.position;
                     rotationDirection.y = 0;
                     rotationDirection.Normalize();
                     Quaternion tr = Quaternion.LookRotation(rotationDirection);
@@ -109,10 +114,7 @@ namespace Midir
             }
             else
             {
-                Vector3 targetDir = Vector3.zero;
-                float moveOverride = inputHandler.moveAmount;
-
-                targetDir = cameraObject.forward * inputHandler.vertical;
+                Vector3 targetDir = cameraObject.forward * inputHandler.vertical;
                 targetDir += cameraObject.right * inputHandler.horizontal;
 
                 targetDir.Normalize();
@@ -185,7 +187,7 @@ namespace Midir
             }
         }
 
-        public void HandleRollingAndSprinting(float delta)
+        public void HandleRollingAndSprinting()
         {
             if (animatorHandler.anim.GetBool("isInteracting"))
                 return;
@@ -215,7 +217,7 @@ namespace Midir
             }
         }
 
-        public void HandleFalling(float delta, Vector3 moveDirection)
+        public void HandleFalling(Vector3 moveDirection)
         {
             playerManager.isGrounded = false;
             RaycastHit hit;

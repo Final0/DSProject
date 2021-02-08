@@ -6,15 +6,17 @@ namespace Midir
 {
     public class EnemyWeaponSlotManager : MonoBehaviour
     {
-        public WeaponItem rightHandWeapon, leftHandWeapon;
+        [SerializeField]
+        private WeaponItem rightHandWeapon, leftHandWeapon;
 
-        WeaponHolderSlot rightHandSlot, leftHandSlot;
+        private WeaponHolderSlot rightHandSlot, leftHandSlot;
 
-        DamageCollider leftHandDamageCollider, rightHandDamageCollider;
+        private DamageCollider leftHandDamageCollider, rightHandDamageCollider;
 
         private void Awake()
         {
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
+
             foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
             {
                 if (weaponSlot.isLeftHandSlot)
@@ -33,7 +35,7 @@ namespace Midir
             LoadWeaponsOnBothHands();
         }
 
-        public void LoadWeaponOnSlot(WeaponItem weapon, bool isLeft)
+        private void LoadWeaponOnSlot(WeaponItem weapon, bool isLeft)
         {
             if (isLeft)
             {
@@ -49,7 +51,7 @@ namespace Midir
             }
         }
 
-        public void LoadWeaponsOnBothHands()
+        private void LoadWeaponsOnBothHands()
         {
             if (rightHandWeapon != null)
             {
@@ -61,7 +63,7 @@ namespace Midir
             }
         }
 
-        public void LoadWeaponsDamageCollider(bool isLeft)
+        private void LoadWeaponsDamageCollider(bool isLeft)
         {
             if (isLeft)
             {

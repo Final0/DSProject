@@ -6,8 +6,6 @@ namespace Midir
 {
     public class EquipementWindowUI : MonoBehaviour
     {
-        public bool rightHandSlot01Selected, rightHandSlot02Selected, leftHandSlot01Selected, leftHandSlot02Selected;
-
         public HandEquipementSlotUI[] handEquipementSlotUI;
 
         public void LoadWeaponsOnEquipementScreen(PlayerInventory playerInventory)
@@ -31,26 +29,6 @@ namespace Midir
                     handEquipementSlotUI[i].AddItem(playerInventory.weaponsInLeftHandSlots[1]);
                 }*/
             }
-        }
-
-        public void SelectRightHandSlot01()
-        {
-            rightHandSlot01Selected = true;
-        }
-
-        public void SelectRightHandSlot02()
-        {
-            rightHandSlot02Selected = true;
-        }
-
-        public void SelectLeftHandSlot01()
-        {
-            leftHandSlot01Selected = true;
-        }
-
-        public void SelectLeftHandSlot02()
-        {
-            leftHandSlot02Selected = true;
         }
     }
 }

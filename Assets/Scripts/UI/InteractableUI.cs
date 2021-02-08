@@ -7,7 +7,12 @@ namespace Midir
 {
     public class InteractableUI : MonoBehaviour
     {
-        public Text interactableText, itemText;
-        public RawImage itemImage;
+        public Text interactableText;
+
+        [SerializeField]
+        private Text itemText;
+
+        [SerializeField]
+        private RawImage itemImage;
     }
 }

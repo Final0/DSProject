@@ -7,12 +7,13 @@ namespace Midir
 {
     public class WeaponInventorySlot : MonoBehaviour
     {
-        PlayerInventory playerInventory;
-        WeaponSlotManager weaponSlotManager;
-        UIManager uiManager;
+        private PlayerInventory playerInventory;
+        private WeaponSlotManager weaponSlotManager;
+        private UIManager uiManager;
+        private WeaponItem item;
 
-        public Image icon;
-        WeaponItem item;
+        [SerializeField]
+        private Image icon;
 
         private void Awake()
         {

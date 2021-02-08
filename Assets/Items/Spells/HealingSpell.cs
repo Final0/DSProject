@@ -13,14 +13,13 @@ namespace Midir
         public override void AttemptToCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
         {
             base.AttemptToCastSpell(animatorHandler, playerStats);
-            //GameObject instantiatedWarpUpSpeelFX = Instantiate(spellWarpUpFX, animatorHandler.transform);
             animatorHandler.PlayTargetAnimation(spellAnimation, true);
         }
 
         public override void SuccessfullyCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
         {
             base.SuccessfullyCastSpell(animatorHandler, playerStats);
-            //GameObject instantiatedSpellFX = Instantiate(spellCastFX, animatorHandler.transform);
+            GameObject instantiatedSpellFX = Instantiate(spellCastFX, animatorHandler.transform);
             playerStats.HealPlayer(healAmount);
 
         }

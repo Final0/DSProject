@@ -6,38 +6,57 @@ namespace Midir
 {
     public class PlayerManager : CharacterManager
     {
-        PlayerStats playerStats;
-        InputHandler inputHandler;
-        Animator anim;
-        CameraHandler cameraHandler;
-        PlayerLocomotion playerLocomotion;
+        private Animator anim;
 
-        InteractableUI interactableUI;
-        public GameObject interactableUIGameObject, itemInteractableGameObject;
+        private PlayerStats playerStats;
+        private InputHandler inputHandler;
+        private CameraHandler cameraHandler;
+        private PlayerLocomotion playerLocomotion;
+        private InteractableUI interactableUI;
 
+        [SerializeField]
+        private GameObject interactableUIGameObject;
+
+        public GameObject itemInteractableGameObject;
+
+        [HideInInspector]
         public bool isInteracting;
 
-        [Header("Player Flags")]
+        [HideInInspector]
         public bool isSprinting;
+
+        [HideInInspector]
         public bool isInAir;
+
+        [HideInInspector]
         public bool isGrounded;
+
+        [HideInInspector]
         public bool canDoCombo;
+
+        [HideInInspector]
         public bool isUsingRightHand;
+
+        [HideInInspector]
         public bool isUsingLeftHand;
+
+        [HideInInspector]
         public bool isInvulnerable;
 
         public static PlayerManager Singleton;
         
         private void Awake()
         {
-            cameraHandler = FindObjectOfType<CameraHandler>();
             Singleton = this;
+
+            cameraHandler = FindObjectOfType<CameraHandler>();
         }
 
         void Start()
         {
-            inputHandler = GetComponent<InputHandler>();
             anim = GetComponentInChildren<Animator>();
+            
+            inputHandler = GetComponent<InputHandler>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
             interactableUI = FindObjectOfType<InteractableUI>();
             playerStats = GetComponent<PlayerStats>();
@@ -46,6 +65,7 @@ namespace Midir
         void Update()
         {
             float delta = Time.deltaTime;
+
             isInteracting = anim.GetBool("isInteracting");
             canDoCombo = anim.GetBool("canDoCombo");
             anim.SetBool("isInAir", isInAir);
@@ -60,7 +80,7 @@ namespace Midir
 
             if (playerStats.canUseStamina)
             {
-                playerLocomotion.HandleRollingAndSprinting(delta);
+                playerLocomotion.HandleRollingAndSprinting();
             }
 
             CheckForInteractableObject();
@@ -71,7 +91,7 @@ namespace Midir
             float delta = Time.fixedDeltaTime;
 
             playerLocomotion.HandleMovement(delta);
-            playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
+            playerLocomotion.HandleFalling(playerLocomotion.moveDirection);
             
         }
 
@@ -112,7 +132,7 @@ namespace Midir
 
             if (Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
             {
-                if (hit.collider.tag == "Interactable")
+                if (hit.collider.CompareTag("Interactable"))
                 {
                     Interactable interactableObject = hit.collider.GetComponent<Interactable>();
 

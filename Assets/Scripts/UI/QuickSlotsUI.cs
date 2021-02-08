@@ -7,7 +7,8 @@ namespace Midir
 {
     public class QuickSlotsUI : MonoBehaviour
     {
-        public Image leftWeaponIcon, rightWeaponIcon;
+        [SerializeField] 
+        private Image leftWeaponIcon, rightWeaponIcon;
 
         public void UpdateWeaponQuickSlotsUI(bool isLeft, WeaponItem weapon)
         {

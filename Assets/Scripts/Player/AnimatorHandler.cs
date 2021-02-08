@@ -6,18 +6,20 @@ namespace Midir
 {
     public class AnimatorHandler : AnimatorManager
     {
-        PlayerManager playerManager;
-        InputHandler inputHandler;
-        PlayerLocomotion playerLocomotion;
-        int vertical, horizontal;
+        private PlayerManager playerManager;
+        private PlayerLocomotion playerLocomotion;
+
+        private int vertical, horizontal;
+
         public bool canRotate;
 
         public void Initialize()
         {
             playerManager = GetComponentInParent<PlayerManager>();
-            anim = GetComponent<Animator>();
-            inputHandler = GetComponentInParent<InputHandler>();
             playerLocomotion = GetComponentInParent<PlayerLocomotion>();
+
+            anim = GetComponent<Animator>();
+
             vertical = Animator.StringToHash("Vertical");
             horizontal = Animator.StringToHash("Horizontal");
         }
@@ -25,7 +27,7 @@ namespace Midir
         public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting)
         {
             #region Vertical
-            float v = 0;
+            float v;
 
             if (verticalMovement > 0 && verticalMovement < 0.55f)
             {
@@ -50,7 +52,7 @@ namespace Midir
             #endregion
 
             #region Horizontal
-            float h = 0;
+            float h;
 
             if (horizontalMovement > 0 && horizontalMovement < 0.55f)
             {

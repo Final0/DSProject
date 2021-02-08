@@ -6,12 +6,14 @@ namespace Midir
 {
     public class WeaponHolderSlot : MonoBehaviour
     {
-        public Transform parentOverride;
         public WeaponItem currentWeapon;
-        public bool isLeftHandSlot, isRightHandSlot;
-        public bool isBackSlot;
+
+        [SerializeField]
+        private Transform parentOverride;
 
         public GameObject currentWeaponModel;
+
+        public bool isLeftHandSlot, isRightHandSlot, isBackSlot;
 
         public void UnloadWeapon()
         {
@@ -39,7 +41,8 @@ namespace Midir
                 return;
             }
 
-            GameObject model = Instantiate(weaponItem.modelPrefab) as GameObject;
+            GameObject model = Instantiate(weaponItem.modelPrefab);
+
             if (model != null)
             {
                 if (parentOverride != null)

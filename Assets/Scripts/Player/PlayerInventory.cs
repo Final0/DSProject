@@ -6,7 +6,7 @@ namespace Midir
 {
     public class PlayerInventory : MonoBehaviour
     {
-        WeaponSlotManager weaponSlotManager;
+        private WeaponSlotManager weaponSlotManager;
 
         public SpellItem currentSpell;
 

@@ -7,7 +7,8 @@ namespace Midir
 {
     public class FocusPointBar : MonoBehaviour
     {
-        public Slider slider;
+        [SerializeField]
+        private Slider slider;
 
         private void Start()
         {

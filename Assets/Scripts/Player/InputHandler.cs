@@ -6,26 +6,33 @@ namespace Midir
 {
     public class InputHandler : MonoBehaviour
     {
+        [HideInInspector]
         public float horizontal, vertical, moveAmount, mouseX, mouseY, rollInputTimer;
 
+        [HideInInspector]
         public bool b_Input, a_Input, y_Input, rb_Input, rt_Input, jump_Input, inventory_Input, lockOnInput, right_Stick_Right_Input;
+
+        [HideInInspector]
         public bool right_Stick_Left_Input;
+
+        [HideInInspector]
         public bool d_Pad_Up, d_Pad_Right, d_Pad_Down, d_Pad_Left;
+
+        [HideInInspector]
         public bool rollFlag, twoHandFlag, sprintFlag, comboFlag, inventoryFlag, lockOnFlag;
 
-        PlayerControls inputActions;
-        PlayerLocomotion playerLocomotion;
-        PlayerAttacker playerAttacker;
-        PlayerInventory playerInventory;
-        PlayerManager playerManager;
-        WeaponSlotManager weaponSlotManager;
-        CameraHandler cameraHandler;
-        UIManager uiManager;
-        PlayerStats playerStats;
-        AnimatorHandler animatorHandler;
-        WeaponHolderSlot weaponHolderSlot;
+        private PlayerControls inputActions;
+        private PlayerLocomotion playerLocomotion;
+        private PlayerAttacker playerAttacker;
+        private PlayerInventory playerInventory;
+        private PlayerManager playerManager;
+        private WeaponSlotManager weaponSlotManager;
+        private CameraHandler cameraHandler;
+        private UIManager uiManager;
+        private PlayerStats playerStats;
+        private WeaponHolderSlot weaponHolderSlot;
 
-        Vector2 movementInput, cameraInput;
+        private Vector2 movementInput, cameraInput;
 
         private void Awake()
         {
@@ -37,16 +44,15 @@ namespace Midir
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             playerStats = FindObjectOfType<PlayerStats>();
-            animatorHandler = GetComponentInChildren<AnimatorHandler>();
             weaponHolderSlot = FindObjectOfType<WeaponHolderSlot>();
         }
 
-        //Si le joueur est actif, je detecte la valeur de l'input (dans l'input action) pour pouvoir bouger le perso et la caméra.
-        public void OnEnable()
+        private void OnEnable()
         {
             if (inputActions == null)
             {
                 inputActions = new PlayerControls();
+
                 inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
                 inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
                 inputActions.PlayerActions.RB.performed += i => rb_Input = true;
@@ -72,16 +78,16 @@ namespace Midir
 
         public void TickInput(float delta)
         {
-            HandleMoveInput(delta);
+            HandleMoveInput();
             HandleRollInput(delta);
-            HandleAttackInput(delta);
+            HandleAttackInput();
             HandleQuickSlotsInput();
             HandleInventoryInput();
             HandleLockOnInput();
             HandleTwoHandInput();
         }
 
-        private void HandleMoveInput(float delta)
+        private void HandleMoveInput()
         {
             horizontal = movementInput.x;
             vertical = movementInput.y;
@@ -114,7 +120,7 @@ namespace Midir
             }
         }
 
-        private void HandleAttackInput(float delta)
+        private void HandleAttackInput()
         {
             if ((playerManager.isInteracting && !playerManager.canDoCombo) || !playerStats.canUseStamina)
                 return;

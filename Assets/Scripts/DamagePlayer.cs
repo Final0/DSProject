@@ -6,7 +6,8 @@ namespace Midir
 {
     public class DamagePlayer : MonoBehaviour
     {
-        public int damage = 25;
+        [SerializeField]
+        private int damage = 25;
 
         private void OnTriggerEnter(Collider other)
         {

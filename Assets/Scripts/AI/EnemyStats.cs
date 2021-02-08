@@ -6,14 +6,14 @@ namespace Midir
 {
     public class EnemyStats : CharacterStats
     {
-        Animator animator;
+        private Animator animator;
 
         private void Awake()
         {
-            animator = GetComponentInChildren<Animator>();
+            animator = GetComponent<Animator>();
         }
 
-        void Start()
+        private void Start()
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
@@ -30,7 +30,7 @@ namespace Midir
             if (isDead)
                 return;
 
-            currentHealth = currentHealth - damage;
+            currentHealth -= damage;
 
             animator.Play("Damage_01");
 

@@ -6,16 +6,8 @@ namespace Midir
 {
     public class EnemyLocomotionManager : MonoBehaviour
     {
-        EnemyManager enemyManager;
-        EnemyAnimatorManager enemyAnimatorManager;
-
-        public CapsuleCollider characterCollider, characterCollisionBlockerCollider;
-
-        private void Awake()
-        {
-            enemyManager = GetComponent<EnemyManager>();
-            enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
-        }
+        [SerializeField]
+        private CapsuleCollider characterCollider, characterCollisionBlockerCollider;
 
         private void Start()
         {

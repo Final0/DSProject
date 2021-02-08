@@ -34,5 +34,6 @@ namespace Midir
         public bool isFaithCaster;
         public bool isPyroCaster;
         public bool isMeleeWeapon;
+        public bool isDistantWeapon;
     }
 }

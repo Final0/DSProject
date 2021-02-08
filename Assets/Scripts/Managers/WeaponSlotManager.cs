@@ -7,30 +7,33 @@ namespace Midir
 {
     public class WeaponSlotManager : MonoBehaviour
     {
-        PlayerManager playerManager;
         public WeaponItem attackingWeapon;
 
-        WeaponHolderSlot leftHandSlot, rightHandSlot, backSlot;
+        private PlayerManager playerManager;
+        
+        private WeaponHolderSlot leftHandSlot, rightHandSlot, backSlot;
 
-        DamageCollider leftHandDamageCollider, rightHandDamageCollider;
+        private DamageCollider leftHandDamageCollider, rightHandDamageCollider;
 
-        Animator animator;
+        private QuickSlotsUI quickSlotsUI;
 
-        QuickSlotsUI quickSlotsUI;
+        private PlayerStats playerStats;
 
-        PlayerStats playerStats;
+        private InputHandler inputHandler;
 
-        InputHandler inputHandler;
+        private Animator animator;
 
         private void Awake()
         {
-            playerManager = GetComponentInParent<PlayerManager>();
-            animator = GetComponent<Animator>();
             quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
             playerStats = GetComponentInParent<PlayerStats>();
             inputHandler = GetComponentInParent<InputHandler>();
+            playerManager = GetComponentInParent<PlayerManager>();
 
+            animator = GetComponent<Animator>();
+            
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
+
             foreach(WeaponHolderSlot weaponSlot in weaponHolderSlots)
             {
                 if (weaponSlot.isLeftHandSlot)
@@ -123,7 +126,7 @@ namespace Midir
         public void CloseHandDamageCollider()
         {
             rightHandDamageCollider.DisableDamageCollider();
-            leftHandDamageCollider.DisableDamageCollider();
+            //leftHandDamageCollider.DisableDamageCollider();
         }
         #endregion
 

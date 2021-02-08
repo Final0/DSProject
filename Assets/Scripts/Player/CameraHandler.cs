@@ -6,8 +6,8 @@ namespace Midir
 {
     public class CameraHandler : MonoBehaviour
     {
-        InputHandler inputHandler;
-        PlayerManager playerManager;
+        private InputHandler inputHandler;
+        private PlayerManager playerManager;
 
         public Transform targetTransform, cameraTransform, cameraPivotTransform, nearestLockOnTarget, currentLockOnTarget;
         public Transform leftLockTarget, rightLockTarget;
@@ -70,8 +70,6 @@ namespace Midir
             }
             else
             {
-                float velocity = 0;
-
                 Vector3 dir = currentLockOnTarget.position - transform.position;
                 dir.Normalize();
                 dir.y = 0;
@@ -103,7 +101,6 @@ namespace Midir
                     float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
                     targetPosition = -(dis - cameraCollisionOffSet);
                 }
-                
             }
 
             if (Mathf.Abs(targetPosition) < minimumCollsionOffSet)
@@ -141,11 +138,7 @@ namespace Midir
                         {
                             Debug.DrawLine(playerManager.lockOnTransform.position, character.lockOnTransform.position);
 
-                            if (hit.transform.gameObject.layer == enviromentLayer)
-                            {
-
-                            }
-                            else
+                            if (hit.transform.gameObject.layer != enviromentLayer)
                             {
                                 availableTargets.Add(character);
                             }
@@ -167,8 +160,8 @@ namespace Midir
                 if (inputHandler.lockOnFlag)
                 {
                     Vector3 relativeEnemyPosition = currentLockOnTarget.InverseTransformPoint(availableTargets[j].transform.position);
-                    var distanceFromLeftTarget = currentLockOnTarget.transform.position.x - availableTargets[j].transform.position.x;
-                    var distanceFromRightTarget = currentLockOnTarget.transform.position.x + availableTargets[j].transform.position.x;
+                    float distanceFromLeftTarget = currentLockOnTarget.transform.position.x - availableTargets[j].transform.position.x;
+                    float distanceFromRightTarget = currentLockOnTarget.transform.position.x + availableTargets[j].transform.position.x;
 
                     if (relativeEnemyPosition.x > 0.00 && distanceFromLeftTarget < shortestDistanceOfLeftTarget)
                     {

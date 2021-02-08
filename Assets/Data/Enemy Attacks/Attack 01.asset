@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d683f22a2953e4288ab17509da3261, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f7fcff8e1392334f950e2be0887d222, type: 3}
   m_Name: Attack 01
   m_EditorClassIdentifier: 
   actionAnimation: OH_Light_Attack_Enemy_01
-  attackScore: 3
-  recoveryTime: 2
-  maximumAttackAngle: 35
-  minimumAttackAngle: -35
-  minimumDistanceNeededToAttack: 0
-  maximumDistanceNeededToAttack: 3

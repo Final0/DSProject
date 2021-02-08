@@ -6,12 +6,13 @@ namespace Midir
 {
     public class CharacterStats : MonoBehaviour
     {
-        public int healthLevel = 10, maxHealth, currentHealth, staminaLevel = 10; 
-        public float currentStamina, maxStamina;
+        public int healthLevel = 10, maxHealth, currentHealth; 
+
+        public float staminaLevel = 10, maxStamina, currentStamina;
 
         public int focusLevel = 10;
-        public float maxFocusPoints;
-        public float currentFocusPoints;
+
+        public float maxFocusPoints, currentFocusPoints;
 
         public bool isDead;
     }
