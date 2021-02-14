@@ -8,15 +8,21 @@ namespace Midir
     {
         private Animator animator;
 
+        private BossHealthBar bossHealthBar;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
+
+            bossHealthBar = FindObjectOfType<BossHealthBar>();
         }
 
         private void Start()
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
+            bossHealthBar.SetMaxHealth(maxHealth);
+            bossHealthBar.SetCurrentHealth(currentHealth);
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -31,6 +37,8 @@ namespace Midir
                 return;
 
             currentHealth -= damage;
+
+            bossHealthBar.SetCurrentHealth(currentHealth);
 
             animator.Play("Damage_01");
 

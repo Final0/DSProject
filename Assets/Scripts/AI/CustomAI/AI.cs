@@ -22,16 +22,27 @@ namespace AI.CustomAI
         [SerializeField]
         private float timeBetweenAttacks;
 
+        private float moveAsideSpeed = 0.4f;
+
         private bool alreadyAttacked;
 
         public EnemyAction[] enemyAttacks;
         private EnemyAction currentAttack;
 
-        public enum Behaviour
+        private float timer;
+        private int randomTimer;
+        private bool canAttack = true;
+
+        private EnemyStats enemyStats;
+
+        private PlayerStats playerStats;
+
+        private enum Behaviour
         {
             Idle,
             Persue,
             Combat,
+            Dead,
         }
 
         private Behaviour behaviour = Behaviour.Idle;
@@ -42,7 +53,9 @@ namespace AI.CustomAI
             _agent = GetComponent<NavMeshAgent>();
             player = FindObjectOfType<PlayerLocomotion>().transform;
             rb = GetComponent<Rigidbody>();
-            
+
+            enemyStats = GetComponent<EnemyStats>();
+            playerStats = FindObjectOfType<PlayerStats>();
         }
 
         #region Distances To trigger next Behaviour
@@ -84,6 +97,18 @@ namespace AI.CustomAI
         
         private void Update()
         {
+            if (enemyStats.isDead)
+            {
+                behaviour = Behaviour.Dead;
+                Invoke(nameof(DestroyEnemy), 3f);
+            }
+
+            if (playerStats.isDead)
+                return;
+
+            if (enemyStats.currentHealth <= enemyStats.maxHealth / 2)
+                SecondPhase();
+
             switch (behaviour)
             {
                 case Behaviour.Idle:
@@ -100,9 +125,19 @@ namespace AI.CustomAI
             }
         }
 
+        private void DestroyEnemy()
+        {
+            Destroy(gameObject);
+        }
+
         private void SetState(Behaviour state)
         {
             behaviour = state;
+        }
+
+        private void ResetAttackTimer()
+        {
+            canAttack = true;
         }
         
         private void Idle()
@@ -117,6 +152,7 @@ namespace AI.CustomAI
         {
             if (InRangeToEnterInCombat())
             {
+                moveAsideSpeed = -moveAsideSpeed;
                 SetState(Behaviour.Combat);
             }
 
@@ -125,11 +161,13 @@ namespace AI.CustomAI
                 SetState(Behaviour.Idle);
             }
 
-            // TODO 
             transform.LookAt(player);
+            rb.velocity /= 2f;
 
             _animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
             _agent.SetDestination(player.position);
+
+            _animator.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
         }
 
         private void Combat()
@@ -139,22 +177,54 @@ namespace AI.CustomAI
                 SetState(Behaviour.Persue);
             }
 
-            // TODO
-            _animator.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
+            _animator.SetFloat("Vertical", 0, 1f, Time.deltaTime);
             rb.velocity = Vector3.zero;
 
-            transform.LookAt(player);
+            _animator.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
 
-            if (!alreadyAttacked)
+            if (Vector3.Distance(transform.position, player.position) <= DistanceToEnterInFight)
             {
-                alreadyAttacked = true;
-                Attack();
+                _agent.destination = player.position;
+                _agent.stoppingDistance = DistanceToEnterInFight;
             }
+
+            Vector3 direction = player.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 3f * Time.deltaTime);
+
+            if (canAttack)
+            {
+                canAttack = false;
+
+                randomTimer = UnityEngine.Random.Range(1, 5);
+
+                Invoke(nameof(ResetAttackTimer), randomTimer);
+            }
+
+            timer += Time.deltaTime;
+
+            if (timer >= randomTimer)
+            {
+                timer = 0;
+
+                if (!alreadyAttacked)
+                {
+                    alreadyAttacked = true;
+                    Attack();    
+                }
+            }
+        }
+
+        private int nbAttackUsed = 2;
+
+        private void SecondPhase()
+        {
+            nbAttackUsed = 4;
         }
 
         private void Attack()
         {
-            int i = UnityEngine.Random.Range(0, enemyAttacks.Length);
+            int i = UnityEngine.Random.Range(0, nbAttackUsed);
 
             EnemyAction enemyAttackAction = enemyAttacks[i];
 

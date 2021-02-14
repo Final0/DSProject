@@ -17,9 +17,6 @@ namespace Midir
         private string lastAttack;
 
         [SerializeField]
-        private GameObject arrowP;
-
-        [SerializeField]
         private GameObject rightHand;
 
         private void Awake()
@@ -93,10 +90,6 @@ namespace Midir
             {
                 PerformRBMagicAction(playerInventory.rightWeapon);
             }
-            else if (playerInventory.rightWeapon.isDistantWeapon)
-            {
-                PerformRBDistantAction();
-            }
         }
 
         #endregion
@@ -115,18 +108,6 @@ namespace Midir
                 animatorHandler.anim.SetBool("isUsingRightHand", true);
                 HandleLightAttack(playerInventory.rightWeapon);
             }
-        }
-
-        private void PerformRBDistantAction()
-        {
-            if (playerManager.isInteracting)
-                return;
-
-             GameObject arrow = Instantiate(arrowP, rightHand.transform.position, Quaternion.identity);
-            arrow.GetComponent<Rigidbody>().velocity = transform.forward;
-
-             animatorHandler.PlayTargetAnimation("ShootArrow", true);
-
         }
 
         private void PerformRBMagicAction(WeaponItem weapon)

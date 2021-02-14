@@ -53058,14 +53058,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.6666667
-    functionName: CloseHandDamageCollider
+    functionName: EnableCombo
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6666667
-    functionName: EnableCombo
+  - time: 0.73333335
+    functionName: CloseHandDamageCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
