@@ -34,10 +34,10 @@ namespace Midir
         [HideInInspector]
         public bool canDoCombo;
 
-        [HideInInspector]
+        //[HideInInspector]
         public bool isUsingRightHand;
 
-        [HideInInspector]
+        //[HideInInspector]
         public bool isUsingLeftHand;
 
         [HideInInspector]
@@ -128,9 +128,7 @@ namespace Midir
 
         public void CheckForInteractableObject()
         {
-            RaycastHit hit;
-
-            if (Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
+            if (Physics.SphereCast(transform.position, 0.3f, transform.forward, out RaycastHit hit, 1f, cameraHandler.ignoreLayers))
             {
                 if (hit.collider.CompareTag("Interactable"))
                 {

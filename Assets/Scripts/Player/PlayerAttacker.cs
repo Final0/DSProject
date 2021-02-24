@@ -92,6 +92,14 @@ namespace Midir
             }
         }
 
+        public void HandleRTAction()
+        {
+            if (playerInventory.rightWeapon.isMeleeWeapon)
+            {
+                PerformRTMeleeAction();
+            }
+        }
+
         #endregion
 
         #region Attack Actions
@@ -108,6 +116,12 @@ namespace Midir
                 animatorHandler.anim.SetBool("isUsingRightHand", true);
                 HandleLightAttack(playerInventory.rightWeapon);
             }
+        }
+
+        private void PerformRTMeleeAction()
+        {
+            animatorHandler.anim.SetBool("isUsingRightHand", true);
+            HandleHeavyAttack(playerInventory.rightWeapon);
         }
 
         private void PerformRBMagicAction(WeaponItem weapon)
