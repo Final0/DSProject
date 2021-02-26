@@ -15,14 +15,18 @@ namespace Midir
         [Range (0, 1f)] [SerializeField]
         private float DistanceToGround;
 
+        private InputHandler inputHandler;
+
         private void Start()
         {
             anim = GetComponent<Animator>();
+
+            inputHandler = GetComponentInParent<InputHandler>();
         }
 
         private void OnAnimatorIK()
         {
-            if (anim)
+            if (anim && !inputHandler.lockOnFlag)
             {
                 anim.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
                 anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1f);
@@ -57,6 +61,14 @@ namespace Midir
                     }
                 }
             }
+            /*else
+            {
+                anim.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 0f);
+                anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 0f);
+
+                anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, 0f);
+                anim.SetIKRotationWeight(AvatarIKGoal.RightFoot, 0f);
+            }*/
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Midir
 {
-    public class EnemyLocomotionManager : MonoBehaviour
+    public class EnemyLocomotionManager : CharacterManager
     {
         [SerializeField]
         private CapsuleCollider characterCollider, characterCollisionBlockerCollider;

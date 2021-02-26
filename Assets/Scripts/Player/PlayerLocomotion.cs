@@ -220,11 +220,10 @@ namespace Midir
         public void HandleFalling(Vector3 moveDirection)
         {
             playerManager.isGrounded = false;
-            RaycastHit hit;
             Vector3 origin = myTransform.position;
             origin.y += groundDetectionRayStartPoint;
 
-            if (Physics.Raycast(origin, myTransform.forward, out hit, 0.4f))
+            if (Physics.Raycast(origin, myTransform.forward, out RaycastHit hit, 0.4f))
             {
                 moveDirection = Vector3.zero;
             }

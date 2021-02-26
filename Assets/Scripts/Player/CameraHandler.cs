@@ -41,6 +41,15 @@ namespace Midir
             enviromentLayer = LayerMask.NameToLayer("Environment");
         }
 
+        private void Update()
+        {
+            if (currentLockOnTarget == null)
+            {
+                inputHandler.lockOnFlag = false;
+                ClearLockOnTargets();
+            }
+                
+        }
         public void FollowTarget(float delta)
         {
             Vector3 targetPosition = Vector3.SmoothDamp(myTransform.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
@@ -90,11 +99,10 @@ namespace Midir
         private void HandleCameraCollision(float delta)
         {
             targetPosition = defaultPosition;
-            RaycastHit hit;
             Vector3 direction = cameraTransform.position - cameraPivotTransform.position;
             direction.Normalize();
 
-            if (Physics.SphereCast(cameraPivotTransform.position, cameraSphereRadius, direction, out hit, Mathf.Abs(targetPosition), ignoreLayers))
+            if (Physics.SphereCast(cameraPivotTransform.position, cameraSphereRadius, direction, out RaycastHit hit, Mathf.Abs(targetPosition), ignoreLayers))
             {
                 if (!hit.collider.CompareTag("Player"))
                 {
@@ -130,11 +138,9 @@ namespace Midir
                     float distanceFromTarget = Vector3.Distance(targetTransform.position, character.transform.position);
                     float viewableAngle = Vector3.Angle(lockTargetDirection, cameraTransform.forward);
 
-                    RaycastHit hit;
-
                     if (character.transform.root != targetTransform.transform.root && viewableAngle > -50 && viewableAngle < 50 && distanceFromTarget <= maximumLockOnDistance)
                     {
-                        if (Physics.Linecast(playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
+                        if (Physics.Linecast(playerManager.lockOnTransform.position, character.lockOnTransform.position, out RaycastHit hit))
                         {
                             Debug.DrawLine(playerManager.lockOnTransform.position, character.lockOnTransform.position);
 

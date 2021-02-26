@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf31707d036cea84e96b910f6e6af8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockOnTransform: {fileID: 910611154}
   characterCollider: {fileID: 4319649969867277096}
   characterCollisionBlockerCollider: {fileID: 1115449304}
 --- !u!4 &760870041 stripped

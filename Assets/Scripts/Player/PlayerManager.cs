@@ -34,10 +34,10 @@ namespace Midir
         [HideInInspector]
         public bool canDoCombo;
 
-        //[HideInInspector]
+        [HideInInspector]
         public bool isUsingRightHand;
 
-        //[HideInInspector]
+        [HideInInspector]
         public bool isUsingLeftHand;
 
         [HideInInspector]
