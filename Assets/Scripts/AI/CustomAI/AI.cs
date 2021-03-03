@@ -123,6 +123,8 @@ namespace AI.CustomAI
                     Combat();
                     break;
             }
+
+            enemyStats.CancelDelai();
         }
 
         private void DestroyEnemy()
@@ -220,6 +222,7 @@ namespace AI.CustomAI
         private void SecondPhase()
         {
             nbAttackUsed = 4;
+            enemyStats.canCancel = false;
         }
 
         private void Attack()

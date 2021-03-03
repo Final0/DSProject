@@ -60347,6 +60347,28 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 178092524}
+    - target: {fileID: 3127758959129071868, guid: 8feacbf8aee740c458e1768ededb9ce5,
+        type: 3}
+      propertyPath: weaponsInLeftHandSlots.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127758959129071868, guid: 8feacbf8aee740c458e1768ededb9ce5,
+        type: 3}
+      propertyPath: weaponsInRightHandSlots.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127758959129071868, guid: 8feacbf8aee740c458e1768ededb9ce5,
+        type: 3}
+      propertyPath: weaponsInLeftHandSlots.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50,
+        type: 2}
+    - target: {fileID: 3127758959129071868, guid: 8feacbf8aee740c458e1768ededb9ce5,
+        type: 3}
+      propertyPath: weaponsInRightHandSlots.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8feacbf8aee740c458e1768ededb9ce5, type: 3}
 --- !u!114 &7354912379016813572 stripped

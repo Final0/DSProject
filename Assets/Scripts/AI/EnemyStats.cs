@@ -10,6 +10,12 @@ namespace Midir
 
         private BossHealthBar bossHealthBar;
 
+        public bool canCancel = false;
+
+        private float timerCancel = 0f;
+
+        private int hitCombo = 0;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -33,6 +39,8 @@ namespace Midir
 
         public void TakeDamage(int damage)
         {
+            hitCombo++;
+
             if (isDead)
                 return;
 
@@ -40,13 +48,28 @@ namespace Midir
 
             bossHealthBar.SetCurrentHealth(currentHealth);
 
-            animator.Play("Damage_01");
+            if(canCancel)
+                animator.Play("Damage_01");
 
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 animator.Play("Death_01");
                 isDead = true;
+            }
+        }
+
+        public void CancelDelai()
+        {
+            timerCancel += Time.deltaTime;
+
+            if (hitCombo == 1)
+                canCancel = true;
+            else if (timerCancel >= 5f)
+            {
+                canCancel = false;
+                timerCancel = 0f;
+                hitCombo = 0;
             }
         }
     }

@@ -78,10 +78,7 @@ namespace Midir
             playerLocomotion.HandleJumping();
             playerStats.RegenStamina();
 
-            if (playerStats.canUseStamina)
-            {
-                playerLocomotion.HandleRollingAndSprinting();
-            }
+            playerLocomotion.HandleRollingAndSprinting();
 
             CheckForInteractableObject();
         }

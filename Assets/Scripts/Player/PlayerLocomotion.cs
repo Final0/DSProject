@@ -147,13 +147,23 @@ namespace Midir
 
             float speed = movementSpeed;
 
-            if(inputHandler.sprintFlag && inputHandler.moveAmount > 0.5 && playerStats.canUseStamina)
+            if(inputHandler.sprintFlag && inputHandler.moveAmount > 0.5)
             {
-                speed = sprintSpeed;
-                playerManager.isSprinting = true;
-                moveDirection *= speed;
+                if (playerStats.currentStamina >= 0)
+                {
+                    speed = sprintSpeed;
+                    playerManager.isSprinting = true;
+                    moveDirection *= speed;
 
-                playerStats.currentStamina -= Time.deltaTime * runningStamina;
+                    playerStats.currentStamina -= Time.deltaTime * runningStamina;
+                }
+                else
+                {
+                    inputHandler.sprintFlag = false;
+                    playerManager.isSprinting = false;
+                    moveDirection *= walkingSpeed;
+                    return;
+                }                   
             }
             else
             {
@@ -304,25 +314,22 @@ namespace Midir
 
         public void HandleJumping()
         {
-            if (playerStats.canUseStamina)
+            if (playerManager.isInteracting || jumpingStamina > playerStats.currentStamina)
+                return;
+
+            if (inputHandler.jump_Input)
             {
-                if (playerManager.isInteracting || jumpingStamina > playerStats.currentStamina)
-                    return;
-
-                if (inputHandler.jump_Input)
+                if (inputHandler.moveAmount > 0)
                 {
-                    if (inputHandler.moveAmount > 0)
-                    {
-                        playerStats.currentStamina -= jumpingStamina;
-                        staminaBar.SetCurrentStamina(playerStats.currentStamina);
+                    playerStats.currentStamina -= jumpingStamina;
+                    staminaBar.SetCurrentStamina(playerStats.currentStamina);
 
-                        moveDirection = cameraObject.forward * inputHandler.vertical;
-                        moveDirection += cameraObject.right * inputHandler.horizontal;
-                        animatorHandler.PlayTargetAnimation("Jump", true);
-                        moveDirection.y = 0;
-                        Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
-                        myTransform.rotation = jumpRotation;
-                    }
+                    moveDirection = cameraObject.forward * inputHandler.vertical;
+                    moveDirection += cameraObject.right * inputHandler.horizontal;
+                    animatorHandler.PlayTargetAnimation("Jump", true);
+                    moveDirection.y = 0;
+                    Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
+                    myTransform.rotation = jumpRotation;
                 }
             }
         }

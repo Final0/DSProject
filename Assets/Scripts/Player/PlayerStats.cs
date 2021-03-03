@@ -16,8 +16,6 @@ namespace Midir
         [SerializeField]
         private float staminaRegenerationAmount = 1, staminaRegenTimer = 0f;
 
-        public bool canUseStamina = true;
-
         private void Awake()
         {
             healthBar = FindObjectOfType<HealthBar>();
@@ -46,11 +44,6 @@ namespace Midir
             focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
 
             InvokeRepeating(nameof(RegenStamina), 0f, 1f);
-        }
-
-        private void Update()
-        {
-            NoStamina();
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -116,14 +109,6 @@ namespace Midir
             }
         }
 
-        public void NoStamina()
-        {
-            if (currentStamina <= 0)
-            {
-                StartCoroutine(nameof(NoStaminaAction));
-            }
-        }
-
         public void HealPlayer(int healAmount)
         {
             currentHealth += healAmount;
@@ -142,17 +127,6 @@ namespace Midir
                 currentFocusPoints = 0;
 
             focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
-        }
-
-        private IEnumerator NoStaminaAction()
-        {   
-            currentStamina = 0;
-
-            canUseStamina = false;
-
-            yield return new WaitForSeconds(3f);
-
-            canUseStamina = true;
         }
     }
 }

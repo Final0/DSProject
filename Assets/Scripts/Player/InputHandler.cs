@@ -122,7 +122,7 @@ namespace Midir
 
         private void HandleAttackInput()
         {
-            if ((playerManager.isInteracting && !playerManager.canDoCombo) || !playerStats.canUseStamina)
+            if ((playerManager.isInteracting && !playerManager.canDoCombo))
                 return;
 
             if (rb_Input && weaponHolderSlot.currentWeapon.baseStamina * weaponHolderSlot.currentWeapon.lightAttackMultiplier < playerStats.currentStamina)
