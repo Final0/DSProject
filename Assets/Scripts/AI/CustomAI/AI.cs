@@ -134,6 +134,8 @@ namespace Midir
             enemyStats.CancelDelai();
 
             Ambush();
+
+            Debug.Log(Vector3.Distance(transform.position, player.transform.position));
         }
 
         private void DestroyEnemy()

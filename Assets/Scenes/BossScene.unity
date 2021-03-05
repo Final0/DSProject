@@ -3155,6 +3155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cba1d460b1b444a8885de94d05ed00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   DistanceToExitPersue: 60
   DistanceToTrigger: 80
   DistanceToEnterInFight: 5
@@ -3166,6 +3167,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52, type: 2}
   - {fileID: 11400000, guid: 3e51387c1a3b4e646bfe6ba9ab4b8c39, type: 2}
   - {fileID: 11400000, guid: 6a3717e8eef270143afb49c2e9edf30f, type: 2}
+  isSleeping: 0
 --- !u!195 &3977543869671585251
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3362,6 +3364,7 @@ MonoBehaviour:
   currentFocusPoints: 0
   isDead: 0
   canCancel: 0
+  isBoss: 1
 --- !u!114 &4319649970479165836
 MonoBehaviour:
   m_ObjectHideFlags: 0
