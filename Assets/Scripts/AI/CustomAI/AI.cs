@@ -3,9 +3,9 @@ using Midir;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace AI.CustomAI
+namespace Midir
 {
-    public class AI : MonoBehaviour
+    public class AI : EnemyAnimatorManager
     {
         public float DistanceToExitPersue = 60;
         public float DistanceToTrigger = 80;
@@ -37,6 +37,10 @@ namespace AI.CustomAI
 
         private PlayerStats playerStats;
 
+        private int nbAttackUsed = 2;
+
+        public bool isSleeping;
+
         private enum Behaviour
         {
             Idle,
@@ -56,6 +60,9 @@ namespace AI.CustomAI
 
             enemyStats = GetComponent<EnemyStats>();
             playerStats = FindObjectOfType<PlayerStats>();
+
+            if (isSleeping)
+                PlayTargetAnimation("Sleep", true);
         }
 
         #region Distances To trigger next Behaviour
@@ -106,7 +113,7 @@ namespace AI.CustomAI
             if (playerStats.isDead)
                 return;
 
-            if (enemyStats.currentHealth <= enemyStats.maxHealth / 2)
+            if (enemyStats.currentHealth <= enemyStats.maxHealth / 2 && enemyStats.isBoss)
                 SecondPhase();
 
             switch (behaviour)
@@ -125,6 +132,8 @@ namespace AI.CustomAI
             }
 
             enemyStats.CancelDelai();
+
+            Ambush();
         }
 
         private void DestroyEnemy()
@@ -217,8 +226,6 @@ namespace AI.CustomAI
             }
         }
 
-        private int nbAttackUsed = 2;
-
         private void SecondPhase()
         {
             nbAttackUsed = 4;
@@ -240,6 +247,15 @@ namespace AI.CustomAI
         private void ResetAttack()
         {
             alreadyAttacked = false;
+        }
+
+        private void Ambush()
+        {   
+            if (isSleeping && DetectEnemy() == true)
+            {
+                isSleeping = false;
+                PlayTargetAnimation("Wake", true);
+            }        
         }
     }
 }

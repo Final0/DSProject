@@ -4195,6 +4195,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086067826}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1194493144 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7681152407520196099, guid: e98053be5c868fa4fac360df4f1d556d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7218358721405389958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1338796038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4421,6 +4427,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1653160443 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1948602864, guid: e98053be5c868fa4fac360df4f1d556d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7218358721405389958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1672129034
 GameObject:
   m_ObjectHideFlags: 0
@@ -4635,6 +4647,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1757927032, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
+      propertyPath: lockOnTransform
+      value: 
+      objectReference: {fileID: 1653160443}
     - target: {fileID: 3977543868562093763, guid: e98053be5c868fa4fac360df4f1d556d,
         type: 3}
       propertyPath: m_Name
@@ -4697,9 +4713,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
         type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1194493144}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 638890432}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: isSleeping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: DistanceToTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: DistanceToExitFight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: DistanceToExitPersue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: DistanceToEnterInFight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
 --- !u!1001 &8232575029753377831

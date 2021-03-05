@@ -16,19 +16,26 @@ namespace Midir
 
         private int hitCombo = 0;
 
+        public bool isBoss = false;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
 
-            bossHealthBar = FindObjectOfType<BossHealthBar>();
+            if (isBoss)
+                bossHealthBar = FindObjectOfType<BossHealthBar>();
         }
 
         private void Start()
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
-            bossHealthBar.SetMaxHealth(maxHealth);
-            bossHealthBar.SetCurrentHealth(currentHealth);
+
+            if (isBoss)
+            {
+                bossHealthBar.SetMaxHealth(maxHealth);
+                bossHealthBar.SetCurrentHealth(currentHealth);
+            }  
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -46,7 +53,8 @@ namespace Midir
 
             currentHealth -= damage;
 
-            bossHealthBar.SetCurrentHealth(currentHealth);
+            if (isBoss)
+                bossHealthBar.SetCurrentHealth(currentHealth);
 
             if(canCancel)
                 animator.Play("Damage_01");
