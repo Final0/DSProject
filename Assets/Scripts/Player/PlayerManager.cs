@@ -111,8 +111,8 @@ namespace Midir
             {
                 cameraHandler.FollowTarget(delta);
 
-                float normalizeMouseXspeed = 1167 / (float)Screen.width;
-                float normalizeMouseYspeed = 579 / (float)Screen.height;
+                float normalizeMouseXspeed = 2f;//1167 / (float)Screen.width;
+                float normalizeMouseYspeed = 2f;//579 / (float)Screen.height;
                 
                 cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX * normalizeMouseXspeed, inputHandler.mouseY * normalizeMouseYspeed);
             }

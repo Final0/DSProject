@@ -41,6 +41,8 @@ namespace Midir
 
         public bool isSleeping;
 
+        private float speed, acceleration;
+
         private enum Behaviour
         {
             Idle,
@@ -63,6 +65,9 @@ namespace Midir
 
             if (isSleeping)
                 PlayTargetAnimation("Sleep", true);
+
+            speed = _agent.speed;
+            acceleration = _agent.acceleration;
         }
 
         #region Distances To trigger next Behaviour
@@ -134,8 +139,6 @@ namespace Midir
             enemyStats.CancelDelai();
 
             Ambush();
-
-            Debug.Log(Vector3.Distance(transform.position, player.transform.position));
         }
 
         private void DestroyEnemy()
@@ -158,7 +161,12 @@ namespace Midir
             if (DetectEnemy())
             {
                 SetState(Behaviour.Persue);
+
+                _agent.ResetPath();
             }
+
+            _animator.SetFloat("Vertical", 0, 1f, Time.deltaTime);
+            _agent.SetDestination(transform.position);
         }
 
         private void Persue()
@@ -174,13 +182,14 @@ namespace Midir
                 SetState(Behaviour.Idle);
             }
 
-            transform.LookAt(player);
-            rb.velocity /= 2f;
+            if (_agent.pathPending == false && _agent.path.corners.Length == 2)
+                transform.LookAt(player);
 
             _animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
-            _agent.SetDestination(player.position);
-
+            
             _animator.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+
+            _agent.SetDestination(player.position);
         }
 
         private void Combat()
@@ -191,15 +200,8 @@ namespace Midir
             }
 
             _animator.SetFloat("Vertical", 0, 1f, Time.deltaTime);
-            rb.velocity = Vector3.zero;
 
-            _animator.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, player.position) <= DistanceToEnterInFight)
-            {
-                _agent.destination = player.position;
-                _agent.stoppingDistance = DistanceToEnterInFight;
-            }
+            //_animator.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
 
             Vector3 direction = player.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
@@ -240,6 +242,8 @@ namespace Midir
 
             EnemyAction enemyAttackAction = enemyAttacks[i];
 
+            _agent.velocity = Vector3.zero;
+
             currentAttack = enemyAttackAction;
             _animator.Play(currentAttack.actionAnimation);
 
@@ -257,7 +261,23 @@ namespace Midir
             {
                 isSleeping = false;
                 PlayTargetAnimation("Wake", true);
-            }        
+            } 
+        }
+
+        public void ApplyRoot()
+        {
+            anim.applyRootMotion = true;
+
+            _agent.speed = 0;
+            _agent.acceleration = 0;
+        }
+
+        public void RemoveRoot()
+        {
+            anim.applyRootMotion = false;
+
+            _agent.speed = speed;
+            _agent.acceleration = acceleration;
         }
     }
 }
