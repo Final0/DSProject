@@ -6,6 +6,7 @@ namespace Midir
 {
     public class EnemyAnimatorManager : MonoBehaviour
     {
+        [HideInInspector]
         public Animator anim;
 
         public void PlayTargetAnimation(string targetAnim, bool isInteracting)

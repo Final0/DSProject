@@ -7,20 +7,20 @@ namespace Midir
 {
     public class AI : EnemyAnimatorManager
     {
-        public float DistanceToExitPersue = 60;
-        public float DistanceToTrigger = 80;
-        public float DistanceToEnterInFight = 20;
-        public float DistanceToExitFight = 40;
+        [SerializeField]
+        private float DistanceToTrigger = 80;
+
+        [SerializeField]
+        private float DistanceToEnterInFight = 20;
+
+        private float DistanceToExitPersue;
+        private float DistanceToExitFight;
         
-        private Animator _animator;
         private NavMeshAgent _agent;
         private Rigidbody rb;
 
         [SerializeField]
         private Transform player;
-
-        [SerializeField]
-        private float timeBetweenAttacks;
 
         private float moveAsideSpeed = 0.4f;
 
@@ -43,7 +43,10 @@ namespace Midir
 
         private float speed, acceleration;
 
-        private enum Behaviour
+        [HideInInspector]
+        public bool ambush;
+
+        public enum Behaviour
         {
             Idle,
             Persue,
@@ -51,11 +54,14 @@ namespace Midir
             Dead,
         }
 
-        private Behaviour behaviour = Behaviour.Idle;
+        public Behaviour behaviour = Behaviour.Idle;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
+            DistanceToExitPersue = DistanceToTrigger;
+            DistanceToExitFight = DistanceToEnterInFight;
+
+            anim = GetComponent<Animator>();
             _agent = GetComponent<NavMeshAgent>();
             player = FindObjectOfType<PlayerLocomotion>().transform;
             rb = GetComponent<Rigidbody>();
@@ -68,6 +74,12 @@ namespace Midir
 
             speed = _agent.speed;
             acceleration = _agent.acceleration;
+
+            arrayIndex[0] = nbAttackUsed + 1;
+            arrayIndex[1] = nbAttackUsed + 1;
+
+            _agent.stoppingDistance = DistanceToEnterInFight;
+            ambush = isSleeping;
         }
 
         #region Distances To trigger next Behaviour
@@ -81,7 +93,7 @@ namespace Midir
         
         private bool InRangeToEnterInCombat()
         {
-            return DistanceToPlayer() < DistanceToEnterInFight;
+            return DistanceToPlayer() < DistanceToEnterInFight && !ambush;
         }
         
         #endregion
@@ -165,7 +177,7 @@ namespace Midir
                 _agent.ResetPath();
             }
 
-            _animator.SetFloat("Vertical", 0, 1f, Time.deltaTime);
+            anim.SetFloat("Vertical", 0, 1f, Time.deltaTime);
             _agent.SetDestination(transform.position);
         }
 
@@ -182,12 +194,12 @@ namespace Midir
                 SetState(Behaviour.Idle);
             }
 
-            if (_agent.pathPending == false && _agent.path.corners.Length == 2)
+            if (_agent.pathPending == false && _agent.path.corners.Length == 2 && !ambush)
                 transform.LookAt(player);
 
-            _animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
-            
-            _animator.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+            anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+
+            anim.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
 
             _agent.SetDestination(player.position);
         }
@@ -199,9 +211,9 @@ namespace Midir
                 SetState(Behaviour.Persue);
             }
 
-            _animator.SetFloat("Vertical", 0, 1f, Time.deltaTime);
+            anim.SetFloat("Vertical", 0, 0.5f, Time.deltaTime);
 
-            //_animator.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
+            //anim.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
 
             Vector3 direction = player.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
@@ -211,7 +223,7 @@ namespace Midir
             {
                 canAttack = false;
 
-                randomTimer = UnityEngine.Random.Range(1, 5);
+                randomTimer = UnityEngine.Random.Range(0, 3);
 
                 Invoke(nameof(ResetAttackTimer), randomTimer);
             }
@@ -236,23 +248,37 @@ namespace Midir
             enemyStats.canCancel = false;
         }
 
+        private int[] arrayIndex = new int[2];
+
         private void Attack()
         {
             int i = UnityEngine.Random.Range(0, nbAttackUsed);
+
+            #region Avoid Attack Repetition
+            if (arrayIndex.Length == 0)
+                arrayIndex[0] = i;
+            else if (arrayIndex.Length == 1)
+                arrayIndex[1] = i;
+            else
+            {
+                if (arrayIndex[0] == arrayIndex[1] && arrayIndex[0] == i)
+                {
+                    while (i == arrayIndex[0])
+                        i = UnityEngine.Random.Range(0, nbAttackUsed);
+                }
+
+                arrayIndex[0] = arrayIndex[1];
+                arrayIndex[1] = i;
+            }
+            #endregion
+
 
             EnemyAction enemyAttackAction = enemyAttacks[i];
 
             _agent.velocity = Vector3.zero;
 
             currentAttack = enemyAttackAction;
-            _animator.Play(currentAttack.actionAnimation);
-
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        }
-
-        private void ResetAttack()
-        {
-            alreadyAttacked = false;
+            anim.Play(currentAttack.actionAnimation);
         }
 
         private void Ambush()
@@ -274,6 +300,10 @@ namespace Midir
 
         public void RemoveRoot()
         {
+            ambush = false;
+
+            alreadyAttacked = false;
+
             anim.applyRootMotion = false;
 
             _agent.speed = speed;

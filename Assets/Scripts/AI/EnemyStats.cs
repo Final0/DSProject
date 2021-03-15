@@ -4,11 +4,17 @@ using UnityEngine;
 
 namespace Midir
 {
-    public class EnemyStats : CharacterStats
+    public class EnemyStats : MonoBehaviour
     {
+        public int healthLevel = 10, maxHealth, currentHealth;
+
+        public bool isDead;
+
         private Animator animator;
 
         private BossHealthBar bossHealthBar;
+
+        private AI ai;
 
         public bool canCancel = false;
 
@@ -22,6 +28,8 @@ namespace Midir
         {
             animator = GetComponent<Animator>();
 
+            ai = GetComponent<AI>();
+            
             if (isBoss)
                 bossHealthBar = FindObjectOfType<BossHealthBar>();
         }
@@ -47,6 +55,8 @@ namespace Midir
         public void TakeDamage(int damage)
         {
             hitCombo++;
+
+            ai.ambush = false;
 
             if (isDead)
                 return;
