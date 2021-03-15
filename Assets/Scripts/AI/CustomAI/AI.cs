@@ -46,6 +46,8 @@ namespace Midir
         [HideInInspector]
         public bool ambush;
 
+        private int[] arrayIndex = new int[2];
+
         public enum Behaviour
         {
             Idle,
@@ -174,6 +176,9 @@ namespace Midir
             {
                 SetState(Behaviour.Persue);
 
+                if(enemyStats.isBoss)
+                    enemyStats.bossHealthBar.gameObject.SetActive(true);
+
                 _agent.ResetPath();
             }
 
@@ -247,8 +252,6 @@ namespace Midir
             nbAttackUsed = 4;
             enemyStats.canCancel = false;
         }
-
-        private int[] arrayIndex = new int[2];
 
         private void Attack()
         {

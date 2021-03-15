@@ -12,10 +12,12 @@ namespace Midir
 
         private Animator animator;
 
-        private BossHealthBar bossHealthBar;
+        [HideInInspector]
+        public BossHealthBar bossHealthBar;
 
         private AI ai;
 
+        [HideInInspector]
         public bool canCancel = false;
 
         private float timerCancel = 0f;
@@ -43,6 +45,8 @@ namespace Midir
             {
                 bossHealthBar.SetMaxHealth(maxHealth);
                 bossHealthBar.SetCurrentHealth(currentHealth);
+
+                bossHealthBar.gameObject.SetActive(false);
             }  
         }
 
