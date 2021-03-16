@@ -233,7 +233,7 @@ namespace Midir
             Vector3 origin = myTransform.position;
             origin.y += groundDetectionRayStartPoint;
 
-            if (Physics.Raycast(origin, myTransform.forward, out RaycastHit hit, 0.4f))
+            if (Physics.Raycast(origin, myTransform.forward, 0.4f))
             {
                 moveDirection = Vector3.zero;
             }
@@ -255,7 +255,7 @@ namespace Midir
             targetPosition = myTransform.position;
 
             Debug.DrawRay(origin, -Vector3.up * minimumDistanceNeededToBeginFall, Color.red, 0.1f, false);
-            if (Physics.Raycast(origin, -Vector3.up, out hit, minimumDistanceNeededToBeginFall, ignoreForGroundCheck))
+            if (Physics.Raycast(origin, -Vector3.up, out RaycastHit hit, minimumDistanceNeededToBeginFall, ignoreForGroundCheck))
             {
                 normalVector = hit.normal;
                 Vector3 tp = hit.point;

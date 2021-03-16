@@ -60,7 +60,7 @@ namespace Midir
 
         private void Awake()
         {
-            DistanceToExitPersue = DistanceToTrigger;
+            DistanceToExitPersue = DistanceToTrigger * 1.5f;
             DistanceToExitFight = DistanceToEnterInFight;
 
             anim = GetComponent<Animator>();
