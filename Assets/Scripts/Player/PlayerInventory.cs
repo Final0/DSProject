@@ -10,6 +10,7 @@ namespace Midir
 
         public SpellItem currentSpell;
 
+        [HideInInspector]
         public WeaponItem rightWeapon, leftWeapon, unarmedWeapon;
 
         public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[1], weaponsInLeftHandSlots = new WeaponItem[1];
@@ -25,8 +26,11 @@ namespace Midir
 
         private void Start()
         {
-            weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, false);
-            weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, true);
+            rightWeapon = weaponsInRightHandSlots[0];
+            leftWeapon = weaponsInLeftHandSlots[0];
+
+            weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+            weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         }
 
         public void ChangeRightWeapon()
@@ -59,7 +63,14 @@ namespace Midir
         {
             if (weaponsInLeftHandSlots.Length != 1)
                 currentLeftWeaponIndex += 1;
-            
+
+            if (currentLeftWeaponIndex > weaponsInLeftHandSlots.Length - 1 && currentLeftWeaponIndex != 0)
+            {
+                currentLeftWeaponIndex = 0;
+                leftWeapon = unarmedWeapon;
+                weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, true);
+            }
+
             if (currentLeftWeaponIndex == 0)
             {
                 leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
@@ -69,13 +80,6 @@ namespace Midir
             {
                 leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
                 weaponSlotManager.LoadWeaponOnSlot(weaponsInLeftHandSlots[currentLeftWeaponIndex], true);
-            }
-
-            if (currentLeftWeaponIndex > weaponsInLeftHandSlots.Length - 1 && currentLeftWeaponIndex != 0)
-            {
-                currentLeftWeaponIndex = 0;
-                leftWeapon = unarmedWeapon;
-                weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, true);
             }
         }
     }

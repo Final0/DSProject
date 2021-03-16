@@ -31,5 +31,10 @@ namespace Midir
         {
             playerStats.DeductFocusPoints(focusPointCost);
         }
+
+        public virtual void DestroySpell()
+        {
+
+        }
     }
 }

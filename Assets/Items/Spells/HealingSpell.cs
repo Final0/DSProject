@@ -9,6 +9,7 @@ namespace Midir
     public class HealingSpell : SpellItem
     {
         public int healAmount;
+        GameObject instantiatedSpellFX;
 
         public override void AttemptToCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
         {
@@ -19,9 +20,13 @@ namespace Midir
         public override void SuccessfullyCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
         {
             base.SuccessfullyCastSpell(animatorHandler, playerStats);
-            GameObject instantiatedSpellFX = Instantiate(spellCastFX, animatorHandler.transform);
+            instantiatedSpellFX = Instantiate(spellCastFX, animatorHandler.transform);
             playerStats.HealPlayer(healAmount);
+        }
 
+        public override void DestroySpell()
+        {
+            Destroy(instantiatedSpellFX);
         }
     }
 }

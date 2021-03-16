@@ -75,7 +75,6 @@ namespace Midir
             weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
             weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
 
-            uiManager.equipementWindowUI.LoadWeaponsOnEquipementScreen(playerInventory);
             uiManager.ResetAllSelectedSlots();
         }
     }

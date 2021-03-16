@@ -140,6 +140,16 @@ namespace Midir
                 }
             }
         }
+
+        public void SuccessfullyCastSpell()
+        {
+            playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
+        }
+
+        public void DestroySpell()
+        {
+            playerInventory.currentSpell.DestroySpell();
+        }
         #endregion
     }
 }

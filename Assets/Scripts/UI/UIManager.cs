@@ -9,8 +9,6 @@ namespace Midir
         [SerializeField] 
         private PlayerInventory playerInventory;
 
-        public EquipementWindowUI equipementWindowUI;
-
         [Header("UI Windows")]
         [SerializeField] private GameObject selectWindow;
         [SerializeField] private GameObject equipementScreenWindow;
@@ -38,7 +36,6 @@ namespace Midir
         private void Start()
         {
             weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
-            equipementWindowUI.LoadWeaponsOnEquipementScreen(playerInventory);
         }
 
         public void UpdateUi()

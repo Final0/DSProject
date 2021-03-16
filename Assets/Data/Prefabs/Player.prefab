@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8059499394991c64c9f6510793289b70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastAttack: 
+  rightHand: {fileID: 0}
 --- !u!114 &1909528483170532893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,6 @@ MonoBehaviour:
   myTransform: {fileID: 0}
   animatorHandler: {fileID: 0}
   rigidbody: {fileID: 0}
-  normalCamera: {fileID: 0}
   groundDetectionRayStartPoint: 0.5
   minimumDistanceNeededToBeginFall: 1
   groundDirectionRayDistance: 0.2
@@ -246,9 +245,7 @@ MonoBehaviour:
   sprintSpeed: 7
   rotationSpeed: 10
   fallingSpeed: 250
-  runningStamina: 20
   rollingStamina: 10
-  jumpingStamina: 15
   characterCollider: {fileID: 3127758959129071870}
   characterCollisionBlockerCollider: {fileID: 5582754778944595111}
 --- !u!114 &3127758959129071869
@@ -291,11 +288,13 @@ MonoBehaviour:
   leftWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   unarmedWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   weaponsInRightHandSlots:
-  - {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7, type: 2}
+  - {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
+  - {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   weaponsInLeftHandSlots:
-  - {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7, type: 2}
-  currentRightWeaponIndex: -1
-  currentLeftWeaponIndex: -1
+  - {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
+  - {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
+  currentRightWeaponIndex: 0
+  currentLeftWeaponIndex: 0
   weaponsInventory: []
 --- !u!114 &3127758959129071866
 MonoBehaviour:
@@ -313,13 +312,14 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   staminaLevel: 10
-  currentStamina: 0
   maxStamina: 0
+  currentStamina: 0
+  focusLevel: 10
+  maxFocusPoints: 0
+  currentFocusPoints: 0
   isDead: 0
-  healthBar: {fileID: 0}
   staminaRegenerationAmount: 10
   staminaRegenTimer: 0
-  canUseStamina: 1
 --- !u!1 &4020804409580063336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,12 +1578,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128e452221c0b6a49882b5cf5a2e079c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentOverride: {fileID: 5582754779490235584}
   currentWeapon: {fileID: 0}
+  parentOverride: {fileID: 5582754779490235584}
+  currentWeaponModel: {fileID: 0}
   isLeftHandSlot: 1
   isRightHandSlot: 0
   isBackSlot: 0
-  currentWeaponModel: {fileID: 0}
 --- !u!1 &4020804409580098306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2998,12 +2998,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128e452221c0b6a49882b5cf5a2e079c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentOverride: {fileID: 4020804409580410010}
   currentWeapon: {fileID: 0}
+  parentOverride: {fileID: 4020804409580410010}
+  currentWeaponModel: {fileID: 0}
   isLeftHandSlot: 0
   isRightHandSlot: 1
   isBackSlot: 0
-  currentWeaponModel: {fileID: 0}
 --- !u!1 &4020804409580270512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3699,9 +3699,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128e452221c0b6a49882b5cf5a2e079c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentOverride: {fileID: 5582754780399030859}
   currentWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
+  parentOverride: {fileID: 5582754780399030859}
+  currentWeaponModel: {fileID: 0}
   isLeftHandSlot: 0
   isRightHandSlot: 0
   isBackSlot: 1
-  currentWeaponModel: {fileID: 0}
