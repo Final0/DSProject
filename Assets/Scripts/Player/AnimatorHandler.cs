@@ -11,8 +11,6 @@ namespace Midir
 
         private int vertical, horizontal;
 
-        public bool canRotate;
-
         public void Initialize()
         {
             playerManager = GetComponentInParent<PlayerManager>();
@@ -88,12 +86,12 @@ namespace Midir
 
         public void CanRotate()
         {
-            canRotate = true;
+            anim.SetBool("canRotate", true);
         }
 
         public void StopRotation()
         {
-            canRotate = false;
+            anim.SetBool("canRotate", false);
         }
 
         public void EnableCombo()

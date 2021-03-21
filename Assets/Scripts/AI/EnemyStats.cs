@@ -71,7 +71,7 @@ namespace Midir
                 bossHealthBar.SetCurrentHealth(currentHealth);
 
             if(canCancel)
-                animator.Play("Damage_01");
+                animator.Play("Damage_Enemy");
 
             if (currentHealth <= 0)
             {

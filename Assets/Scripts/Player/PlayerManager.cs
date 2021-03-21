@@ -13,6 +13,7 @@ namespace Midir
         private CameraHandler cameraHandler;
         private PlayerLocomotion playerLocomotion;
         private InteractableUI interactableUI;
+        private AnimatorHandler animatorHandler;
 
         [SerializeField]
         private GameObject interactableUIGameObject;
@@ -50,16 +51,13 @@ namespace Midir
             Singleton = this;
 
             cameraHandler = FindObjectOfType<CameraHandler>();
-        }
-
-        void Start()
-        {
-            anim = GetComponentInChildren<Animator>();
-            
             inputHandler = GetComponent<InputHandler>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
             interactableUI = FindObjectOfType<InteractableUI>();
             playerStats = GetComponent<PlayerStats>();
+            animatorHandler = GetComponentInChildren<AnimatorHandler>();
+    
+            anim = GetComponentInChildren<Animator>();
         }
 
         void Update()
@@ -72,6 +70,7 @@ namespace Midir
             isUsingRightHand = anim.GetBool("isUsingRightHand");
             isUsingLeftHand = anim.GetBool("isUsingLeftHand");
             isInvulnerable = anim.GetBool("isInvulnerable");
+            animatorHandler.canRotate = anim.GetBool("canRotate");
 
             inputHandler.TickInput(delta);
             
@@ -85,11 +84,9 @@ namespace Midir
 
         private void FixedUpdate()
         {
-            float delta = Time.fixedDeltaTime;
-
-            playerLocomotion.HandleMovement(delta);
+            playerLocomotion.HandleMovement();
             playerLocomotion.HandleFalling(playerLocomotion.moveDirection);
-            
+            playerLocomotion.HandleRotation();
         }
 
         private void LateUpdate()

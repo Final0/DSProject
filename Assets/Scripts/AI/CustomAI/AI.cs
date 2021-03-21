@@ -56,7 +56,7 @@ namespace Midir
             Dead,
         }
 
-        public Behaviour behaviour = Behaviour.Idle;
+        private Behaviour behaviour = Behaviour.Idle;
 
         private void Awake()
         {
