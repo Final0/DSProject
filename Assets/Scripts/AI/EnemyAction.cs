@@ -8,6 +8,10 @@ namespace Midir
 
     public class EnemyAction : ScriptableObject
     {
+        public bool canCombo;
+
+        public EnemyAction comboNextAttack;
+
         public string actionAnimation;
     }
 }

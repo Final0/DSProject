@@ -8,6 +8,8 @@ TagManager:
   - Interactable
   - Walkable
   - Arrow
+  - Character Collision Blocker
+  - Kick
   layers:
   - Default
   - TransparentFX

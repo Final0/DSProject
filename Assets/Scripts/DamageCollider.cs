@@ -43,11 +43,14 @@ namespace Midir
 
             if (collision.CompareTag("Enemy"))
             {
-                EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
-
-                if (enemyStats != null)
+                if (transform.root.GetComponent<PlayerStats>() != null)
                 {
-                    enemyStats.TakeDamage(currentWeaponDamage);
+                    EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
+                    
+                    if (enemyStats != null)
+                    {
+                        enemyStats.TakeDamage(currentWeaponDamage);
+                    }
                 }
             }
         }

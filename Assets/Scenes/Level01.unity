@@ -22215,6 +22215,23 @@ PrefabInstance:
       propertyPath: isSleeping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 696aaccf1a9a23c4bb4695782955d785,
+        type: 2}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
 --- !u!1001 &594043078
@@ -25503,6 +25520,23 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.008419512
       objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 696aaccf1a9a23c4bb4695782955d785,
+        type: 2}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
 --- !u!1001 &690827462
@@ -42409,6 +42443,23 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.008417984
       objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 696aaccf1a9a23c4bb4695782955d785,
+        type: 2}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
 --- !u!1001 &1121602794
@@ -55219,6 +55270,23 @@ PrefabInstance:
       propertyPath: isSleeping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 696aaccf1a9a23c4bb4695782955d785,
+        type: 2}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52,
+        type: 2}
     - target: {fileID: 7681152407520196099, guid: e98053be5c868fa4fac360df4f1d556d,
         type: 3}
       propertyPath: m_ApplyRootMotion
@@ -63477,6 +63545,23 @@ PrefabInstance:
       propertyPath: isSleeping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 696aaccf1a9a23c4bb4695782955d785,
+        type: 2}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
 --- !u!1001 &1717862564
@@ -77499,6 +77584,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 696aaccf1a9a23c4bb4695782955d785,
+        type: 2}
+    - target: {fileID: 7560887170770618595, guid: e98053be5c868fa4fac360df4f1d556d,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98053be5c868fa4fac360df4f1d556d, type: 3}
 --- !u!1001 &2098702954
@@ -79035,6 +79137,12 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3127758959129071868, guid: 8feacbf8aee740c458e1768ededb9ce5,
+        type: 3}
+      propertyPath: weaponsInRightHandSlots.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50,
+        type: 2}
     - target: {fileID: 3127758959129071869, guid: 8feacbf8aee740c458e1768ededb9ce5,
         type: 3}
       propertyPath: interactableUIGameObject

@@ -14,7 +14,11 @@ namespace Midir
         private AnimatorHandler animatorHandler;
 
         [SerializeField]
-        private float staminaRegenerationAmount = 1, staminaRegenTimer = 0f;
+        private float staminaRegenerationAmount = 3, staminaRegenTimer = 0f;
+
+        private float timerInv = 0f;
+
+        private bool invulnerable = false;
 
         private void Awake()
         {
@@ -46,6 +50,11 @@ namespace Midir
             InvokeRepeating(nameof(RegenStamina), 0f, 1f);
         }
 
+        private void Update()
+        {
+            TimerInvulnerability();
+        }
+
         private int SetMaxHealthFromHealthLevel()
         {
             maxHealth = healthLevel * 10;
@@ -64,6 +73,15 @@ namespace Midir
             return maxFocusPoints;
         }
 
+        private void TimerInvulnerability()
+        {
+            if (invulnerable)
+                timerInv += Time.deltaTime;
+
+            if (timerInv >= 0.5f)
+                invulnerable = false;
+        }
+
         public void TakeDamage(int damage)
         {
             if (playerManager.isInvulnerable)
@@ -72,8 +90,13 @@ namespace Midir
             if (isDead)
                 return;
 
-            currentHealth -= damage;
-            healthBar.SetCurrentHealth(currentHealth);
+            if (!invulnerable)
+            {
+                currentHealth -= damage;
+                healthBar.SetCurrentHealth(currentHealth);
+            }
+
+            invulnerable = true;
 
             animatorHandler.PlayTargetAnimation("Damage_01", true);
 

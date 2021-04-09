@@ -26,7 +26,8 @@ namespace Midir
 
         private bool alreadyAttacked;
 
-        public EnemyAction[] enemyAttacks;
+        public EnemyAction[] enemyAttacksPhase1;
+        public EnemyAction[] enemyAttacksPhase2;
         private EnemyAction currentAttack;
 
         private float timer;
@@ -37,7 +38,7 @@ namespace Midir
 
         private PlayerStats playerStats;
 
-        private int nbAttackUsed = 2;
+        private int nbAttackUsed;
 
         public bool isSleeping;
 
@@ -47,6 +48,12 @@ namespace Midir
         public bool ambush;
 
         private int[] arrayIndex = new int[2];
+
+        private GameObject enemyCollider;
+
+        private bool disableNavMesh = false;
+
+        private BoxCollider legCollider;
 
         public enum Behaviour
         {
@@ -67,6 +74,8 @@ namespace Midir
             _agent = GetComponent<NavMeshAgent>();
             player = FindObjectOfType<PlayerLocomotion>().transform;
             rb = GetComponent<Rigidbody>();
+            enemyCollider = GameObject.FindGameObjectWithTag("Character Collision Blocker");
+            legCollider = GameObject.FindGameObjectWithTag("Kick").GetComponent<BoxCollider>();
 
             enemyStats = GetComponent<EnemyStats>();
             playerStats = FindObjectOfType<PlayerStats>();
@@ -82,6 +91,10 @@ namespace Midir
 
             _agent.stoppingDistance = DistanceToEnterInFight;
             ambush = isSleeping;
+
+            nbAttackUsed = enemyAttacksPhase1.Length;
+
+            legCollider.enabled = false;
         }
 
         #region Distances To trigger next Behaviour
@@ -130,7 +143,10 @@ namespace Midir
             }
 
             if (playerStats.isDead)
+            {
+                _agent.SetDestination(transform.position);
                 return;
+            }
 
             if (enemyStats.currentHealth <= enemyStats.maxHealth / 2 && enemyStats.isBoss)
                 SecondPhase();
@@ -179,11 +195,14 @@ namespace Midir
                 if(enemyStats.isBoss)
                     enemyStats.bossHealthBar.gameObject.SetActive(true);
 
-                _agent.ResetPath();
+                if(!disableNavMesh)
+                    _agent.ResetPath();
             }
 
             anim.SetFloat("Vertical", 0, 1f, Time.deltaTime);
-            _agent.SetDestination(transform.position);
+
+            if(!disableNavMesh)
+                _agent.SetDestination(transform.position);
         }
 
         private void Persue()
@@ -206,7 +225,8 @@ namespace Midir
 
             anim.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
 
-            _agent.SetDestination(player.position);
+            if(!disableNavMesh)
+                _agent.SetDestination(player.position);
         }
 
         private void Combat()
@@ -241,7 +261,6 @@ namespace Midir
 
                 if (!alreadyAttacked)
                 {
-                    alreadyAttacked = true;
                     Attack();    
                 }
             }
@@ -249,7 +268,7 @@ namespace Midir
 
         private void SecondPhase()
         {
-            nbAttackUsed = 4;
+            nbAttackUsed = enemyAttacksPhase1.Length + enemyAttacksPhase2.Length;
             enemyStats.canCancel = false;
         }
 
@@ -258,30 +277,42 @@ namespace Midir
             int i = UnityEngine.Random.Range(0, nbAttackUsed);
 
             #region Avoid Attack Repetition
-            if (arrayIndex.Length == 0)
-                arrayIndex[0] = i;
-            else if (arrayIndex.Length == 1)
-                arrayIndex[1] = i;
-            else
+            if ((arrayIndex[0] == arrayIndex[1] && arrayIndex[0] == i) && nbAttackUsed != 1)
             {
-                if (arrayIndex[0] == arrayIndex[1] && arrayIndex[0] == i)
-                {
-                    while (i == arrayIndex[0])
-                        i = UnityEngine.Random.Range(0, nbAttackUsed);
-                }
-
-                arrayIndex[0] = arrayIndex[1];
-                arrayIndex[1] = i;
+                while (i == arrayIndex[0])
+                    i = UnityEngine.Random.Range(0, nbAttackUsed);
             }
+
+            arrayIndex[0] = arrayIndex[1];
+            arrayIndex[1] = i;
             #endregion
-
-
-            EnemyAction enemyAttackAction = enemyAttacks[i];
 
             _agent.velocity = Vector3.zero;
 
-            currentAttack = enemyAttackAction;
-            anim.Play(currentAttack.actionAnimation);
+            if (i >= 0 && i <= enemyAttacksPhase1.Length - 1)
+            {
+                EnemyAction enemyAttackAction = enemyAttacksPhase1[i];
+
+                currentAttack = enemyAttackAction;
+                anim.Play(currentAttack.actionAnimation);
+            }
+            else if (i >= enemyAttacksPhase1.Length && i <= (enemyAttacksPhase1.Length + enemyAttacksPhase2.Length) - 1)
+            {
+                i -= enemyAttacksPhase1.Length;
+                EnemyAction enemyAttackAction = enemyAttacksPhase2[i];
+
+                currentAttack = enemyAttackAction;
+                anim.Play(currentAttack.actionAnimation);
+            }
+        }
+
+        public void AttackCombo()
+        {
+            if (currentAttack.canCombo)
+            {
+                currentAttack = currentAttack.comboNextAttack;
+                anim.Play(currentAttack.actionAnimation);
+            }
         }
 
         private void Ambush()
@@ -295,6 +326,10 @@ namespace Midir
 
         public void ApplyRoot()
         {
+            alreadyAttacked = true;
+
+            rb.isKinematic = false;
+
             anim.applyRootMotion = true;
 
             _agent.speed = 0;
@@ -303,6 +338,8 @@ namespace Midir
 
         public void RemoveRoot()
         {
+            rb.isKinematic = true;
+
             ambush = false;
 
             alreadyAttacked = false;
@@ -311,6 +348,34 @@ namespace Midir
 
             _agent.speed = speed;
             _agent.acceleration = acceleration;
+        }
+
+        public void MovingAttack()
+        {
+            disableNavMesh = true;
+
+            _agent.enabled = false;
+
+            enemyCollider.SetActive(false);
+        }
+
+        public void StopMovingAttack()
+        {
+            disableNavMesh = false;
+
+            _agent.enabled = true;
+
+            enemyCollider.SetActive(true);
+        }
+
+        public void Kick()
+        {
+            legCollider.enabled = true;
+        }
+
+        public void StopKick()
+        {
+            legCollider.enabled = false;
         }
     }
 }
