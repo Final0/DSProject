@@ -60,7 +60,7 @@ namespace Midir
 
         private float waitBeforePersue = 0f;
 
-        private bool enteredPersue = false;
+        private bool stopLookAt = false;
 
         public enum Behaviour
         {
@@ -200,22 +200,19 @@ namespace Midir
             if (rb.isKinematic)
                 transform.position += Vector3.right * Time.deltaTime * moveAsideSpeed * 1.5f;
 
-            anim.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
+            anim.SetFloat("Horizontal", moveAsideSpeed * 2, 0.1f, Time.deltaTime);
         }
 
         private void Idle()
         {
             if (DetectEnemy())
             {             
-                MoveAside();
-
                 if (enemyStats.isBoss)
                     enemyStats.bossHealthBar.gameObject.SetActive(true);
 
                 if(!disableNavMesh)
                     _agent.ResetPath();
 
-                enteredPersue = true;
                 SetState(Behaviour.Persue);
             }
 
@@ -237,13 +234,32 @@ namespace Midir
             {
                 SetState(Behaviour.Idle);
             }
+            
+            if (_agent.pathPending == false && _agent.path.corners.Length == 2 && !ambush && !stopLookAt)
+                transform.LookAt(player);
 
-            if (enteredPersue)
+            anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+
+            anim.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+
+            if (!disableNavMesh)
+                _agent.SetDestination(player.position);
+        }
+
+        private void Combat()
+        {
+            if (InRangeToExitCombat())
             {
-                enteredPersue = false;
-
-                int i = UnityEngine.Random.Range(3, 9);
+                int i = UnityEngine.Random.Range(5, 10);
                 waitBeforePersue += Time.deltaTime;
+
+                anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
+                anim.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+
+                MoveAside();
+
+                if (rb.isKinematic && !stopLookAt)
+                    transform.LookAt(player);
 
                 if (waitBeforePersue >= i)
                 {
@@ -251,62 +267,38 @@ namespace Midir
                         DistantAttack();
 
                     waitBeforePersue = 0f;
+
+                    SetState(Behaviour.Persue);
                 }
             }
             else
             {
-                if (_agent.pathPending == false && _agent.path.corners.Length == 2 && !ambush)
-                    transform.LookAt(player);
-
-                anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
-
-                anim.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
-
-                if (!disableNavMesh)
-                    _agent.SetDestination(player.position);
-            }
-        }
-
-        private void Combat()
-        {
-            if (InRangeToExitCombat())
-            {
-                if (rb.isKinematic)
-                    transform.LookAt(player);
+                anim.SetFloat("Vertical", 0, 0.5f, Time.deltaTime);
 
                 MoveAside();
 
-                anim.SetFloat("Vertical", 0, 1f, Time.deltaTime);
+                if (rb.isKinematic && !stopLookAt)
+                    transform.LookAt(player);
 
-                enteredPersue = true;
-                SetState(Behaviour.Persue);
-            }
-
-            anim.SetFloat("Vertical", 0, 0.5f, Time.deltaTime);
-
-            MoveAside();
-
-            if (rb.isKinematic)
-                transform.LookAt(player);
-
-            if (canAttack)
-            {
-                canAttack = false;
-
-                randomTimer = UnityEngine.Random.Range(1, 3);
-
-                Invoke(nameof(ResetAttackTimer), randomTimer);
-            }
-
-            timer += Time.deltaTime;
-
-            if (timer >= randomTimer)
-            {
-                timer = 0;
-
-                if (!alreadyAttacked)
+                if (canAttack)
                 {
-                    Attack();
+                    canAttack = false;
+
+                    randomTimer = UnityEngine.Random.Range(1, 3);
+
+                    Invoke(nameof(ResetAttackTimer), randomTimer);
+                }
+
+                timer += Time.deltaTime;
+
+                if (timer >= randomTimer)
+                {
+                    timer = 0;
+
+                    if (!alreadyAttacked)
+                    {
+                        Attack();
+                    }
                 }
             }
         }
@@ -378,9 +370,15 @@ namespace Midir
         {   
             if (isSleeping && DetectEnemy() == true)
             {
-                isSleeping = false;
+                stopLookAt = true;
                 PlayTargetAnimation("Wake", true);
+                isSleeping = false; 
             } 
+        }
+        
+        public void StopRotation()
+        {
+            stopLookAt = true;
         }
 
         public void ApplyRoot()
@@ -407,6 +405,8 @@ namespace Midir
 
             _agent.speed = speed;
             _agent.acceleration = acceleration;
+
+            stopLookAt = false;
         }
 
         public void MovingAttack()
