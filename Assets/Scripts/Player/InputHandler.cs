@@ -92,8 +92,17 @@ namespace Midir
             horizontal = movementInput.x;
             vertical = movementInput.y;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-            mouseX = cameraInput.x;
-            mouseY = cameraInput.y;
+
+            if(!inventoryFlag)
+            {
+                mouseX = cameraInput.x;
+                mouseY = cameraInput.y;
+            }
+            else
+            {
+                mouseX = 0f;
+                mouseY = 0f;
+            }
         }
 
         private void HandleRollInput(float delta)

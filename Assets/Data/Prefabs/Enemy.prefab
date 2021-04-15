@@ -1745,7 +1745,7 @@ Animator:
   m_GameObject: {fileID: 3977543868562093763}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d4e1df0cefb0f984baa79e93dddb90a4, type: 3}
-  m_Controller: {fileID: 9100000, guid: 966d5452cdcd59441aa36821b306cbe6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9ac068f717e751447ac46f2a3bcb67ff, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1799,13 +1799,8 @@ MonoBehaviour:
   healthLevel: 7
   maxHealth: 0
   currentHealth: 0
-  staminaLevel: 10
-  maxStamina: 0
-  currentStamina: 0
-  focusLevel: 10
-  maxFocusPoints: 0
-  currentFocusPoints: 0
   isDead: 0
+  bossHealthBar: {fileID: 0}
   canCancel: 0
   isBoss: 0
 --- !u!114 &1757927032
@@ -1837,6 +1832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightHandWeapon: {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7, type: 2}
   leftHandWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
+  twoHandSlot: 0
 --- !u!195 &7560887170770618592
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1875,10 +1871,10 @@ MonoBehaviour:
   DistanceToTrigger: 10
   DistanceToEnterInFight: 2
   player: {fileID: 0}
-  enemyAttacks:
-  - {fileID: 11400000, guid: 696aaccf1a9a23c4bb4695782955d785, type: 2}
-  - {fileID: 11400000, guid: c28368f0c8d95834c839bc809728fc52, type: 2}
+  enemyAttacksPhase1: []
+  enemyAttacksPhase2: []
   isSleeping: 0
+  ambush: 0
 --- !u!1 &4069574068359719115
 GameObject:
   m_ObjectHideFlags: 0

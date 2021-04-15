@@ -14,7 +14,9 @@ namespace Midir
         private AnimatorHandler animatorHandler;
 
         [SerializeField]
-        private float staminaRegenerationAmount = 3, staminaRegenTimer = 0f;
+        private float staminaRegenerationAmount = 30f; 
+            
+        private float staminaRegenTimer = 0f;
 
         private float timerInv = 0f;
 
@@ -78,7 +80,7 @@ namespace Midir
             if (invulnerable)
                 timerInv += Time.deltaTime;
 
-            if (timerInv >= 0.5f)
+            if (timerInv >= 0.75f)
                 invulnerable = false;
         }
 
@@ -98,12 +100,12 @@ namespace Midir
 
             invulnerable = true;
 
-            animatorHandler.PlayTargetAnimation("Damage_01", true);
+            animatorHandler.PlayTargetAnimation("PlayerDamage", true);
 
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                animatorHandler.PlayTargetAnimation("Death_01", true);
+                animatorHandler.PlayTargetAnimation("PlayerDeath", true);
                 isDead = true;
             }
         }
@@ -124,7 +126,7 @@ namespace Midir
             {
                 staminaRegenTimer += Time.deltaTime;
 
-                if (currentStamina < maxStamina && staminaRegenTimer > 1f)
+                if (currentStamina < maxStamina && staminaRegenTimer > 0.5f)
                 {
                     currentStamina += staminaRegenerationAmount * Time.deltaTime;
                     staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));

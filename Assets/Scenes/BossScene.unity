@@ -294,7 +294,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 399862197}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112756731}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4c8a55a165d2c14290a725642a0d74c, type: 3}
@@ -307,6 +307,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2112756732, guid: 8feacbf8aee740c458e1768ededb9ce5, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 506903028}
     - target: {fileID: 3127758959129071858, guid: 8feacbf8aee740c458e1768ededb9ce5,
         type: 3}
       propertyPath: m_RootOrder
@@ -367,23 +371,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3127758959129071866, guid: 8feacbf8aee740c458e1768ededb9ce5,
-        type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 1675623925}
-    - target: {fileID: 3127758959129071868, guid: 8feacbf8aee740c458e1768ededb9ce5,
-        type: 3}
-      propertyPath: currentSpell
-      value: 
-      objectReference: {fileID: 11400000, guid: 72328b2e9e94b5045b821c432d9915ad,
-        type: 2}
-    - target: {fileID: 3127758959129071868, guid: 8feacbf8aee740c458e1768ededb9ce5,
-        type: 3}
-      propertyPath: weaponsInRightHandSlots.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8feacbf8aee740c458e1768ededb9ce5, type: 3}
 --- !u!1 &418599977
@@ -673,18 +660,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1675623925 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1820324430214840618, guid: d75feaafef6fc8b4ca631ad69b852ed1,
-    type: 3}
-  m_PrefabInstance: {fileID: 2084380844}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de714937055dab141a185e14556d8086, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1834281043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,25 +1100,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d75feaafef6fc8b4ca631ad69b852ed1, type: 3}
---- !u!1 &2112756731 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3127758959129071859, guid: 8feacbf8aee740c458e1768ededb9ce5,
-    type: 3}
-  m_PrefabInstance: {fileID: 399862197}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2112756732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112756731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee5e90b3d1f3cb5459094d393a95bf15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 506903028}
 --- !u!1 &2125663003
 GameObject:
   m_ObjectHideFlags: 0

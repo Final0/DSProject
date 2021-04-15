@@ -28,6 +28,7 @@ namespace Midir
 
         public EnemyAction[] enemyAttacksPhase1;
         public EnemyAction[] enemyAttacksPhase2;
+
         private EnemyAction currentAttack;
 
         private float timer;
@@ -54,6 +55,12 @@ namespace Midir
         private bool disableNavMesh = false;
 
         private BoxCollider legCollider;
+
+        private int chanceCombo = 3;
+
+        private float waitBeforePersue = 0f;
+
+        private bool enteredPersue = false;
 
         public enum Behaviour
         {
@@ -142,9 +149,11 @@ namespace Midir
                 Invoke(nameof(DestroyEnemy), 3f);
             }
 
-            if (playerStats.isDead)
+            if (playerStats.isDead && !disableNavMesh)
             {
                 _agent.SetDestination(transform.position);
+                anim.SetFloat("Vertical", 0, 1f, Time.deltaTime);
+                anim.SetFloat("Horizontal", 0, 1f, Time.deltaTime);
                 return;
             }
 
@@ -185,18 +194,29 @@ namespace Midir
         {
             canAttack = true;
         }
-        
+
+        private void MoveAside()
+        {
+            if (rb.isKinematic)
+                transform.position += Vector3.right * Time.deltaTime * moveAsideSpeed * 1.5f;
+
+            anim.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
+        }
+
         private void Idle()
         {
             if (DetectEnemy())
-            {
-                SetState(Behaviour.Persue);
+            {             
+                MoveAside();
 
-                if(enemyStats.isBoss)
+                if (enemyStats.isBoss)
                     enemyStats.bossHealthBar.gameObject.SetActive(true);
 
                 if(!disableNavMesh)
                     _agent.ResetPath();
+
+                enteredPersue = true;
+                SetState(Behaviour.Persue);
             }
 
             anim.SetFloat("Vertical", 0, 1f, Time.deltaTime);
@@ -218,37 +238,62 @@ namespace Midir
                 SetState(Behaviour.Idle);
             }
 
-            if (_agent.pathPending == false && _agent.path.corners.Length == 2 && !ambush)
-                transform.LookAt(player);
+            if (enteredPersue)
+            {
+                enteredPersue = false;
 
-            anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+                int i = UnityEngine.Random.Range(3, 9);
+                waitBeforePersue += Time.deltaTime;
 
-            anim.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+                if (waitBeforePersue >= i)
+                {
+                    if (enemyStats.isBoss && UnityEngine.Random.Range(0, 10) <= 3)
+                        DistantAttack();
 
-            if(!disableNavMesh)
-                _agent.SetDestination(player.position);
+                    waitBeforePersue = 0f;
+                }
+            }
+            else
+            {
+                if (_agent.pathPending == false && _agent.path.corners.Length == 2 && !ambush)
+                    transform.LookAt(player);
+
+                anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+
+                anim.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+
+                if (!disableNavMesh)
+                    _agent.SetDestination(player.position);
+            }
         }
 
         private void Combat()
         {
             if (InRangeToExitCombat())
             {
+                if (rb.isKinematic)
+                    transform.LookAt(player);
+
+                MoveAside();
+
+                anim.SetFloat("Vertical", 0, 1f, Time.deltaTime);
+
+                enteredPersue = true;
                 SetState(Behaviour.Persue);
             }
 
             anim.SetFloat("Vertical", 0, 0.5f, Time.deltaTime);
 
-            //anim.SetFloat("Horizontal", moveAsideSpeed, 0.1f, Time.deltaTime);
+            MoveAside();
 
-            Vector3 direction = player.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 3f * Time.deltaTime);
+            if (rb.isKinematic)
+                transform.LookAt(player);
 
             if (canAttack)
             {
                 canAttack = false;
 
-                randomTimer = UnityEngine.Random.Range(0, 3);
+                randomTimer = UnityEngine.Random.Range(1, 3);
 
                 Invoke(nameof(ResetAttackTimer), randomTimer);
             }
@@ -261,7 +306,7 @@ namespace Midir
 
                 if (!alreadyAttacked)
                 {
-                    Attack();    
+                    Attack();
                 }
             }
         }
@@ -270,6 +315,8 @@ namespace Midir
         {
             nbAttackUsed = enemyAttacksPhase1.Length + enemyAttacksPhase2.Length;
             enemyStats.canCancel = false;
+
+            chanceCombo += 2;
         }
 
         private void Attack()
@@ -306,9 +353,21 @@ namespace Midir
             }
         }
 
+        private void DistantAttack()
+        {
+            int i = UnityEngine.Random.Range(0, enemyAttacksPhase2.Length);
+
+            EnemyAction enemyAttackAction = enemyAttacksPhase2[i];
+
+            currentAttack = enemyAttackAction;
+            anim.Play(currentAttack.actionAnimation);
+        }
+
         public void AttackCombo()
         {
-            if (currentAttack.canCombo)
+            int i = UnityEngine.Random.Range(0, 10);
+
+            if (currentAttack.canCombo && i <= chanceCombo)
             {
                 currentAttack = currentAttack.comboNextAttack;
                 anim.Play(currentAttack.actionAnimation);

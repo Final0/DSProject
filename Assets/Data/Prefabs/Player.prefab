@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 3127758959129071869}
   - component: {fileID: 3127758959129071868}
   - component: {fileID: 3127758959129071866}
+  - component: {fileID: 2112756732}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -233,16 +234,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: 0}
-  myTransform: {fileID: 0}
-  animatorHandler: {fileID: 0}
-  rigidbody: {fileID: 0}
+  myTransform: {fileID: 3127758959129071858}
+  animatorHandler: {fileID: 1909528483170532880}
+  rigidbody: {fileID: 3127758959129071871}
   groundDetectionRayStartPoint: 0.5
   minimumDistanceNeededToBeginFall: 1
   groundDirectionRayDistance: 0.2
   inAirTimer: 0
-  movementSpeed: 5
+  movementSpeed: 2.5
   walkingSpeed: 1
-  sprintSpeed: 7
+  sprintSpeed: 4
   rotationSpeed: 10
   fallingSpeed: 250
   rollingStamina: 10
@@ -283,12 +284,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c8a55a165d2c14290a725642a0d74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpell: {fileID: 0}
+  currentSpell: {fileID: 11400000, guid: 72328b2e9e94b5045b821c432d9915ad, type: 2}
   rightWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   leftWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   unarmedWeapon: {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   weaponsInRightHandSlots:
-  - {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
+  - {fileID: 11400000, guid: bc4e6bc2f20150743b45fc5dea5275f7, type: 2}
   - {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
   weaponsInLeftHandSlots:
   - {fileID: 11400000, guid: 6a94c26ef44d41544be442175f623d50, type: 2}
@@ -318,8 +319,20 @@ MonoBehaviour:
   maxFocusPoints: 0
   currentFocusPoints: 0
   isDead: 0
-  staminaRegenerationAmount: 10
-  staminaRegenTimer: 0
+  staminaRegenerationAmount: 30
+--- !u!114 &2112756732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3127758959129071859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5e90b3d1f3cb5459094d393a95bf15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPoint: {fileID: 0}
 --- !u!1 &4020804409580063336
 GameObject:
   m_ObjectHideFlags: 0
