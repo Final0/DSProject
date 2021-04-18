@@ -8,6 +8,8 @@ namespace Midir
     {
         private Collider damageCollider;
 
+        private AudioManager audioManager;
+
         [SerializeField]
         private int currentWeaponDamage = 25;
 
@@ -17,6 +19,8 @@ namespace Midir
             damageCollider.gameObject.SetActive(true);
             damageCollider.isTrigger = true;
             damageCollider.enabled = false;
+
+            audioManager = FindObjectOfType<AudioManager>();
         }
 
         public void EnableDamageCollider()
@@ -37,6 +41,7 @@ namespace Midir
                 
                 if (playerStats != null)
                 {
+                    audioManager.SwordAudio();
                     playerStats.TakeDamage(currentWeaponDamage);
                 }
             }
@@ -49,6 +54,7 @@ namespace Midir
                     
                     if (enemyStats != null)
                     {
+                        audioManager.SwordAudio();
                         enemyStats.TakeDamage(currentWeaponDamage);
                     }
                 }
