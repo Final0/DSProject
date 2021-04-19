@@ -14,6 +14,12 @@ namespace Midir
         private AudioSource grassFootsteps;
         private AudioSource roll;
         private AudioSource sword;
+        private AudioSource landing;
+        private AudioSource pickUpItem;
+        private AudioSource bossMusic;
+        private AudioSource death;
+        private AudioSource defeat;
+        private AudioSource forestMusic;
 
         [SerializeField]
         private AudioClip footstepsClip;
@@ -23,6 +29,18 @@ namespace Midir
         private AudioClip rollClip;
         [SerializeField]
         private AudioClip swordClip;
+        [SerializeField]
+        private AudioClip landingClip;
+        [SerializeField]
+        private AudioClip pickUpItemClip;
+        [SerializeField]
+        private AudioClip bossMusicClip;
+        [SerializeField]
+        private AudioClip deathClip;
+        [SerializeField]
+        private AudioClip defeatClip;
+        [SerializeField]
+        private AudioClip forestMusicClip;
 
         private LayerMask grass = 12;
         private LayerMask ground = 13;
@@ -36,18 +54,74 @@ namespace Midir
             grassFootsteps = gameObject.AddComponent<AudioSource>();
             roll = gameObject.AddComponent<AudioSource>();
             sword = gameObject.AddComponent<AudioSource>();
+            landing = gameObject.AddComponent<AudioSource>();
+            pickUpItem = gameObject.AddComponent<AudioSource>();
+            bossMusic = gameObject.AddComponent<AudioSource>();
+            death = gameObject.AddComponent<AudioSource>();
+            defeat = gameObject.AddComponent<AudioSource>();
+            forestMusic = gameObject.AddComponent<AudioSource>();
 
             footsteps.clip = footstepsClip;
             grassFootsteps.clip = grassFootstepsClip;
             roll.clip = rollClip;
             sword.clip = swordClip;
+            landing.clip = landingClip;
+            pickUpItem.clip = pickUpItemClip;
+            bossMusic.clip = bossMusicClip;
+            death.clip = deathClip;
+            defeat.clip = defeatClip;
+            forestMusic.clip = forestMusicClip;
+
+            ForestMusic();
         }
-        
+
         private void RandomVolumeAndPlay(AudioSource audioSource)
         {
             audioSource.volume = Random.Range(0.8f, 1);
             audioSource.pitch = Random.Range(0.8f, 1.1f);
             audioSource.Play();
+        }
+
+        private void PlayMusic(AudioSource audioSource)
+        {
+            audioSource.Play();
+            audioSource.loop = true;
+        }
+
+        public void ClearAudio()
+        {
+            forestMusic.Stop();
+            bossMusic.Stop();
+        }
+
+        private void ForestMusic()
+        {
+            PlayMusic(forestMusic);
+        }
+
+        public void DeathAudio()
+        {
+            death.Play();
+        }
+
+        public void DefeatAudio()
+        {
+            defeat.Play();
+        }
+
+        public void BossMusic()
+        {
+            PlayMusic(bossMusic);
+        }
+
+        public void PickUpItemAudio()
+        {
+            pickUpItem.Play();
+        }
+
+        public void LandingAudio()
+        {
+            RandomVolumeAndPlay(landing);
         }
 
         public void SwordAudio()

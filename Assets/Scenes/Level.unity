@@ -23044,6 +23044,12 @@ MonoBehaviour:
   grassFootstepsClip: {fileID: 8300000, guid: 50dc44d9356beaf43bc12a35a521c65f, type: 3}
   rollClip: {fileID: 8300000, guid: 518395a4eb5212a4a88f896c06beadea, type: 3}
   swordClip: {fileID: 8300000, guid: 8726595e584693c47a43ef1f0e195f1c, type: 3}
+  landingClip: {fileID: 8300000, guid: e692eda2a7f1a414dbe8832ba7e03623, type: 3}
+  pickUpItemClip: {fileID: 8300000, guid: 8290c21973871354d9f61db931075901, type: 3}
+  bossMusicClip: {fileID: 8300000, guid: 3c199c8fd09759f488c8ef8b06da466d, type: 3}
+  deathClip: {fileID: 8300000, guid: b19e30062b3d8814f9ae051f8955ba82, type: 3}
+  defeatClip: {fileID: 8300000, guid: 6c81b18cda6deaa478e56698b8f7ffee, type: 3}
+  forestMusicClip: {fileID: 8300000, guid: af92ce11735f401488fccb6405a02129, type: 3}
 --- !u!1001 &579348437
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -62,6 +62,8 @@ namespace Midir
 
         private bool stopLookAt = false;
 
+        private AudioManager audioManager;
+
         public enum Behaviour
         {
             Idle,
@@ -102,6 +104,8 @@ namespace Midir
             nbAttackUsed = enemyAttacksPhase1.Length;
 
             legCollider.enabled = false;
+
+            audioManager = FindObjectOfType<AudioManager>();
         }
 
         #region Distances To trigger next Behaviour
@@ -208,7 +212,10 @@ namespace Midir
             if (DetectEnemy())
             {             
                 if (enemyStats.isBoss)
+                {
                     enemyStats.bossHealthBar.gameObject.SetActive(true);
+                    audioManager.BossMusic();
+                }
 
                 if(!disableNavMesh)
                     _agent.ResetPath();
