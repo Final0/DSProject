@@ -86,12 +86,12 @@ namespace Midir
                     LoadRightWeaponDamageCollider();
                     quickSlotsUI.UpdateWeaponQuickSlotsUI(false, weaponItem);
 
-                    #region Handle Right Weapon Idle Animations
-                    animator.CrossFade("Both Arms Empty", 0.2f);
+                    /*#region Handle Right Weapon Idle Animations
+                    animator.CrossFade("Both Arms Empty", 0.2f);*/
 
                     backSlot.UnloadWeaponAndDestroy();
 
-                    if (weaponItem != null)
+                    /*if (weaponItem != null)
                     {
                         animator.CrossFade(weaponItem.right_hand_idle, 0.2f);
                     }
@@ -99,7 +99,7 @@ namespace Midir
                     {
                         animator.CrossFade("Right Arm Empty", 0.2f);
                     }
-                    #endregion
+                    #endregion*/
                 }
             }     
         }

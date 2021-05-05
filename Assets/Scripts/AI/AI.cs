@@ -64,6 +64,9 @@ namespace Midir
 
         private AudioManager audioManager;
 
+        [SerializeField]
+        private GameObject SlashFX;
+
         public enum Behaviour
         {
             Idle,
@@ -84,10 +87,16 @@ namespace Midir
             player = FindObjectOfType<PlayerLocomotion>().transform;
             rb = GetComponent<Rigidbody>();
             enemyCollider = GameObject.FindGameObjectWithTag("Character Collision Blocker");
-            legCollider = GameObject.FindGameObjectWithTag("Kick").GetComponent<BoxCollider>();
 
             enemyStats = GetComponent<EnemyStats>();
             playerStats = FindObjectOfType<PlayerStats>();
+
+            if (enemyStats.isBoss)
+            {
+                legCollider = GameObject.FindGameObjectWithTag("Kick").GetComponent<BoxCollider>();
+                legCollider.enabled = false;
+            }
+                
 
             if (isSleeping)
                 PlayTargetAnimation("Sleep", true);
@@ -102,8 +111,6 @@ namespace Midir
             ambush = isSleeping;
 
             nbAttackUsed = enemyAttacksPhase1.Length;
-
-            legCollider.enabled = false;
 
             audioManager = FindObjectOfType<AudioManager>();
         }
@@ -202,9 +209,11 @@ namespace Midir
         private void MoveAside()
         {
             if (rb.isKinematic)
+            {
                 transform.position += Vector3.right * Time.deltaTime * moveAsideSpeed * 1.5f;
 
-            anim.SetFloat("Horizontal", moveAsideSpeed * 2, 0.1f, Time.deltaTime);
+                anim.SetFloat("Horizontal", moveAsideSpeed * 2, 0.1f, Time.deltaTime);
+            }
         }
 
         private void Idle()
@@ -442,6 +451,14 @@ namespace Midir
         public void StopKick()
         {
             legCollider.enabled = false;
+        }
+
+        public void SlashAttack()
+        {
+            GameObject Slash = Instantiate(SlashFX, transform.position + transform.forward * 1.5f, 
+                Quaternion.LookRotation(-player.transform.position + transform.position));
+
+            Slash.GetComponent<BoxCollider>().enabled = true;
         }
     }
 }

@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -99,7 +99,8 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: b5da1c74081261a4ab205e685e8b793d,
     type: 2}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: eddd618fd5dd8b54ea6e4e4852d4660c,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -119,6 +120,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: fefcc0962b3ba7f4a825b05de2b7b902, type: 2}
@@ -12291,6 +12294,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &331641090
@@ -16512,6 +16516,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -16536,6 +16541,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &457155018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18301,7 +18307,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &458342260
 PrefabInstance:
@@ -28975,13 +28981,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 888820755627077128, guid: 7a1047bbb8c8a4542bfedef62a133555,
         type: 3}
+      propertyPath: SlashFX
+      value: 
+      objectReference: {fileID: 1460859942105051403, guid: de66318d3b7e9b74b8f884972eef05c3,
+        type: 3}
+    - target: {fileID: 888820755627077128, guid: 7a1047bbb8c8a4542bfedef62a133555,
+        type: 3}
       propertyPath: DistanceToTrigger
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 888820755627077128, guid: 7a1047bbb8c8a4542bfedef62a133555,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9dedf4649c271f543ac4d4d50f2b48c5,
+        type: 2}
+    - target: {fileID: 888820755627077128, guid: 7a1047bbb8c8a4542bfedef62a133555,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9dedf4649c271f543ac4d4d50f2b48c5,
+        type: 2}
+    - target: {fileID: 888820755627077128, guid: 7a1047bbb8c8a4542bfedef62a133555,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9dedf4649c271f543ac4d4d50f2b48c5,
+        type: 2}
+    - target: {fileID: 888820755627077128, guid: 7a1047bbb8c8a4542bfedef62a133555,
+        type: 3}
+      propertyPath: enemyAttacksPhase1.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9dedf4649c271f543ac4d4d50f2b48c5,
+        type: 2}
     - target: {fileID: 888820755627077131, guid: 7a1047bbb8c8a4542bfedef62a133555,
         type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 888820755627077131, guid: 7a1047bbb8c8a4542bfedef62a133555,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1047bbb8c8a4542bfedef62a133555, type: 3}
@@ -47505,7 +47546,7 @@ PrefabInstance:
     - target: {fileID: 1820324430630018255, guid: d75feaafef6fc8b4ca631ad69b852ed1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1820324430630018255, guid: d75feaafef6fc8b4ca631ad69b852ed1,
         type: 3}
@@ -56164,7 +56205,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19158
+  m_Name: pb_Mesh31192
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -56318,6 +56359,7 @@ Mesh:
   m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
+    serializedVersion: 2
     offset: 0
     size: 0
     path: 
@@ -65886,7 +65928,7 @@ Transform:
   - {fileID: 790303362}
   - {fileID: 1320694466}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1709880015
 PrefabInstance:
@@ -72350,7 +72392,7 @@ Transform:
   - {fileID: 569249303}
   - {fileID: 1384109222}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1866107535
 PrefabInstance:
@@ -83270,17 +83312,17 @@ PrefabInstance:
     - target: {fileID: 3127758959129071858, guid: 8feacbf8aee740c458e1768ededb9ce5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.81
+      value: 40.46
       objectReference: {fileID: 0}
     - target: {fileID: 3127758959129071858, guid: 8feacbf8aee740c458e1768ededb9ce5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.09
+      value: -4.964
       objectReference: {fileID: 0}
     - target: {fileID: 3127758959129071858, guid: 8feacbf8aee740c458e1768ededb9ce5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.856
+      value: 107.88
       objectReference: {fileID: 0}
     - target: {fileID: 3127758959129071858, guid: 8feacbf8aee740c458e1768ededb9ce5,
         type: 3}
@@ -83321,6 +83363,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127758959129071859, guid: 8feacbf8aee740c458e1768ededb9ce5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3127758959129071866, guid: 8feacbf8aee740c458e1768ededb9ce5,
         type: 3}

@@ -50,7 +50,7 @@ namespace Midir
                 leftHandSlot.LoadWeaponModel(weapon);
                 LoadWeaponsDamageCollider(true);
 
-                #region Handle Left Weapon Idle Animations
+                /*#region Handle Left Weapon Idle Animations
                 if (weapon != null)
                 {
                     anim.CrossFade(weapon.left_hand_idle, 0.2f);
@@ -59,7 +59,7 @@ namespace Midir
                 {
                     anim.CrossFade("Left Arm Empty", 0.2f);
                 }
-                #endregion
+                #endregion*/
             }
             else
             {
