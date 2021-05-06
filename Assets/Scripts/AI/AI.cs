@@ -67,6 +67,8 @@ namespace Midir
         [SerializeField]
         private GameObject SlashFX;
 
+        private GameObject currentSlash;
+
         public enum Behaviour
         {
             Idle,
@@ -189,6 +191,19 @@ namespace Midir
             enemyStats.CancelDelai();
 
             Ambush();
+
+            SlashMove();
+        }
+
+        private void SlashMove()
+        {
+            if(enemyStats.isBoss)
+                currentSlash = GameObject.FindGameObjectWithTag("Slash");
+
+            if (currentSlash != null)
+            {
+                currentSlash.transform.position += transform.forward * Time.deltaTime * 10f;
+            }
         }
 
         private void DestroyEnemy()
@@ -456,7 +471,7 @@ namespace Midir
         public void SlashAttack()
         {
             GameObject Slash = Instantiate(SlashFX, transform.position + transform.forward * 1.5f, 
-                Quaternion.LookRotation(-player.transform.position + transform.position));
+                Quaternion.LookRotation(- transform.forward));
 
             Slash.GetComponent<BoxCollider>().enabled = true;
         }

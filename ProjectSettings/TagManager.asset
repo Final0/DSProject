@@ -10,6 +10,7 @@ TagManager:
   - Arrow
   - Character Collision Blocker
   - Kick
+  - Slash
   layers:
   - Default
   - TransparentFX
