@@ -51,7 +51,7 @@ namespace Midir
 
         public float rollingStamina = 10;
 
-        private float runningStamina = 20, jumpingStamina = 15;
+        private float runningStamina = 40, jumpingStamina = 15;
 
         [SerializeField]
         private CapsuleCollider characterCollider, characterCollisionBlockerCollider;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cabb29f5cf84c4eaaf2d3a21307dd5, type: 3}
   m_Name: Talisman
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  itemIcon: {fileID: 21300000, guid: b0704acac459d01489e3ed480327568e, type: 3}
   itemName: Talisman
   modelPrefab: {fileID: 8545408053587442617, guid: 3b517c418ec865249888f2899e7a9a0f,
     type: 3}
@@ -33,3 +33,4 @@ MonoBehaviour:
   isFaithCaster: 1
   isPyroCaster: 0
   isMeleeWeapon: 0
+  isDistantWeapon: 0

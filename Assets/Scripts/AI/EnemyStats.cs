@@ -15,7 +15,7 @@ namespace Midir
         [HideInInspector]
         public BossHealthBar bossHealthBar;
 
-        private AI ai;
+        public AI ai;
 
         [HideInInspector]
         public bool canCancel = false;

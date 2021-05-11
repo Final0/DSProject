@@ -105,23 +105,29 @@ namespace Midir
         #region Attack Actions
         private void PerformRBMeleeAction()
         {
-            if (playerManager.canDoCombo)
+            if (!inputHandler.inventoryFlag)
             {
-                inputHandler.comboFlag = true;
-                HandleWeaponCombo(playerInventory.rightWeapon);
-                inputHandler.comboFlag = false;
-            }
-            else
-            {
-                animatorHandler.anim.SetBool("isUsingRightHand", true);
-                HandleLightAttack(playerInventory.rightWeapon);
+                if (playerManager.canDoCombo)
+                {
+                    inputHandler.comboFlag = true;
+                    HandleWeaponCombo(playerInventory.rightWeapon);
+                    inputHandler.comboFlag = false;
+                }
+                else
+                {
+                    animatorHandler.anim.SetBool("isUsingRightHand", true);
+                    HandleLightAttack(playerInventory.rightWeapon);
+                }
             }
         }
 
         private void PerformRTMeleeAction()
         {
-            animatorHandler.anim.SetBool("isUsingRightHand", true);
-            HandleHeavyAttack(playerInventory.rightWeapon);
+            if (!inputHandler.inventoryFlag)
+            {
+                animatorHandler.anim.SetBool("isUsingRightHand", true);
+                HandleHeavyAttack(playerInventory.rightWeapon);
+            }
         }
 
         private void PerformRBMagicAction(WeaponItem weapon)

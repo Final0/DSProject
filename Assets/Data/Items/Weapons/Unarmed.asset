@@ -20,9 +20,9 @@ MonoBehaviour:
   right_hand_idle: RIght_Arm_Idle_01
   left_hand_idle: Left_Arm_Idle_01
   th_idle: 
-  OH_Light_Attack_1: Punch_Light_Attack
-  OH_Light_Attack_2: 
-  OH_Heavy_Attack_1: Punch_Heavy_Attack
+  OH_Light_Attack_1: Punch_Light_Attack_01
+  OH_Light_Attack_2: Punch_Light_Attack_02
+  OH_Heavy_Attack_1: Punch_Heavy_Attack_01
   TH_Light_Attack_1: 
   TH_Light_Attack_2: 
   TH_Heavy_Attack_1: 
@@ -33,3 +33,4 @@ MonoBehaviour:
   isFaithCaster: 0
   isPyroCaster: 0
   isMeleeWeapon: 1
+  isDistantWeapon: 0

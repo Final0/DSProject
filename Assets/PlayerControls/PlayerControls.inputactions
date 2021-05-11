@@ -210,14 +210,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Y",
-                    "type": "Button",
-                    "id": "59a87cf9-887b-4a30-aff2-4acc7a5f287a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -246,7 +238,7 @@
                 {
                     "name": "",
                     "id": "f2fcc2f0-0548-49e9-9725-b9d6465fe48a",
-                    "path": "<Keyboard>/e",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -257,7 +249,7 @@
                 {
                     "name": "",
                     "id": "317f218d-1958-44bb-8e2b-fd1d1cb8c97a",
-                    "path": "<Keyboard>/r",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -268,7 +260,7 @@
                 {
                     "name": "",
                     "id": "f35ca0f9-66c5-44ee-9199-1d5798f07b2c",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -301,22 +293,11 @@
                 {
                     "name": "",
                     "id": "1ec0e191-43a4-445c-8e94-e3a45f8849ab",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "LockOn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1dc14eb3-4701-4aa9-9037-ca4cf604bc72",
-                    "path": "<Keyboard>/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Y",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

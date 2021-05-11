@@ -28,7 +28,7 @@ namespace Midir
         private PlayerManager playerManager;
         private WeaponSlotManager weaponSlotManager;
         private CameraHandler cameraHandler;
-        private UIManager uiManager;
+        public UIManager uiManager;
         private PlayerStats playerStats;
         private WeaponHolderSlot weaponHolderSlot;
 
@@ -65,7 +65,7 @@ namespace Midir
                 inputActions.PlayerActions.LockOn.performed += i => lockOnInput = true;
                 inputActions.PlayerMovement.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
                 inputActions.PlayerMovement.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
-                inputActions.PlayerActions.Y.performed += i => y_Input = true;
+                //inputActions.PlayerActions.Y.performed += i => y_Input = true;
             }
 
             inputActions.Enable();

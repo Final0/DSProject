@@ -77,7 +77,10 @@ namespace Midir
             Dead,
         }
 
-        private Behaviour behaviour = Behaviour.Idle;
+        public Behaviour behaviour = Behaviour.Idle;
+
+        [HideInInspector]
+        public Behaviour resetBehaviour = Behaviour.Idle;
 
         private void Awake()
         {
@@ -208,7 +211,7 @@ namespace Midir
 
         private void DestroyEnemy()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         private void SetState(Behaviour state)
