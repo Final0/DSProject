@@ -33,6 +33,8 @@ namespace Midir
 
         private int i = 0;
 
+        private PotionScript potionScript;
+
         private void Awake()
         {
             enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -43,6 +45,7 @@ namespace Midir
             {
                 enemiesTransform[i] = enemies[i].gameObject.transform.position;
             }
+
         }
 
         private void Start()
@@ -52,6 +55,7 @@ namespace Midir
             inputHandler = GetComponent<InputHandler>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            potionScript = GetComponentInChildren<PotionScript>();
 
             healthBar = FindObjectOfType<HealthBar>();
             staminaBar = FindObjectOfType<StaminaBar>();
@@ -107,6 +111,9 @@ namespace Midir
         private void ResetStats()
         {
             playerStats.isDead = false;
+
+            if(potionScript.nbPotion < 5)
+                potionScript.nbPotion = 5;
 
             inputHandler.lockOnFlag = false;
             cameraHandler.ClearLockOnTargets();

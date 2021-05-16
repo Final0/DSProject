@@ -9,7 +9,7 @@ namespace Midir
         [SerializeField]
         private float radius = 0.6f;
 
-        public string interactbleText;
+        public string interactbleText = "Pick Up Item";
 
         private void OnDrawGizmosSelected()
         {

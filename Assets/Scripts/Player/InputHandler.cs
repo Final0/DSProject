@@ -10,7 +10,7 @@ namespace Midir
         public float horizontal, vertical, moveAmount, mouseX, mouseY, rollInputTimer;
 
         [HideInInspector]
-        public bool b_Input, a_Input, y_Input, rb_Input, rt_Input, jump_Input, inventory_Input, lockOnInput, right_Stick_Right_Input;
+        public bool b_Input, a_Input, y_Input, rb_Input, rt_Input, jump_Input, inventory_Input, lockOnInput, right_Stick_Right_Input, drink_Input;
 
         [HideInInspector]
         public bool right_Stick_Left_Input;
@@ -65,6 +65,7 @@ namespace Midir
                 inputActions.PlayerActions.LockOn.performed += i => lockOnInput = true;
                 inputActions.PlayerMovement.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
                 inputActions.PlayerMovement.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
+                inputActions.PlayerActions.Drink.performed += i => drink_Input = true;
                 //inputActions.PlayerActions.Y.performed += i => y_Input = true;
             }
 

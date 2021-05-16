@@ -6,7 +6,7 @@ namespace Midir
 {
     public class PlayerStats : CharacterStats
     {
-        private HealthBar healthBar;
+        public HealthBar healthBar;
         private StaminaBar staminaBar;
         private FocusPointBar focusPointBar;
 
