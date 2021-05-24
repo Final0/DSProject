@@ -81,6 +81,7 @@ namespace Midir
             Invoke(nameof(StartPlayer), 5f);
 
             transform.position = respawnPoint.position;
+            transform.rotation = respawnPoint.rotation;
 
             Invoke(nameof(RespawnEnemy), 1f);
         }

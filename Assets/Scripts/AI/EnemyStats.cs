@@ -17,7 +17,6 @@ namespace Midir
 
         public AI ai;
 
-        [HideInInspector]
         public bool canCancel = false;
 
         private float timerCancel = 0f;

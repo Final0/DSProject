@@ -30,6 +30,8 @@ namespace Midir
         private CameraHandler cameraHandler;
         public UIManager uiManager;
         private PlayerStats playerStats;
+
+        [SerializeField]
         private WeaponHolderSlot weaponHolderSlot;
 
         private Vector2 movementInput, cameraInput;
@@ -44,7 +46,7 @@ namespace Midir
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             playerStats = FindObjectOfType<PlayerStats>();
-            weaponHolderSlot = FindObjectOfType<WeaponHolderSlot>();
+            //weaponHolderSlot = FindObjectOfType<WeaponHolderSlot>();
         }
 
         private void OnEnable()
