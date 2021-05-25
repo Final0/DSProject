@@ -48,7 +48,6 @@ namespace Midir
                 inputHandler.lockOnFlag = false;
                 ClearLockOnTargets();
             }
-                
         }
 
         public void FollowTarget(float delta)
@@ -108,6 +107,7 @@ namespace Midir
                 if (!hit.collider.CompareTag("Player"))
                 {
                     float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
+                    
                     targetPosition = -(dis - cameraCollisionOffSet);
                 }
             }
@@ -120,6 +120,7 @@ namespace Midir
             cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / 0.2f);
             cameraTransform.localPosition = cameraTransformPosition;
         }
+
 
         public void HandleLockOn()
         {
@@ -196,7 +197,7 @@ namespace Midir
         {
             Vector3 velocity = Vector3.zero;
 
-            Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition, -1);
+            Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition, 0);
 
             cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
         }

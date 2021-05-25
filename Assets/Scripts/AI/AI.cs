@@ -251,8 +251,9 @@ namespace Midir
             }
 
             anim.SetFloat("Vertical", 0, 1f, Time.deltaTime);
+            anim.SetFloat("Horizontal", 0, 1f, Time.deltaTime);
 
-            if(!disableNavMesh)
+            if (!disableNavMesh)
                 _agent.SetDestination(transform.position);
         }
 

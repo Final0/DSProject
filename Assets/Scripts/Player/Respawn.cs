@@ -34,6 +34,7 @@ namespace Midir
         private int i = 0;
 
         private PotionScript potionScript;
+        private BossInvisibleWall bossInvisibleWall;
 
         private void Awake()
         {
@@ -60,6 +61,8 @@ namespace Midir
             healthBar = FindObjectOfType<HealthBar>();
             staminaBar = FindObjectOfType<StaminaBar>();
             focusPointBar = FindObjectOfType<FocusPointBar>();
+
+            bossInvisibleWall = FindObjectOfType<BossInvisibleWall>();
         }
 
         private void Update()
@@ -84,6 +87,8 @@ namespace Midir
             transform.rotation = respawnPoint.rotation;
 
             Invoke(nameof(RespawnEnemy), 1f);
+
+            bossInvisibleWall.bossFightWall.enabled = false;
         }
 
         private void StartPlayer()

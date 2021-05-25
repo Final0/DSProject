@@ -10,6 +10,7 @@ namespace Midir
         private PlayerStats playerStats;
         private AnimatorHandler animatorHandler;
         private InputHandler inputHandler;
+        private PlayerManager playerManager;
 
         public int nbPotion = 5;
 
@@ -21,13 +22,14 @@ namespace Midir
             playerStats = GetComponentInParent<PlayerStats>();
             animatorHandler = GetComponent<AnimatorHandler>();
             inputHandler = GetComponentInParent<InputHandler>();
+            playerManager = GetComponentInParent<PlayerManager>();
 
             potionGO.SetActive(false);
         }
 
         private void Update()
         {
-            if (inputHandler.drink_Input)
+            if (inputHandler.drink_Input && !playerManager.isInteracting)
             {
                 if (nbPotion != 0)
                 {
