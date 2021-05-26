@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cabb29f5cf84c4eaaf2d3a21307dd5, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 21300000, guid: 79a95a54aff75404ba58db0e9168b1fc, type: 3}
+  itemIcon: {fileID: 21300000, guid: 1e62ae06b6c10ab499f99aba300f3a9b, type: 3}
   itemName: Axe
   modelPrefab: {fileID: 470753537269590054, guid: c86510153a5ac8f459271de8d4cd695e,
     type: 3}

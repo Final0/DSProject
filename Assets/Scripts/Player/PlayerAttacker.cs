@@ -135,14 +135,17 @@ namespace Midir
             if (playerManager.isInteracting)
                 return;
 
-            if (weapon.isFaithCaster)
+            if (!inputHandler.inventoryFlag)
             {
-                if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpeel)
+                if (weapon.isFaithCaster)
                 {
-                    if (playerStats.currentFocusPoints >= playerInventory.currentSpell.focusPointCost)
-                        playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
-                    else
-                        animatorHandler.PlayTargetAnimation("Shrug", true);
+                    if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpeel)
+                    {
+                        if (playerStats.currentFocusPoints >= playerInventory.currentSpell.focusPointCost)
+                            playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
+                        else
+                            animatorHandler.PlayTargetAnimation("Shrug", true);
+                    }
                 }
             }
         }

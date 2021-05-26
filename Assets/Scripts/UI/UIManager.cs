@@ -13,6 +13,7 @@ namespace Midir
         [SerializeField] private GameObject selectWindow;
         [SerializeField] private GameObject equipementScreenWindow;
         [SerializeField] private GameObject weaponInventoryWindow;
+        [SerializeField] private GameObject optionsWindow;
         public GameObject hudWindow;
 
         [HideInInspector]
@@ -76,6 +77,8 @@ namespace Midir
             ResetAllSelectedSlots();
             weaponInventoryWindow.SetActive(false);
             equipementScreenWindow.SetActive(false);
+            optionsWindow.SetActive(false);
+            Time.timeScale = 1f;
         }
 
         public void ResetAllSelectedSlots()

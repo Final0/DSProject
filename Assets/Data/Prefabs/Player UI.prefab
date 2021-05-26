@@ -3039,6 +3039,7 @@ MonoBehaviour:
   selectWindow: {fileID: 1205725755}
   equipementScreenWindow: {fileID: 1913084099}
   weaponInventoryWindow: {fileID: 1129350565}
+  optionsWindow: {fileID: 6081287240583022242}
   hudWindow: {fileID: 8118003288998822743}
   rightHandSlot01Selected: 0
   rightHandSlot02Selected: 0
