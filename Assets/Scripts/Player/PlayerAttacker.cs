@@ -26,7 +26,10 @@ namespace Midir
             playerInventory = GetComponentInParent<PlayerInventory>();
             animatorHandler = GetComponent<AnimatorHandler>();
             weaponSlotManager = GetComponent<WeaponSlotManager>();
-            inputHandler = GetComponentInParent<InputHandler>(); 
+            inputHandler = GetComponentInParent<InputHandler>();
+
+            rightArmCol.enabled = false;
+            leftArmCol.enabled = false;
         }
 
         private void HandleWeaponCombo(WeaponItem weapon)
@@ -160,5 +163,25 @@ namespace Midir
             playerInventory.currentSpell.DestroySpell();
         }
         #endregion
+
+        public BoxCollider rightArmCol;
+
+        public BoxCollider leftArmCol;
+
+        public void RightArm()
+        {
+            rightArmCol.enabled = true;
+        }
+
+        public void LeftArm()
+        {
+            leftArmCol.enabled = true;
+        }
+
+        public void StopArms()
+        {
+            rightArmCol.enabled = false;
+            leftArmCol.enabled = false;
+        }
     }
 }

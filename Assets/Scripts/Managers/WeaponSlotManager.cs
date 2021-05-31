@@ -21,6 +21,8 @@ namespace Midir
 
         private InputHandler inputHandler;
 
+        private PlayerAttacker playerAttacker;
+
         private Animator animator;
 
         private void Awake()
@@ -29,6 +31,7 @@ namespace Midir
             playerStats = GetComponentInParent<PlayerStats>();
             inputHandler = GetComponentInParent<InputHandler>();
             playerManager = GetComponentInParent<PlayerManager>();
+            playerAttacker = GetComponent<PlayerAttacker>();
 
             animator = GetComponent<Animator>();
             
@@ -125,7 +128,13 @@ namespace Midir
 
         public void CloseHandDamageCollider()
         {
-            rightHandDamageCollider.DisableDamageCollider();
+            if (rightHandDamageCollider != null)
+                rightHandDamageCollider.DisableDamageCollider();
+            else
+            {
+                playerAttacker.rightArmCol.enabled = false;
+                playerAttacker.leftArmCol.enabled = false;
+            }
             //leftHandDamageCollider.DisableDamageCollider();
         }
         #endregion

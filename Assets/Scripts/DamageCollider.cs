@@ -13,6 +13,9 @@ namespace Midir
         [SerializeField]
         private int currentWeaponDamage = 25;
 
+        [SerializeField]
+        private bool isSword = false;
+
         private void Awake()
         {
             damageCollider = GetComponent<Collider>();
@@ -54,7 +57,11 @@ namespace Midir
                     
                     if (enemyStats != null)
                     {
-                        audioManager.SwordAudio();
+                        if (isSword)
+                            audioManager.SwordAudio();
+                        else
+                            audioManager.PunchSound();
+
                         enemyStats.TakeDamage(currentWeaponDamage);
                     }
                 }

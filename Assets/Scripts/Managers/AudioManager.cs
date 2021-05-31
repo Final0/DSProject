@@ -20,6 +20,9 @@ namespace Midir
         private AudioSource death;
         private AudioSource defeat;
         private AudioSource forestMusic;
+        private AudioSource potion;
+        private AudioSource heal;
+        private AudioSource punch;
 
         [SerializeField]
         private AudioClip footstepsClip;
@@ -41,6 +44,12 @@ namespace Midir
         private AudioClip defeatClip;
         [SerializeField]
         private AudioClip forestMusicClip;
+        [SerializeField]
+        private AudioClip potionClip;
+        [SerializeField]
+        private AudioClip healClip;
+        [SerializeField]
+        private AudioClip punchClip;
 
         private LayerMask grass = 12;
         private LayerMask ground = 13;
@@ -60,6 +69,9 @@ namespace Midir
             death = gameObject.AddComponent<AudioSource>();
             defeat = gameObject.AddComponent<AudioSource>();
             forestMusic = gameObject.AddComponent<AudioSource>();
+            potion = gameObject.AddComponent<AudioSource>();
+            heal = gameObject.AddComponent<AudioSource>();
+            punch = gameObject.AddComponent<AudioSource>();
 
             footsteps.clip = footstepsClip;
             grassFootsteps.clip = grassFootstepsClip;
@@ -71,6 +83,9 @@ namespace Midir
             death.clip = deathClip;
             defeat.clip = defeatClip;
             forestMusic.clip = forestMusicClip;
+            potion.clip = potionClip;
+            heal.clip = healClip;
+            punch.clip = punchClip;
 
             ForestMusic();
         }
@@ -132,6 +147,21 @@ namespace Midir
         public void RollAudio()
         {
             RandomVolumeAndPlay(roll);
+        }
+
+        public void DrinkPotion()
+        {
+            potion.Play();
+        }
+
+        public void Healing()
+        {
+            heal.Play();
+        }
+
+        public void PunchSound()
+        {
+            punch.Play();
         }
 
         public void FootstepAudio()

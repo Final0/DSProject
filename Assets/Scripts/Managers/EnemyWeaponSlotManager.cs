@@ -119,9 +119,16 @@ namespace Midir
             rightHandDamageCollider.EnableDamageCollider();
         }
 
+        [SerializeField]
+        private BoxCollider KickCol;
+
         public void CloseDamageCollider()
         {
-            rightHandDamageCollider.DisableDamageCollider();
+            if (rightHandDamageCollider != null)
+                rightHandDamageCollider.DisableDamageCollider();
+            else if (KickCol != null)
+                KickCol.enabled = false;
+
         }
 
         public void DrainStaminaLightattack()
