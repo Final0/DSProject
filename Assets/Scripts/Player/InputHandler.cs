@@ -25,7 +25,7 @@ namespace Midir
         private PlayerLocomotion playerLocomotion;
         private PlayerAttacker playerAttacker;
         private PlayerInventory playerInventory;
-        private PlayerManager playerManager;
+        public PlayerManager playerManager;
         private WeaponSlotManager weaponSlotManager;
         private CameraHandler cameraHandler;
         public UIManager uiManager;
@@ -150,7 +150,7 @@ namespace Midir
 
         private void HandleQuickSlotsInput()
         {
-            if (d_Pad_Right)
+            if (d_Pad_Right && !inventoryFlag && !playerManager.isInteracting)
             {
                 playerInventory.ChangeRightWeapon();
             }

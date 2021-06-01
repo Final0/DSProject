@@ -23,6 +23,7 @@ namespace Midir
         private AudioSource potion;
         private AudioSource heal;
         private AudioSource punch;
+        private AudioSource changeWeapon;
 
         [SerializeField]
         private AudioClip footstepsClip;
@@ -50,6 +51,11 @@ namespace Midir
         private AudioClip healClip;
         [SerializeField]
         private AudioClip punchClip;
+        [SerializeField]
+        private AudioClip changeWeaponClip;
+
+        [SerializeField]
+        private AudioMixer audioMixer;
 
         private LayerMask grass = 12;
         private LayerMask ground = 13;
@@ -72,6 +78,7 @@ namespace Midir
             potion = gameObject.AddComponent<AudioSource>();
             heal = gameObject.AddComponent<AudioSource>();
             punch = gameObject.AddComponent<AudioSource>();
+            changeWeapon = gameObject.AddComponent<AudioSource>();
 
             footsteps.clip = footstepsClip;
             grassFootsteps.clip = grassFootstepsClip;
@@ -86,8 +93,44 @@ namespace Midir
             potion.clip = potionClip;
             heal.clip = healClip;
             punch.clip = punchClip;
+            changeWeapon.clip = changeWeaponClip;
+
+            AudioMixerGroup[] SFXGroup = audioMixer.FindMatchingGroups("SFX");
+            AudioMixerGroup[] MusicGroup = audioMixer.FindMatchingGroups("Music");
+
+            footsteps.outputAudioMixerGroup = SFXGroup[0];
+            grassFootsteps.outputAudioMixerGroup = SFXGroup[0];
+            roll.outputAudioMixerGroup = SFXGroup[0];
+            sword.outputAudioMixerGroup = SFXGroup[0];
+            landing.outputAudioMixerGroup = SFXGroup[0];
+            pickUpItem.outputAudioMixerGroup = SFXGroup[0];
+            bossMusic.outputAudioMixerGroup = MusicGroup[0];
+            death.outputAudioMixerGroup = SFXGroup[0];
+            defeat.outputAudioMixerGroup = SFXGroup[0];
+            forestMusic.outputAudioMixerGroup = MusicGroup[0];
+            potion.outputAudioMixerGroup = SFXGroup[0];
+            heal.outputAudioMixerGroup = SFXGroup[0];
+            punch.outputAudioMixerGroup = SFXGroup[0];
+            changeWeapon.outputAudioMixerGroup = SFXGroup[0];
 
             ForestMusic();
+        }
+
+        [SerializeField]
+        private GameObject options;
+
+        private void Update()
+        {
+            ChangeWeaponAudio();
+
+            if (options.activeSelf && inputHandler.inventory_Input)
+            {
+                if (forestPause)
+                    forestMusic.Play();
+
+                if (bossPause)
+                    bossMusic.Play();
+            }
         }
 
         private void RandomVolumeAndPlay(AudioSource audioSource)
@@ -101,6 +144,44 @@ namespace Midir
         {
             audioSource.Play();
             audioSource.loop = true;
+        }
+
+        private void ChangeWeaponAudio()
+        {
+            if (inputHandler.d_Pad_Right && !inputHandler.inventoryFlag && !inputHandler.playerManager.isInteracting)
+                changeWeapon.Play();
+        }
+
+        private bool forestPause = false;
+
+        private bool bossPause = false;
+
+        public void PauseMusic()
+        {
+            if (forestMusic.isPlaying)
+            {
+                forestMusic.Pause();
+                forestPause = true;
+            }
+            else
+                forestPause = false;
+
+            if (bossMusic.isPlaying)
+            {
+                bossMusic.Pause();
+                bossPause = true;
+            }
+            else
+                bossPause = false;      
+        }
+
+        public void ResumeMusic()
+        {
+            if (forestPause)
+                forestMusic.Play();
+
+            if (bossPause)
+                bossMusic.Play();
         }
 
         public void ClearAudio()

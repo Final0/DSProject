@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeaponDamage: 30
+  isSword: 1
 --- !u!1001 &8124547460083123861
 PrefabInstance:
   m_ObjectHideFlags: 0

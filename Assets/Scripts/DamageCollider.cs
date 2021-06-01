@@ -13,8 +13,7 @@ namespace Midir
         [SerializeField]
         private int currentWeaponDamage = 25;
 
-        [SerializeField]
-        private bool isSword = false;
+        public bool isSword = true;
 
         private void Awake()
         {

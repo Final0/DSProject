@@ -26,6 +26,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeaponDamage: 25
+  isSword: 1
 --- !u!1 &470753537269590054
 GameObject:
   m_ObjectHideFlags: 0
