@@ -49,6 +49,33 @@ namespace Midir
             }  
         }
 
+        [SerializeField]
+        private GameObject end;
+
+        [SerializeField]
+        private GameObject[] desactivates;
+
+        private void Update()
+        {
+            if(isBoss && isDead)
+            {
+                bossHealthBar.gameObject.SetActive(false);
+
+                Invoke(nameof(End), 3f);
+                
+            }
+        }
+
+        private void End()
+        {
+            end.SetActive(true);
+            Cursor.visible = true;
+            foreach (GameObject desactivate in desactivates)
+            {
+                desactivate.SetActive(false);
+            }
+        }
+
         private int SetMaxHealthFromHealthLevel()
         {
             maxHealth = healthLevel * 10;

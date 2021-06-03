@@ -35,6 +35,7 @@ namespace Midir
 
         private PotionScript potionScript;
         private BossInvisibleWall bossInvisibleWall;
+        private AudioManager audioManager;
 
         private void Awake()
         {
@@ -63,6 +64,7 @@ namespace Midir
             focusPointBar = FindObjectOfType<FocusPointBar>();
 
             bossInvisibleWall = FindObjectOfType<BossInvisibleWall>();
+            audioManager = GetComponentInChildren<AudioManager>();
         }
 
         private void Update()
@@ -76,7 +78,7 @@ namespace Midir
         private void RespawnPlayer()
         {
             ResetStats();
-            
+
             animatorHandler.anim.Rebind();
 
             respawnAnim.Play("Respawn");
@@ -118,7 +120,8 @@ namespace Midir
         {
             playerStats.isDead = false;
 
-            if(potionScript.nbPotion < 5)
+            Debug.Log("ui");
+            if (potionScript.nbPotion < 5)
                 potionScript.nbPotion = 5;
 
             inputHandler.lockOnFlag = false;

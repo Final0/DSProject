@@ -19,7 +19,7 @@ namespace Midir
         private AudioSource bossMusic;
         private AudioSource death;
         private AudioSource defeat;
-        private AudioSource forestMusic;
+        public AudioSource forestMusic;
         private AudioSource potion;
         private AudioSource heal;
         private AudioSource punch;
@@ -116,20 +116,19 @@ namespace Midir
             ForestMusic();
         }
 
-        [SerializeField]
-        private GameObject options;
-
         private void Update()
         {
             ChangeWeaponAudio();
 
-            if (options.activeSelf && inputHandler.inventory_Input)
+            if (optionsBool && inputHandler.inventory_Input)
             {
-                if (forestPause)
-                    forestMusic.Play();
+                forestMusic.UnPause();
 
-                if (bossPause)
-                    bossMusic.Play();
+                bossMusic.UnPause();
+
+                optionsBool = false;
+
+                Time.timeScale = 1f;
             }
         }
 
@@ -152,36 +151,24 @@ namespace Midir
                 changeWeapon.Play();
         }
 
-        private bool forestPause = false;
-
-        private bool bossPause = false;
+        private bool optionsBool = false;
 
         public void PauseMusic()
         {
-            if (forestMusic.isPlaying)
-            {
-                forestMusic.Pause();
-                forestPause = true;
-            }
-            else
-                forestPause = false;
+            forestMusic.Pause();
 
-            if (bossMusic.isPlaying)
-            {
-                bossMusic.Pause();
-                bossPause = true;
-            }
-            else
-                bossPause = false;      
+            bossMusic.Pause();
+
+            optionsBool = true;
         }
 
         public void ResumeMusic()
         {
-            if (forestPause)
-                forestMusic.Play();
+            forestMusic.UnPause();
 
-            if (bossPause)
-                bossMusic.Play();
+            bossMusic.UnPause();
+
+            optionsBool = false;
         }
 
         public void ClearAudio()

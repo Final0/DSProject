@@ -315,6 +315,9 @@ namespace Midir
             if (playerManager.isInteracting || jumpingStamina > playerStats.currentStamina)
                 return;
 
+            if (inputHandler.inventoryFlag)
+                return;
+
             if (inputHandler.jump_Input)
             {
                 if (inputHandler.moveAmount > 0)

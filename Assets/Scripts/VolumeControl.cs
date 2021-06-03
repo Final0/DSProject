@@ -60,6 +60,8 @@ namespace Midir
         private void Start()
         {
             slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
+
+            mixer.SetFloat(volumeParameter, Mathf.Log10(slider.value) * multiplier);
         }
     }
 }

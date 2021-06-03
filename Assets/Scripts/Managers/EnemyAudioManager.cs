@@ -34,6 +34,8 @@ namespace Midir
             AudioMixerGroup[] SFXGroup = audioMixer.FindMatchingGroups("SFX");
 
             kick.outputAudioMixerGroup = SFXGroup[0];
+            swordSwoosh.outputAudioMixerGroup = SFXGroup[0];
+            slash.outputAudioMixerGroup = SFXGroup[0];
         }
 
         private void RandomVolumeAndPlay(AudioSource audioSource)
@@ -41,6 +43,11 @@ namespace Midir
             audioSource.volume = Random.Range(0.8f, 1);
             audioSource.pitch = Random.Range(0.8f, 1.1f);
             audioSource.Play();
+        }
+
+        public void SlashAudio()
+        {
+            slash.Play();
         }
 
         public void SwooshAudio()

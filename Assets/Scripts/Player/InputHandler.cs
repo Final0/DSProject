@@ -47,6 +47,8 @@ namespace Midir
             cameraHandler = FindObjectOfType<CameraHandler>();
             playerStats = FindObjectOfType<PlayerStats>();
             //weaponHolderSlot = FindObjectOfType<WeaponHolderSlot>();
+
+            Cursor.visible = false;
         }
 
         private void OnEnable()
@@ -113,6 +115,9 @@ namespace Midir
             if (playerLocomotion.rollingStamina > playerStats.currentStamina)
                 return;
 
+            if (inventoryFlag)
+                return;
+
             b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
             sprintFlag = b_Input;
 
@@ -162,6 +167,9 @@ namespace Midir
 
         private void HandleInventoryInput()
         {
+            if (playerManager.isInteracting)
+                return;
+
             if (inventory_Input)
             {
                 inventoryFlag = !inventoryFlag; 
@@ -171,12 +179,14 @@ namespace Midir
                     uiManager.OpenSelectWindow();
                     uiManager.UpdateUi();
                     uiManager.hudWindow.SetActive(false);
+                    Cursor.visible = true;
                 }
                 else
                 {
                     uiManager.CloseSelectWindow();
                     uiManager.CloseAllInventoryWindows();
                     uiManager.hudWindow.SetActive(true);
+                    Cursor.visible = false;
                 }
             }
         }

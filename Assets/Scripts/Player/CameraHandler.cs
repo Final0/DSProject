@@ -43,7 +43,7 @@ namespace Midir
 
         private void Update()
         {
-            if (currentLockOnTarget == null)
+            if (currentLockOnTarget == null || !currentLockOnTarget.parent.gameObject.activeSelf)
             {
                 inputHandler.lockOnFlag = false;
                 ClearLockOnTargets();

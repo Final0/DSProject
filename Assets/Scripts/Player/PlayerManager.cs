@@ -135,7 +135,7 @@ namespace Midir
                         interactableUI.interactableText.text = interactableText;
                         interactableUIGameObject.SetActive(true);
 
-                        if (inputHandler.a_Input)
+                        if (inputHandler.a_Input && !inputHandler.inventoryFlag)
                         {
                             hit.collider.GetComponent<Interactable>().Interact(this);
                         }

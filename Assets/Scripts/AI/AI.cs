@@ -298,7 +298,7 @@ namespace Midir
 
                 if (waitBeforePersue >= i)
                 {
-                    if (enemyStats.isBoss && UnityEngine.Random.Range(0, 10) <= 3)
+                    if (enemyStats.isBoss && UnityEngine.Random.Range(0, 10) <= 4)
                         DistantAttack();
 
                     waitBeforePersue = 0f;
